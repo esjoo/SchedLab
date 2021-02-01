@@ -1,5 +1,3 @@
-
-
 <?php
   $header = "header.php";
   $content = "home.php";
