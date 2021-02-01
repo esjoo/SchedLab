@@ -1,4 +1,4 @@
-<div class="jumbotron text-center" style="margin-bottom:0">
+<div class="row flex-shrink-0 bg-light">
   <p>Footer</p>
 </div>
 </html>
