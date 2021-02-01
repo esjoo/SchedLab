@@ -1,5 +1,3 @@
-
-
 <?php
 	$header = $_SERVER['DOCUMENT_ROOT']."/header.php";
 	$footer = $_SERVER["DOCUMENT_ROOT"].'/footer.php';
