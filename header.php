@@ -19,7 +19,7 @@
 
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <a class="navbar-brand" href="index.php">schedLab[Logo]</a>
+  <a class="navbar-brand" href="index.php"><img src="gfx/logo.png"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -50,6 +50,7 @@
       </li>
 
 
+
       <!-- Protocols -->
       <li class="nav-item">
             <ul class="nav navbar-nav ml-auto">
@@ -59,7 +60,7 @@
                         <a href="#" class="dropdown-item">Reports</a>
                         <a href="insert.php" class="dropdown-item">Insert</a>
                         <div class="dropdown-divider"></div>
-                        <a href="#"class="dropdown-item">Logout</a>
+                        <a href="logout.php"class="dropdown-item">Logout</a>
                     </div>
                 </li>
             </ul>
