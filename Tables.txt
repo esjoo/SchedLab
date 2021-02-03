@@ -1,0 +1,39 @@
+//Had to change names of (User -> Users & Create -> Make & Password -> Pword) bc they were functions in MySQL
+
+CREATE TABLE Users (
+    UserNum int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    Lab varchar(255),
+    Pword varchar(255) NOT NULL,
+    Name varchar(255) NOT NULL, 
+    FOREIGN KEY (Manage_Num) REFERENCES Users(UserNum)
+);
+
+CREATE TABLE Make (
+    UserNum int,
+    ProtocolNum int,
+    Time time 
+);
+
+CREATE TABLE Include (
+    ProtocolNum int,
+    SupID int,
+    Dosage varchar(255) 
+);
+
+CREATE TABLE Consume (
+    ExpeNum int,
+    SupID int,
+    List text 
+);
+
+ALTER TABLE Make
+    ADD (FOREIGN KEY (UserNum) REFERENCES Users(UserNum),
+        FOREIGN KEY (ProtocolNum) REFERENCES Protocol(ProtocolNum)); 
+
+ALTER TABLE Include
+    ADD (FOREIGN KEY (ProtocolNum) REFERENCES Protocol(ProtocolNum),
+        FOREIGN KEY (SupID) REFERENCES Supplement(SupID)); 
+
+ALTER TABLE Consume
+    ADD (FOREIGN KEY (ExpeNum) REFERENCES Experiment(ExpeNum),
+        FOREIGN KEY (SupID) REFERENCES Supplement(SupID)); 
