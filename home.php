@@ -25,9 +25,29 @@
           <div class="p-2 order-1">
             <h2>
                 <?php 
-                    echo 'Calendar for Week '. date('W')[1].' '. date('M');
-                    ?> 
-                </h2> 
+                  if(!isset($_GET['w'])) {
+                    #set first day
+                    $today = date_create();
+                   
+                    $day = date_isodate_set($today, date_format($today,'o'), date_format($today,'W') , 1 ); #TODO: change year
+                    $week = date_format($day,'W');
+                    echo 'Calendar for '. date_format($day,'M') .' Week '. $week;
+                    
+
+                  } else {
+                    $day = date_isodate_set(date_create(), date_format(date_create(),'o'), $_GET['w'] , 1 ); #TODO: change year
+                    $week = $_GET['w'];
+                    
+                    #set monday of specified week
+                    echo 'Calendar for Week '. date_format($day,'W').' '. date_format($day,'M');
+                  }
+                  ?> 
+              </h2> 
+                
+              <a class="" href= <?php echo('?w='. $week-1); ?>><img src="gfx/left_cal.png"></a>
+
+              <a class="" href=<?php echo('?w='. $week+1); ?>><img src="gfx/right_cal.png"></a>
+
             <?php  include('calendar.php');?>
           </div>
         </div>

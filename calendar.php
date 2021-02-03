@@ -19,15 +19,13 @@ include('db.php');
       <tr>
 	  	<th>Time</th>
 		<?php
-		if(!isset($_GET['week'])) {
-			$day =(strtotime("Monday"));
-		}
-
-		for ($i = 1; $i<=7; $i++) {
-			#$start =date_add($start,date_interval_create_from_date_string('1 days'));
-			
-			printf('<th>%s</th>',date('l jS', $day) );
-			$day = strtotime("+$i day");
+		for ($i = 1; $i<=7; $i++) {	
+      $active = '';
+      if( date_format(date_create(),'l jS') == date_format( $day,'l jS')) {
+        $active = 'bg-primary';
+      }	
+			printf('<th class="%s"> %s </th>',$active,date_format( $day,'l jS') );
+			$day = date_modify($day,"1 days");
 		}
 		
 		

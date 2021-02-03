@@ -27,7 +27,7 @@ if(isset($_POST['submit'])) {
     echo($sql); 
     if (mysqli_query($conn, $sql)) {
         echo "New record created successfully";
-        header('Location: ../index.php');
+        header('Location: index.php');
         exit();
      } else {
         echo "Error: " . $sql . "" . mysqli_error($conn);
