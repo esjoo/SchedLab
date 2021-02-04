@@ -1,0 +1,89 @@
+CREATE TABLE Users (
+    UserNum int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    Lab varchar(255),
+    Pword varchar(255) NOT NULL,
+    Name varchar(255) NOT NULL, 
+    Manage_Num int
+);
+
+CREATE TABLE Make (
+    UserNum int,
+    ProtocolNum int,
+    Time time 
+);
+
+CREATE TABLE Include (
+    ProtocolNum int,
+    SupID int,
+    Dosage varchar(255) 
+);
+
+CREATE TABLE Consume (
+    ExpeNum int,
+    SupID int,
+    Reagent text 
+);
+
+CREATE TABLE Protocol (
+    ProtID int NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+    ProtName varchar(255), 
+    Method text,
+    AllEquipment text, 
+    AllReagent text,
+    UserNum int
+);
+
+CREATE TABLE Experiment (
+    ExpeNum int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    Result text, 
+    ProtID int
+);
+
+CREATE TABLE Supplement (
+    SupID int NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+    Price float NOT NULL,
+    Stock int
+);
+
+CREATE TABLE Do (
+    UserNum int,
+    ExpeNum int,
+    Time_incalendar time
+);
+
+CREATE TABLE Buy (
+    UserNum int,
+    SupID int,
+    Amount int NOT NULL
+);
+
+
+
+ALTER TABLE Protocol 
+    ADD FOREIGN KEY (UserNum) REFERENCES Users(UserNum);
+
+ALTER TABLE Experiment 
+    ADD FOREIGN KEY (ProtID) REFERENCES Protocol(ProtID);
+
+ALTER TABLE Do 
+    ADD (FOREIGN KEY (UserNum) REFERENCES Users(UserNum), 
+    FOREIGN KEY (ExpeNum) REFERENCES Experiment(ExpeNum));
+
+ALTER TABLE Buy
+    ADD (FOREIGN KEY (UserNum) REFERENCES Users(UserNum),
+    FOREIGN KEY (SupID) REFERENCES Supplement(SupID));
+
+ALTER TABLE Users 
+    ADD FOREIGN KEY (Manage_Num) REFERENCES Users(UserNum);
+
+ALTER TABLE Make
+    ADD (FOREIGN KEY (UserNum) REFERENCES Users(UserNum),
+        FOREIGN KEY (ProtocolNum) REFERENCES Protocol(ProtID)); 
+
+ALTER TABLE Include
+    ADD (FOREIGN KEY (ProtocolNum) REFERENCES Protocol(ProtID),
+        FOREIGN KEY (SupID) REFERENCES Supplement(SupID)); 
+
+ALTER TABLE Consume
+    ADD (FOREIGN KEY (ExpeNum) REFERENCES Experiment(ExpeNum),
+        FOREIGN KEY (SupID) REFERENCES Supplement(SupID)); 
