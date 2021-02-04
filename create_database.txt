@@ -21,7 +21,8 @@ CREATE TABLE Include (
 CREATE TABLE Consume (
     ExpeNum int,
     SupID int,
-    Reagent text 
+    Reagent text,
+    Amount float
 );
 
 CREATE TABLE Protocol (
