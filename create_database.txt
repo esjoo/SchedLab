@@ -1,6 +1,3 @@
-//Had to change names of (User -> Users & Create -> Make & Password -> Pword) bc they were functions in MySQL
-//Also changed RemainNum -> Stock, Procedure -> Method
-
 CREATE TABLE Users (
     UserNum int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     Lab varchar(255),
@@ -61,7 +58,6 @@ CREATE TABLE Buy (
 );
 
 
-//Adding foregin keys
 
 ALTER TABLE Protocol 
     ADD FOREIGN KEY (UserNum) REFERENCES Users(UserNum);
