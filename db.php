@@ -3,7 +3,7 @@
 $host = 'localhost';
 $user = 'root';
 $pswd = '';
-$database = 'movdb';
+$database = 'schedLab';
 $conn = mysqli_connect($host,$user,$pswd,$database); 
 
 // Check connection
