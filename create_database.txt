@@ -21,7 +21,6 @@ CREATE TABLE Include (
 CREATE TABLE Consume (
     ExpeNum int,
     SupID int,
-    Reagent text,
     Amount float
 );
 
@@ -42,6 +41,7 @@ CREATE TABLE Experiment (
 
 CREATE TABLE Supplement (
     SupID int NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+    Name varchar(255),
     Price float NOT NULL,
     Stock int
 );
