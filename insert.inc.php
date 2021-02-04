@@ -4,25 +4,14 @@ if(isset($_POST['submit'])) {
     require_once('db.php');
 
     $name = mysqli_real_escape_string($conn, $_POST['name']);
-    $genre = mysqli_real_escape_string($conn, $_POST['genre']);
-    $year = mysqli_real_escape_string($conn, $_POST['year']);
-    $rating = mysqli_real_escape_string($conn, $_POST['rating']);
+    $type = mysqli_real_escape_string($conn, $_POST['type']);
+    $procedure = mysqli_real_escape_string($conn, $_POST['procedure']);
+    $equipment = mysqli_real_escape_string($conn, $_POST['equipment']);
+    $chemicals = mysqli_real_escape_string($conn, $_POST['chemical']);
 
-    $sql =  'SELECT id FROM  genres WHERE name =' . "\"". $genre . "\"";
-    echo($sql);
-    if (mysqli_query($conn, $sql)) {
-        $result = mysqli_query($conn, $sql);
-        $genreID = mysqli_fetch_assoc($result)['id'];
-        echo($genreID);
-    }  else {
-        echo "New record created unsuccessfully";
-    }
-    
-    $val = "\"".$name."\""   .','.  "\"".$year ."\"" .  ','  . "\"".$rating. "\"" .','. "\"".$genreID."\"";
-    
+    $val = "\"".$name."\""   .','.  "\"".$type ."\"" .  ','  . "\"".$procedure. "\"" .','. "\"".$equipment."\"" .  ','  . "\"".$chemicals. "\"";
    
-
-    $sql = "INSERT INTO movies (name,year, rating, genre) VALUES(" .$val . ");";
+    $sql = "INSERT INTO protocol (Name, Type, Procedure, AllEquipment, AllReagents) VALUES (".$val.");";
    
     echo($sql); 
     if (mysqli_query($conn, $sql)) {
