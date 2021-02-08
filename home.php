@@ -1,5 +1,5 @@
-      <div class="d-flex flex-column vh-100 ">
-          <div class="py-2 order-2">
+      <div class="d-flex flex-row vh-100 ">
+          <div class="py-2">
           <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#leftCol">Stats</button>
             <div class="collapse" id="leftCol">
             <h3>Some Links</h3>
@@ -22,7 +22,7 @@
             <hr class="d-sm-none">
           </div>
 
-          <div class="p-2 order-1">
+          <div class="p-2">
             <h2>
                 <?php 
                   if(!isset($_GET['w'])) {
