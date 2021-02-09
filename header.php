@@ -29,12 +29,13 @@
       
       <!-- Signup -->
       <li class="nav-item">
-      <?php if(isset($_SESSION['userName'])) {
-        echo("<a class='nav-link' href='#'>". $_SESSION['userName']."</a>" );
-        
-        } else  {
-        echo("<a class='nav-link' data-toggle='modal' href='#signup'> Register </a>");}
+      <?php if(!isset($_SESSION['userName'])) {
+        echo("<a class='nav-link' data-toggle='modal' href='#signup'> Register </a>");
         include('signup.php');
+      }
+        
+         
+        
       ?>
       </li> 
       <!--Login -->

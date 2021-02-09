@@ -13,10 +13,6 @@
         <div class="modal-body">
             <form action="signup.inc.php" method='post'>
                 <div class="form-group">
-                    <label for="email">Email address:</label>
-                    <input type="email" class="form-control" placeholder="Enter email" id="email" name="email">
-                </div>
-                <div class="form-group">
                     <label for="username">Username:</label>
                     <input type="username" class="form-control" placeholder="Enter username" id="username" name="username">
                 </div>
