@@ -1,7 +1,21 @@
-      <div class="d-flex flex-row vh-100 ">
+      <div class="d-flex ">
           <div class="py-2">
           <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#leftCol">Stats</button>
             <div class="collapse" id="leftCol">
+            <div class="p-2">
+              <?php /*
+              // print calendar overview
+              $numDays = date_format(date_create(),'t');
+              for ($i = 1; $i<=$numDays; $i++) {
+                printf( '
+                
+                <div class="col">
+                    <p>%d</p>
+                </div>',$i);
+              }*/
+              
+              ?>
+            </div>
             <h3>Some Links</h3>
             <p>Lorem ipsum dolor sit ame.</p>
             <ul class="nav nav-pills flex-column">
@@ -19,10 +33,10 @@
               </li>
             </ul>
             </div>
-            <hr class="d-sm-none">
           </div>
 
-          <div class="p-2">
+          <div class="d-flex">
+          <div class="clearfix">
             <h2>
                 <?php 
                   if(!isset($_GET['w'])) {
@@ -35,10 +49,11 @@
                     
 
                   } else {
+                    #set monday of specified week
                     $day = date_isodate_set(date_create(), date_format(date_create(),'o'), $_GET['w'] , 1 ); #TODO: change year
                     $week = $_GET['w'];
                     
-                    #set monday of specified week
+                    
                     echo 'Calendar for Week '. date_format($day,'W').' '. date_format($day,'M');
                   }
                   ?> 
@@ -49,6 +64,7 @@
               <a class="" href=<?php echo('?w='. $week+1); ?>><img src="gfx/right_cal.png"></a>
 
             <?php  include('calendar.php');?>
+            </div>
           </div>
         </div>
     </div>
