@@ -1,4 +1,4 @@
-      <div class="d-flex ">
+      <div class="d-flex">
           <div class="py-2">
           <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#leftCol">Stats</button>
             <div class="collapse" id="leftCol">
@@ -57,12 +57,12 @@
                     echo 'Calendar for Week '. date_format($day,'W').' '. date_format($day,'M');
                   }
                   ?> 
-              </h2> 
+              
                 
               <a class="" href= <?php echo('?w='. $week-1); ?>><img src="gfx/left_cal.png"></a>
 
               <a class="" href=<?php echo('?w='. $week+1); ?>><img src="gfx/right_cal.png"></a>
-
+              </h2> 
             <?php  include('calendar.php');?>
             </div>
           </div>
