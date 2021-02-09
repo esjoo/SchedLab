@@ -42,7 +42,17 @@
 
       <li class="nav-item">
       <?php if(isset($_SESSION['userName'])) {
-        echo("<a class='nav-link' href='#'>". $_SESSION['userName']."</a>" );
+        echo '<ul class="nav navbar-nav ml-auto">
+                <li class="nav-item dropdown">';
+        echo '<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">'.$_SESSION['userName'].'</a>';
+        echo '<div class="dropdown-menu dropdown-menu-left">
+                  <a class="dropdown-item" href="#"> Account</a>
+                  <a href="logout.php"class="dropdown-item">Logout</a>
+                  </div>
+                </li>
+              </ul>
+                ';
+       
 
         } else  {
         echo("<a class='nav-link' data-toggle='modal' href='#login'> Login </a>");}
@@ -59,15 +69,15 @@
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Protocols</a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a href="#" class="dropdown-item">Reports</a>
-                        <a href="insert.php" class="dropdown-item">Insert</a>
-                        <div class="dropdown-divider"></div>
-                        <a href="logout.php"class="dropdown-item">Logout</a>
+                        <a href="insert.php" class="dropdown-item">Insert</a>    
                     </div>
                 </li>
             </ul>
 	  
     </li>
-      
+      <li class="nav-item">
+        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#leftCol">Stats</button>
+      </li>
     </ul>
   </div>  
 </nav>
