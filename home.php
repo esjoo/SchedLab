@@ -1,6 +1,5 @@
       <div class="d-flex">
           <div class="py-2">
-          <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#leftCol">Stats</button>
             <div class="collapse" id="leftCol">
             <div class="p-2">
               <?php /*
