@@ -12,6 +12,7 @@ include('db.php');
     } else {
         echo('FAIL:'. mysqli_connect_error());
 }
+  include('closeDB.php');
 ?>
 
 <div class="d-flex flex-row align-self-stretch">
