@@ -49,7 +49,7 @@ CREATE TABLE Supplement (
 CREATE TABLE Do (
     UserNum int,
     ExpeNum int,
-    Time_incalendar time
+    Time_incalendar datetime
 );
 
 CREATE TABLE Buy (
