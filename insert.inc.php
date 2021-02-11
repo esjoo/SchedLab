@@ -18,7 +18,7 @@ if(isset($_POST['submit'])) {
     
     $val = "\"".$name."\""   .','  . "\"".$procedure. "\"" .','. "\"".$equipment."\"".','."\"".$str_chemicals."\""; 
    
-    $sql = "INSERT INTO protocol (ProtName, Method, AllEquipment, AllReagent) VALUES (".$val.");";
+    $sql = "INSERT INTO Protocol (ProtName, Method, AllEquipment, AllReagent) VALUES (".$val.");";
    
     if (mysqli_query($conn, $sql)) {
         $sql = "SELECT ProtID FROM protocol WHERE (ProtName='$name', Method='$procedure');";

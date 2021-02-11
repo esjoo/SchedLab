@@ -1,9 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<!--
+<head>
+    <script>
+        function showSite(str)
+        {
+            if (str=="")
+            {
+                document.getElementById("txtHint").innerHTML="";
+                return;
+            } 
+            if (window.XMLHttpRequest)
+            {
+                // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                xmlhttp=new XMLHttpRequest();
+            }
+            else
+            {
+                // IE6, IE5 浏览器执行代码
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange=function()
+            {
+                if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                    document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("GET","query_for_insertChemical.php?q="+str,true);
+            xmlhttp.send();
+            }
+    </script>
+</head>
+-->
+
+
+
+
+
 <?php include('header.php');  
  require_once('db.php');
 
-$sql = "SELECT Type FROM protocol";
+$sql = "SELECT Type FROM Protocol";
 $result = mysqli_query($conn, $sql);
 ?> 
+
+<link rel="stylesheet" type="text/css" href="bootstrap.css">
+<link rel="stylesheet" type="text/css" href="bootstrap-select.min.css">
+<script src="jquery.min.js"></script>
+<script src="bootstrap.min.js"></script>
+<script src="bootstrap-select.min.js"></script>
 
 <h1>Create a new protocol</h1>
 <div class="form">
@@ -28,24 +75,24 @@ $result = mysqli_query($conn, $sql);
             </div>
         </div>
 
+                
         <!-- Chemicals -->
+
         <div class="form-group" id="chemicals">
             <label for="chemical">Chemicals:</label><br>
-            <select name="chemical" style="width:85%;float:left;margin-bottom:5px;"class="form-control" name="chemical0" placeholder="Chemical" value=""> 
-                <?php 
-                $result = mysqli_query($conn,"SELECT ChemID, ChemName FROM chemicals ORDER BY ChemName"); 
-                $options = array();
-                while($row = mysqli_fetch_assoc($result)) { 
-                    $catid = $row["ChemID"];
-                    $catname = $row["ChemName"]; //here we display genre name in drop down list and pass catid value when posting back to (add_book.php)
-                    array_push($options, $catid => $catname);
-                    print "<option value='$catid'>$catname</option>"; 
-                }
-                
-                ?> 
+            <select class="selectpicker  form-control" id="chemical" name="chemical" style="width:50px;float:left;margin-bottom:5px;" placeholder="Chemical" data-live-search="true"> 
+                 <?php                
+                 $result = mysqli_query($conn,"SELECT SupID, SupName FROM Supplement");
+                 while($row = mysqli_fetch_array($result)){
+                     $catID = row["SupID"];
+                     $catName = row["SupName"];
+                     echo '<option value="$catID">$catName</option>';
+                 }
+                 ?>
             </select>
+
             <!--<input type="text" style="width:85%;float:left;margin-bottom:5px;" class="form-control" name="chemical0" placeholder="Chemical" value="">-->
-            <input type="button" class="btn btn-success" name="plus" id="plus" value="+" onclick="addMore(1, $options);">
+            <!--<input type="button" class="btn btn-success" name="plus" id="plus" value="+" onclick="addMore(1, $options);"> -->
         </div>
 
         <script>
@@ -84,3 +131,5 @@ $result = mysqli_query($conn, $sql);
   <?php 
   include('closeDB.php');
   include('footer.php');  ?> 
+
+  </html>
