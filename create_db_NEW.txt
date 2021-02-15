@@ -1,0 +1,77 @@
+CREATE TABLE Users (
+    UserID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    UserName varchar(50) NOT NULL, 
+    UserPassword varchar(50) NOT NULL,
+    UserType varchar(50) NOT NULL,
+    UserSalt varchar(255),
+    UserEmail varchar(100) NOT NULL
+);
+
+CREATE TABLE Protocols (
+    ProtID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    ProtName varchar(100),
+    ProtMethod text, 
+    EquipmentID int
+);
+
+CREATE TABLE Supplement (
+    SupID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    SupName varchar(50) NOT NULL,
+    SupPrice int,
+    Stock int
+);
+
+CREATE TABLE Experiment (
+    ExpAutoID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    ExpNum int,
+    ConsumeAmount int,
+    Result text,
+    SupID int,
+    CalenID int,
+    UserID int,
+    ProtID int
+);
+
+CREATE TABLE ProtocolGuide (
+    GuideID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    Dosage int,
+    ProtID int,
+    SupID int
+);
+
+CREATE TABLE Purchase (
+    OrderID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    Amount int,
+    Unit varchar(50),
+    Unitprice int,
+    TotalPrice int,
+    OrderDate date,
+    SupID int,
+    UserID int
+);
+
+CREATE TABLE UserCalendar (
+    CalenID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    FromDateTime datetime,
+    TillDateTime datetime,
+    UserID int,
+    ProtID int
+);
+
+ALTER TABLE Experiment 
+    ADD (FOREIGN KEY (SupID) REFERENCES Supplement(SupID),
+    FOREIGN KEY (CalenID) REFERENCES UserCalendar(CalenID),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
+    FOREIGN KEY (ProtID) REFERENCES Protocols(ProtID));
+
+ALTER TABLE ProtocolGuide
+    ADD (FOREIGN KEY (ProtID) REFERENCES Protocols(ProtID),
+    FOREIGN KEY (SupID) REFERENCES Supplement(SupID));
+
+ALTER TABLE Purchase 
+    ADD (FOREIGN KEY (SupID) REFERENCES Supplement(SupID),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID));
+
+ALTER TABLE UserCalendar 
+    ADD (FOREIGN KEY (UserID) REFERENCES Users(UserID),
+    FOREIGN KEY (ProtID) REFERENCES Protocols(ProtID));
