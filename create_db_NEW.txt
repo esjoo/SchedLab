@@ -3,7 +3,6 @@ CREATE TABLE Users (
     UserName varchar(50) NOT NULL, 
     UserPassword varchar(50) NOT NULL,
     UserType varchar(50) NOT NULL,
-    UserSalt varchar(255),
     UserEmail varchar(100) NOT NULL
 );
 
