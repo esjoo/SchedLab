@@ -1,4 +1,4 @@
-
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -76,7 +76,7 @@
 	  
     </li>
       <li class="nav-item">
-        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#leftCol">Stats</button>
+        <a type="button" class="nav-link" data-toggle="collapse" data-target="#leftCol">Stats</a>
       </li>
     </ul>
   </div>  
