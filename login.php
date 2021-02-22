@@ -13,7 +13,7 @@
         
         <!-- Modal body -->
         <div class="modal-body">
-            <form action="login.inc.php" method='post'>
+            <form action="includes/login.inc.php" method='post'>
                 <div class="form-group">
                     <label for="Name">Name:</label>
                     <input type="name" class="form-control" placeholder="Enter name" id="name" name="name">
