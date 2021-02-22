@@ -1,12 +1,9 @@
 CREATE TABLE Users (
     UserID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     UserName varchar(50) NOT NULL, 
-    UserPassword varchar(150) NOT NULL,
-    UserType TINYINT(1) DEFAULT 0,
-    UserEmail varchar(100) NOT NULL,
-    UserFirstName varchar(50) NOT NULL,
-    UserLastName varchar(50) NOT NULL,
-    UNIQUE(UserName)
+    UserPassword varchar(50) NOT NULL,
+    UserType varchar(50) NOT NULL,
+    UserEmail varchar(100) NOT NULL
 );
 
 CREATE TABLE Protocols (
