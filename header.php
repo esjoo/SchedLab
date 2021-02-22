@@ -23,10 +23,6 @@
       margin-left: 30px;
     }
 
-    div {
-      margin-left: 20px;
-    }
-
     .btn {
       background-color: #518451;   
       border: none;
