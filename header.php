@@ -11,6 +11,32 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <style>
     html,body{height:100%;}
+    body {
+      background-color: #FBF3F3;
+    }
+
+    h1 {
+      margin-left: 20px;
+    }
+
+    h2 {
+      margin-left: 30px;
+    }
+
+    div {
+      margin-left: 20px;
+    }
+
+    .btn {
+      background-color: #518451;   
+      border: none;
+      color: black;
+      padding: 10px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+    }
   </style>
 </head>
 
