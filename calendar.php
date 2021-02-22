@@ -1,5 +1,6 @@
 <?php 
-include('db.php');
+include('includes/functions.php');
+/*include('db.php');
 	# TODO
     #Return the whole DB
     $sql = 'SELECT movies.name, genres.name, movies.rating, movies.year 
@@ -12,17 +13,33 @@ include('db.php');
     } else {
         echo('FAIL:'. mysqli_connect_error());
 }
-  include('closeDB.php');
+  include('closeDB.php'); */
 ?>
+<!-- calendar window-->
+<div class="row h-100">
+  <!-- column Time wrapper -->
+  <div class= "d-flex flex-column border border-dark">
+    <!-- header-->
+    <div class="p-2 border border-dark "> Time </div>
+    <!-- content -->
+    <?php 
+    #$hours = range(0,24);
+   
+    foreach (range(8,17) as $hour) {
+      printf('<div class="col border border-dark bg-primary flex-grow-1"> %s:00 </div>',$hour);
+    }
+    ?>
+  </div>
+       <?php
+       
+    $tmpContent =array( "Analyzing biological data to produce meaningful information involves writing and.",
+    "Before sequences can be analyzed they have to be obtained from the data storage bank example the Genbank.",
+     "This process needs to be automated because most genomes are too large to annotate by hand, not to mention the desire to annotate as many genomes as possible, as the rate of sequencing has ceased to pose a bottleneck. Annotation is made possible by the fact that genes have recognisable start and stop regions, although the exact sequence found in these regions can vary between genes.");
 
-<div class="d-flex flex-row align-self-stretch">
-   		<?php
-    $tmpContent = "
-    <li>Analyzing biological data to produce meaningful information involves writing and running software programs that use algorithms from graph theory, artificial intelligence, soft computing, data mining, image processing, and computer simulation. The algorithms in turn depend on theoretical foundations such as discrete mathematics, control theory, system theory, information theory, and statistics.</li>
-
-<li>Before sequences can be analyzed they have to be obtained from the data storage bank example the Genbank. DNA sequencing is still a non-trivial problem as the raw data may be noisy or afflicted by weak signals. Algorithms have been developed for base calling for the various experimental approaches to DNA sequencing.</li>
-
-<li>In the context of genomics, annotation is the process of marking the genes and other biological features in a DNA sequence. This process needs to be automated because most genomes are too large to annotate by hand, not to mention the desire to annotate as many genomes as possible, as the rate of sequencing has ceased to pose a bottleneck. Annotation is made possible by the fact that genes have recognisable start and stop regions, although the exact sequence found in these regions can vary between genes.</li>";
+    $trgButton = dateTimeToElement(1613972301,1613986759); 
+    $protocolHeader = 'HEADER OF EXPERIMENT GOES HERE';
+    $startTime = 8;
+    $endTime = 12;
     for ($i = 1; $i<=7; $i++) {	
       $active = 'bg-secondary';
       //Check which day
@@ -30,18 +47,25 @@ include('db.php');
         $active = 'bg-primary';
       }	
       //day wrapper
-      echo('<div class ="col p-0 " >'); 
+      $bg = '';
+      echo('<div class ="col p-0 border border-dark "  style="background: url("gfx/T.png") repeat-y" >'); 
       //print header
-      printf('<div class="p-2 border border-dark  %s"> %s </div>',$active,date_format( $day,'l jS') );
+      printf('<div class=" p-2 border border-dark  %s"> %s </div>',$active,date_format( $day,'l jS') );
 
       // print content
-      printf('<div class="p-2 "> %s </div></div>',$tmpContent);
+      foreach($tmpContent as $protocolContent) {
+        printf('
+        <div class="btn btn-primary col py-%s mb-1 mr-1" data-toggle="modal" data-target="#exampleModal" data-protocolHead=" %s" data-protocolContent=" %s" >%s</div>
+        ',$trgButton,$protocolHeader,$protocolContent,$protocolHeader);
+      }
       
-      //close dive
-      //printf('</div');
+      //close day wrapper
+      printf('</div>');
       // Increment day
 			$day = date_modify($day,"1 days");
 		}
+
+    include('experimentModal.php');
     ?>
 
   </div>

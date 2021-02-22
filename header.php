@@ -10,10 +10,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <style>
-  .fakeimg {
-    height: 200px;
-    background: #aaa;
-  }
+    html,body{height:100%;}
   </style>
 </head>
 
@@ -27,17 +24,6 @@
     <!-- Nav options -->
     <ul class="navbar-nav">
       
-      <!-- Signup -->
-      <li class="nav-item">
-      <?php if(!isset($_SESSION['userName'])) {
-        echo("<a class='nav-link' data-toggle='modal' href='#signup'> Register </a>");
-        include('signup.php');
-      }
-        
-         
-        
-      ?>
-      </li> 
       <!--Login -->
 
       <li class="nav-item">
@@ -60,9 +46,31 @@
       ?>
       </li>
 
+      <!-- Admin -->
+      <?php
+          $adminOptions= '
+              <li class="nav-item">
+              <ul class="nav navbar-nav ml-auto">
+                  <li class="nav-item dropdown">
+                      <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Admin</a>
+                      <div class="dropdown-menu dropdown-menu-right">
+                          <a href="#" class="dropdown-item">Manage Users</a>
+                          <a href="#" class="dropdown-item">ORDER</a>
+                          <a href="#" class="dropdown-item">BOSS button</a>    
+                      </div>
+                  </li>
+              </ul>
+          ';
 
-
+      if(isset($_SESSION['isAdmin'])) {
+        if(!$_SESSION['isAdmin']) {
+          print($adminOptions);
+        }
+      }
+      ?>
       <!-- Protocols -->
+      <?php
+      $navOptions = '
       <li class="nav-item">
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item dropdown">
@@ -78,6 +86,12 @@
       <li class="nav-item">
         <a type="button" class="nav-link" data-toggle="collapse" data-target="#leftCol">Stats</a>
       </li>
+      ';
+
+      if(isset($_SESSION['userName'])) {
+        print($navOptions);
+      }
+      ?>
     </ul>
   </div>  
 </nav>
