@@ -4,16 +4,8 @@
     <div class="py-2">
       <div class="collapse" id="leftCol">
         <div class="p-2">
-          <?php /*
-              // print calendar overview
-              $numDays = date_format(date_create(),'t');
-              for ($i = 1; $i<=$numDays; $i++) {
-                printf( '
-                
-                <div class="col">
-                    <p>%d</p>
-                </div>',$i);
-              }*/
+          <?php 
+            include('sidebarCalendar.php');
               
               ?>
         </div>
@@ -64,8 +56,10 @@
 
           <a class="" href=<?php echo('?w='. $week-1); ?>><img src="gfx/left_cal.png"></a>
           <a class="" href=<?php echo(' ?w='. $week+1); ?>><img src="gfx/right_cal.png"></a>
-          <a class="ml-auto p-2" href="signup.php"><img src="gfx/plus.png"></a>
+          <a class="ml-auto p-2" ' data-toggle='modal' href='#newExperiment'><img src="gfx/plus.png"></a>
+          
         </div>
+            <?php include('newExperiment.php'); ?>
             <?php  include('calendar.php');?>
       </div>
   </div>
