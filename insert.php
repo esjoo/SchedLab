@@ -1,17 +1,11 @@
 <!DOCTYPE html>
 
-<!-- 
-    This version covers almost all basic function used when created a new protocol, but there is
-    also a problem, which is when add the chemicals have been in the SUPPLEMENT database, only the 
-    first row can be live search box, the rest must be input the full name. I would solve this when 
-    we finish other core function.
--->
-
 <html>
 <head>
     
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <style>
         div {
 
@@ -64,12 +58,12 @@
 
     <h1>Create a new protocol</h1>
     <div class="form">
-        <form action="showProtocol.php" method='post'>
+        <form action="insert.inc.php" method='post'>
         
         <!-- Protocol name -->
             <div class="form-group form-inline" style="padding-left:10px">
                 <label for="name">Protocol name:</label></br>
-                <input type="text" class="form-control" placeholder="Enter name" id="name" name="name">
+                <input type="text" class="form-control" placeholder="Enter name" name="name">
             </div>
                 
         <!-- Equipment -->          
@@ -86,11 +80,35 @@
 
 
         <!-- chemicals which have been in the db --> 
-           <link rel="stylesheet" type="text/css" href="bootstrap-select.min.css">
-            <script src="bootstrap-select.min.js"></script>  
+        <!--   <link rel="stylesheet" type="text/css" href="bootstrap-select.min.css">
+            <script src="bootstrap-select.min.js"></script>  -->
 
             <div>
-                <table id="main">
+                
+                <div class="search-box">
+                    <input type="text" autocomplete="off" placeholder="Search Chemicals" id="name" />
+                    <div class="result"></div>
+                </div>
+
+                <input type="button" class="add-row" value="Add Row" id="add">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Select</th>
+                            <th>Chemical</th>
+                            <th>Dosage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+    
+                <button type="button" class="delete-row">Delete Row</button>
+            </div>
+
+                <!--<table id="main">
                     <th class="head">Chemical</th>
                     <th class="head">Dosage</th>
 
@@ -105,13 +123,58 @@
                         <td><input type="number" placeholder="Enter Dosage" name="dosages[]"></td>
                     </tr>
                 </table>
-
                 <div id="display"></div>
                 <input type="button" name="add" id="add" class="btn btn-success" value="Add" />                  
+            </div> -->
+
+  
+                           
+<!--            <input type="button" name="add" id="add" class="btn btn-success" value="Add" />
+            <div ng-app="chemicals" ng-controller="myController">
+                <label for="chemical">Chemicals & Dosages:</label>
+                <ul>
+                    <li>Chemical</li>
+                        <li>
+                            <input ng-model="name" type="text" id="search" placeholder="Enter Chemical" name="chemicals[]" />
+                            <div id="display"></div> 
+                        </li>
+                </ul>
+
+                <ul>
+                    <li>Dosage</li>
+                    <li><input type="number" ng-model="dosage" class="form-control" name="dosages[]" placeholder="dosage" /></li>
+                </ul>
+
+                <ul>
+                    <li> </li><li><button ng-click="addRow()" type="button" class="btn btn-primary"> Add Row </button></li>
+                </ul>
+-->
+
+<!--                <table id="cheANDdos"> 
+                    <tr>
+                    <th>Num</th>
+                        <th>Chemicals</th>
+                            <th>Dosage</th>
+                    </tr>
+
+                    <tr ng-repeat="chemicals in chemicalArray">
+                        <td><label>{{$index + 1}}</label></td>
+                        <td><label >{{chemicals.name}}</label></td>
+                        <td><label >{{chemicals.dosage}}</label></td>
+                        <td><input type="checkbox" ng-model="chemicals.Remove"/></td>
+                    </tr>
+                </table>
+
+                <div>      
+                    <button ng-click="removeRow()" type="button" class="btn btn-primary">Remove Row</button>
+                </div>            
             </div> 
-                  
+-->
+
+
+
         <!-- Chemicals which haven't been in the db -->  
-        <br>     
+        <!--<br>     
         If you haven't find the chimecals that you need:
             <div>
                 <table id="NEWmain">
@@ -125,7 +188,7 @@
                 </table>
                 <input type="button" value="Add New Row" onclick="addRow();" id="rowButton" class="btn btn-primary" />        
             </div>
-        <br>
+        <br>-->
 
         <!-- Submit --> 
             <div class="form-group">
@@ -136,27 +199,7 @@
 </body>
 
 
-                        
-
-<!-- New chemicals-->
-<script>
-    function addRow() {
-    var table = document.getElementById("NEWmain");
-	var rws = table.rows;
-	var cols = table.rows[0].cells.length;
-    var row = table.insertRow(rws.length);
-	var cell1;
-	var cell2;
-	cell1 = row.insertCell(0);
-	cell1.innerHTML = '<input type="text" placeholder="Enter Chemical" name="NEWchemicals[]">';
-
-	cell2 = row.insertCell(1);
-	cell2.innerHTML = '<input type="number" placeholder="Enter Dosage" name="NEWdosages[]">';
-    }
-</script>
-
-
-
+               
 <script type="text/javascript">
 
 $(document).ready(function(){
@@ -165,7 +208,7 @@ $(document).ready(function(){
         var inputVal = $(this).val();
         var resultDropdown = $(this).siblings(".result");
         if(inputVal.length){
-            $.get("ajaxFORinsert.php", {term: inputVal}).done(function(data){
+            $.get("aa.php", {term: inputVal}).done(function(data){
                 // Display the returned data in browser
                 resultDropdown.html(data);
             });
@@ -180,20 +223,40 @@ $(document).ready(function(){
         $(this).parent(".result").empty();
     });
 
-    $('#add').click(function(){
-        var html = '<tr>';
-        html += '<td>';
-        html += '<div class="search-box">';
-        html += '<input type="text" autocomplete="off" placeholder="Search Chemicals" name="chemicals[]" />';
-        html += '<div class="result"></div>';
-        html += '</div>';
-        html += '</td>';
-        html += '<td><input type="number" placeholder="Enter Dosage" name="dosages[]"></td>';
-        html += '</tr>';
-        $('#main tbody').append(html);
-    });
-
 });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $(".add-row").click(function(){
+            var name = $("#name").val();
+            var markup = '<tr> '+
+                         '<td><input type="checkbox" name="record"></td>' +
+                         '<td><input type="text" placeholder="Enter Chemical" name="chemicals[]" id="To_che" value="'+ name +'"/>' + '</td>'+
+                         '<td><input type="number" placeholder="Enter Dosage" name="dosages[]"></td></tr>';
+            $("table tbody").prepend(markup);
+        });
+        
+        // Find and remove selected table rows
+        $(".delete-row").click(function(){
+            $("table tbody").find('input[name="record"]').each(function(){
+                if($(this).is(":checked")){
+                    $(this).parents("tr").remove();
+                }
+            });
+        });
+    });    
+</script>
+
+<script>
+(function(){
+    var f1 = document.getElementById('name'),     
+        b1 = document.getElementById('add'),
+		t = document.getElementById('To_che');
+    b1.onclick = function() {
+        t.value = f1.value;        
+    };
+})();
 </script>
 
 </html>
