@@ -9,9 +9,9 @@
 
 <html>
 <head>
-    
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    
     <style>
         div {
             margin-top:25px;
@@ -23,19 +23,6 @@
             border-radius: 5px;
             background-color: #f5e0e0;
             padding: 20px;
-        }
-        ul {
-            padding:0;
-            margin:2px 25px; 
-            list-style:none; 
-            border:0; 
-            float:left; 
-            width:100%;
-        }
-        li {
-            width:15%; 
-            float:left; 
-            display:inline-block; 
         }
         table, input {
             margin-top:15px;
@@ -80,11 +67,11 @@
             margin-right:25px;
 	        margin-left:25px;
         }
-        button.format {
+        .button {
             background-color:#79ab79;
             border: none;
             color:white;
-            font-size: 20px;
+            font-size: 15px;
             text-align: center;
             border-radius: 12px;
             height: 40px;
@@ -92,14 +79,14 @@
             cursor: pointer;
             margin: 5px;
         }
-        button.format span {
+        .button span {
             cursor: pointer;
             display: inline-block;
             position: relative;
             transition: 0.5s;
         }
 
-        button.format span:after {
+        .button span:after {
             content: '\00bb';
             position: absolute;
             opacity: 0;
@@ -108,11 +95,11 @@
             transition: 0.5s;
         }
 
-        button.format:hover span {
+        .button:hover span {
             padding-right: 25px;
         }
 
-        button.format:hover span:after {
+        .button:hover span:after {
             opacity: 1;
             right: 0;
         }
@@ -131,7 +118,7 @@
 
 <h1 class="margin">Create a new protocol</h1>
 <div class="form" style="text-align: left;">
-        <form action="insert.inc.php" method='post'>
+        <form action="showProtocol.php" method='post'>
         
         <!-- Protocol name -->
         <div class="form-group">
@@ -175,8 +162,7 @@
                 </table>
 
                 <div id="display"></div>
-                <button ng-click="addRow()" class="format" type="button" style="width: 50px"><span>+</span></button>
-                <!--<input type="button" name="add" id="add" class="btn btn-success" value="Add" /> -->                  
+                <input type="button" class="button" name="add" id="add" class="btn btn-success" value="Add" />                   
             </div> 
                   
         <!-- Chemicals which haven't been in the db -->  
@@ -191,13 +177,12 @@
                         <td style="width:25%"><input type="number" placeholder="Enter Dosage" name="NEWdosages[]"></td>
                     </tr>
                 </table>
-                <button onclick="addRow();" value="Add New Row" class="format" class="btn btn-primary" id="rowButton" style="width: 50px"><span>+</span></button>
-                <!--<input type="button" value="Add New Row" onclick="addRow();" id="rowButton" class="btn btn-primary" /> -->            
+                <input type="button" class="button" value="Add New Row" onclick="addRow();" id="rowButton" class="format" class="btn btn-primary" />            
         </div>
 
         <!-- Submit --> 
             <div class="form-group" style="text-align: center;">
-                <button name="submit" type="submit" class="format" style="width: 200px"><span>Submit</span></button>
+                <button name="submit" type="submit" class="button" style="width: 200px"><span>Submit</span></button>
             </div>
         </form>
     </div>
