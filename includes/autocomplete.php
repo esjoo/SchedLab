@@ -1,18 +1,7 @@
-<?php
-function dateTimeToElement($startTime,$endTime) {
-    $start = date_create();
-    $end = date_create();
-    date_timestamp_set($start,$startTime);
-    date_timestamp_set($end,$endTime);
-    
-    $diff = $start->diff($end);
-    return ( $diff->format('%h'));
-}
+<?php 
 
-#get protocols
-function get_protocols() {
-    include('db.php');
-    $sql = "SELECT UserName
+include('../db.php');
+    /*$sql = "SELECT UserName
     FROM Users"; 
 
     $stmt = mysqli_stmt_init($conn);
@@ -20,9 +9,32 @@ function get_protocols() {
 
         mysqli_stmt_execute($stmt);
         mysqli_stmt_bind_result($stmt,$dbNames);
+        $number_of_records = $stmt->num_rows;
         mysqli_stmt_store_result ($stmt);
+    }*/
+
+    $sql = "SELECT UserName
+    FROM Users"; 
+
+    $stmt = mysqli_stmt_init($conn);
+    if($stmt =mysqli_prepare($conn, $sql)) {
+
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt,$result);
+        mysqli_stmt_store_result($stmt);
     }
-    include('closeDB.php');
+    
+    
+    while(mysqli_stmt_fetch($stmt)) {
+        $dbNames[] = $result;
+    }
+
+    
+
+    
+
+
+include('../closeDB.php');
 
     // get the q parameter from URL
 $q = $_REQUEST["q"];
@@ -45,5 +57,4 @@ if ($q !== "") {
 }
 
 // Output "no suggestion" if no hint was found or output correct values
-echo $hint === "" ? "no suggestion" : $hint;
-}
+echo $hint === "" ? "" : $hint;
