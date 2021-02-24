@@ -17,6 +17,10 @@
             background-color: #f5e0e0;
             padding: 20px;
         }
+        a:hover {
+            cursor: pointer;
+            background-color: yellow;
+        }
         table, input {
             margin-top:15px;
 	        margin-bottom:15px;
@@ -64,13 +68,12 @@
             background-color:#79ab79;
             border: none;
             color:white;
-            font-size: 15px;
+            font-size: 20px;
             text-align: center;
             border-radius: 12px;
             height: 40px;
             transition: all 0.5s;
             cursor: pointer;
-            margin: 5px;
         }
         .button span {
             cursor: pointer;
@@ -78,7 +81,6 @@
             position: relative;
             transition: 0.5s;
         }
-
         .button span:after {
             content: '\00bb';
             position: absolute;
@@ -87,11 +89,9 @@
             right: -20px;
             transition: 0.5s;
         }
-
         .button:hover span {
             padding-right: 25px;
         }
-
         .button:hover span:after {
             opacity: 1;
             right: 0;
@@ -109,14 +109,15 @@
         include 'closeDB.php';
     ?> 
 
+
 <h1 class="margin">Create a new protocol</h1>
 <div class="form" style="text-align: left;">
         <form action="showProtocol.php" method='post'>
         
-        <!-- Protocol name -->
-        <div class="form-group">
+         <!-- Protocol name -->
+         <div class="form-group">
             <h5 class="margin"><label for="name">Protocol name</label></h5>
-            <input type="text" style="width:600px" class="form-control" placeholder="Enter name" id="name" name="name">
+            <input type="text" style="width:600px" class="form-control" placeholder="Enter name" name="name">
         </div>
             
         <!-- Equipment -->          
@@ -134,22 +135,16 @@
 
 
         <!-- chemicals which have been in the db --> 
-        <!--   <link rel="stylesheet" type="text/css" href="bootstrap-select.min.css">
-            <script src="bootstrap-select.min.js"></script>  -->
-
-            <div>
-                
+            
+            <div class="part">                
                 <div class="search-box">
-                    <input type="text" autocomplete="off" placeholder="Search Chemicals" id="name" />
+                    <input style="height:40px" type="text" autocomplete="off" placeholder="Search Chemicals" id="name" /><button type="button" class="add-row button" id="add"><span>ADD</span></button><button type="button" class="delete-row button"><span>REMOVE</span></button>
                     <div class="result"></div>
                 </div>
-
-                <input type="button" class="add-row" value="Add Row" id="add">
-
-                <table>
+                <table style="width:60%">
                     <thead>
                         <tr>
-                            <th>Select</th>
+                            <h6><th>Select</th></h6>
                             <th>Chemical</th>
                             <th>Dosage</th>
                         </tr>
@@ -158,94 +153,11 @@
 
                     </tbody>
                 </table>
-    
-                <button type="button" class="delete-row">Delete Row</button>
             </div>
-
-                <!--<table id="main">
-                    <th class="head">Chemical</th>
-                    <th class="head">Dosage</th>
-
-                    <tr class="alt">
-                        <td style="width:25%">
-                            <div class="search-box">
-                                <input type="text" autocomplete="off" placeholder="Search Chemicals" name="chemicals[]" />
-                                <div class="result"></div>
-                            </div>
-                        </td>                                             
-                        <td style="width:25%"><input type="number" placeholder="Enter Dosage" name="dosages[]"></td>
-                    </tr>
-                </table>
-                <div id="display"></div>
-                <input type="button" name="add" id="add" class="btn btn-success" value="Add" />                  
-            </div> -->
-
-  
-                           
-<!--            <input type="button" name="add" id="add" class="btn btn-success" value="Add" />
-            <div ng-app="chemicals" ng-controller="myController">
-                <label for="chemical">Chemicals & Dosages:</label>
-                <ul>
-                    <li>Chemical</li>
-                        <li>
-                            <input ng-model="name" type="text" id="search" placeholder="Enter Chemical" name="chemicals[]" />
-                            <div id="display"></div> 
-                        </li>
-                </ul>
-
-                <ul>
-                    <li>Dosage</li>
-                    <li><input type="number" ng-model="dosage" class="form-control" name="dosages[]" placeholder="dosage" /></li>
-                </ul>
-
-                <ul>
-                    <li> </li><li><button ng-click="addRow()" type="button" class="btn btn-primary"> Add Row </button></li>
-                </ul>
--->
-
-<!--                <table id="cheANDdos"> 
-                    <tr>
-                    <th>Num</th>
-                        <th>Chemicals</th>
-                            <th>Dosage</th>
-                    </tr>
-
-                    <tr ng-repeat="chemicals in chemicalArray">
-                        <td><label>{{$index + 1}}</label></td>
-                        <td><label >{{chemicals.name}}</label></td>
-                        <td><label >{{chemicals.dosage}}</label></td>
-                        <td><input type="checkbox" ng-model="chemicals.Remove"/></td>
-                    </tr>
-                </table>
-
-                <div>      
-                    <button ng-click="removeRow()" type="button" class="btn btn-primary">Remove Row</button>
-                </div>            
-            </div> 
--->
-
-
-
-        <!-- Chemicals which haven't been in the db -->  
-        <!--<br>     
-        If you haven't find the chimecals that you need:
-            <div>
-                <table id="NEWmain">
-                    <th class="head">Chemicals</th>
-                    <th class="head">Dosage</th>
-
-                    <tr class="alt">
-                        <td style="width:25%"><input type="text" placeholder="Enter Chemical" name="NEWchemicals[]"></td>
-                        <td style="width:25%"><input type="number" placeholder="Enter Dosage" name="NEWdosages[]"></td>
-                    </tr>
-                </table>
-                <input type="button" value="Add New Row" onclick="addRow();" id="rowButton" class="btn btn-primary" />        
-            </div>
-        <br>-->
 
         <!-- Submit --> 
             <div class="form-group" style="text-align: center;">
-                <button name="submit" type="submit" class="button" style="width: 200px"><span>Submit</span></button>
+                <button name="submit" type="submit" class="button" style="width: 200px"><span>Show protocol</span></button>
             </div>
         </form>
     </div>
