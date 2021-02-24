@@ -36,6 +36,38 @@
             margin-top:1px;
 	        margin-bottom:1px;
         }
+        .button {
+            background-color:#79ab79;
+            border: none;
+            color:white;
+            font-size: 20px;
+            text-align: center;
+            border-radius: 12px;
+            height: 40px;
+            transition: all 0.5s;
+            cursor: pointer;
+        }
+        .button span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
+        .button span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+        .button:hover span {
+            padding-right: 25px;
+        }
+        .button:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
     </style>
 </head>
 
@@ -95,21 +127,35 @@
                         </tr>";
                 };
 
-                $cheLen1 = count($NEWchemicals);
-                for($i=0;$i<$cheLen1;$i++){
-                    $c = $NEWchemicals[$i];
-                    $d = $NEWdosages[$i];
-                    echo "<tr>
-                            <td>{$c}</td>
-                            <td>{$d}</td>
-                        </tr>";
-                };
-
                 echo "</table>";
 
             ?>
         </div>
     
-    <form action="insert.inc.php" method='post'>
+        <div class="form-inline" style="text-align: center">
+            <form action="insert.inc.php" method='post'>
+                <input type="hidden" name="name" value="<?echo $name?>">
+                <input type="hidden" name="procedure" value="<?echo $procedure?>">
+                <input type="hidden" name="equipment" value="<?echo $equipment?>">
+                <input type="hidden" name="chemicals" value="<?echo $chemicalse?>">
+                <input type="hidden" name="dosages" value="<?echo $dosages?>">
+                <div>
+                    <button name="submit" type="submit" class="button" style="width: 200px"><span>Submit</span></button>
+                </div>
+            </form>
 
-    </form>
+            <form action="editProtocol.php" method='post'>
+                <input type="hidden" name="name" value="<?echo $name?>">
+                <input type="hidden" name="procedure" value="<?echo $procedure?>">
+                <input type="hidden" name="equipment" value="<?echo $equipment?>">
+                <input type="hidden" name="chemicals" value="<?echo $chemicalse?>">
+                <input type="hidden" name="dosages" value="<?echo $dosages?>">
+
+
+                <div>
+                    <button name="submit" type="submit" class="button" style="width: 200px"><span>Edit</span></button>
+                </div>
+            </form>
+        </div>
+
+</html>
