@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 
+<!-- 
+    This version covers almost all basic function used when created a new protocol, but there is
+    also a problem, which is when add the chemicals have been in the SUPPLEMENT database, only the 
+    first row can be live search box, the rest must be input the full name. I would solve this when 
+    we finish other core function.
+-->
+
 <html>
 <head>
     
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-    
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <style>
         div {
 
+        }
+        a:hover {
+            cursor: pointer;
+            background-color: yellow;
         }
         
         ul {
@@ -56,8 +67,8 @@
         <form action="insert.inc.php" method='post'>
         
         <!-- Protocol name -->
-            <div class="form-group form-inline">
-                <label for="name">Protocol name:</label>
+            <div class="form-group form-inline" style="padding-left:10px">
+                <label for="name">Protocol name:</label></br>
                 <input type="text" class="form-control" placeholder="Enter name" id="name" name="name">
             </div>
                 
@@ -67,8 +78,6 @@
                 <textarea name="equipment" cols="40" rows="5" placeholder="Insert all equipments"></textarea>
             </div>
             
-
-
         <!-- Procedure -->
             <div class="form-group form-inline">
                 <label for="procedure">Procedure:</label><br>
@@ -77,67 +86,35 @@
 
 
         <!-- chemicals which have been in the db --> 
-            <link rel="stylesheet" type="text/css" href="bootstrap-select.min.css">
+           <link rel="stylesheet" type="text/css" href="bootstrap-select.min.css">
             <script src="bootstrap-select.min.js"></script>  
 
-            <div ng-app="chemicals" ng-controller="myController">
-                <label for="chemical">Chemicals & Dosages:</label>
-                <ul>
-                    <li>Chemical</li>
-                        <li>
-                            <select ng-model="name" class="selectpicker" placeholder="Chemical" name="chemicals[]" data-live-search="true">
-                                <?php 
-                                    include 'db.php';               
-                                    $result = mysqli_query($conn,"SELECT * FROM Supplement");
-                                    while($row = $result->fetch_assoc()){
-                                        $catID = $row['SupID'];
-                                        $catName = $row['SupName'];
-                                        echo "<option value='$catName'>$catName</option>";
-                                        echo '<br>';
-                                    }
-                                    include 'closeDB.php';
-                                ?>       
-                            </select>
-                        </li>
-                </ul>
+            <div>
+                <table id="main">
+                    <th class="head">Chemical</th>
+                    <th class="head">Dosage</th>
 
-                <ul>
-                    <li>Dosage</li>
-                    <li><input type="number" ng-model="dosage" class="form-control" name="dosages[]" placeholder="dosage" /></li>
-                </ul>
-
-                <ul>
-                    <li> </li><li><button ng-click="addRow()" type="button" class="btn btn-primary"> Add Row </button></li>
-                </ul>
-
-            <!--CREATE A TABLE-->
-                <table> 
-                    <tr>
-                    <th>Num</th>
-                        <th>Chemicals</th>
-                            <th>Dosage</th>
-                    </tr>
-
-                    <tr ng-repeat="chemicals in chemicalArray">
-                        <td><label>{{$index + 1}}</label></td>
-                        <td><label>{{chemicals.name}}</label></td>
-                        <td><label>{{chemicals.dosage}}</label></td>
-                        <td><input type="checkbox" ng-model="chemicals.Remove"/></td>
+                    <tr class="alt">
+                        
+                        <td>
+                            <div class="search-box">
+                                <input type="text" autocomplete="off" placeholder="Search Chemicals" name="chemicals[]" />
+                                <div class="result"></div>
+                            </div>
+                        </td>                                             
+                        <td><input type="number" placeholder="Enter Dosage" name="dosages[]"></td>
                     </tr>
                 </table>
 
-                <div>      
-                    <button ng-click="removeRow()" type="button" class="btn btn-primary">Remove Row</button>
-                </div>            
-            </div>
-
-
-
+                <div id="display"></div>
+                <input type="button" name="add" id="add" class="btn btn-success" value="Add" />                  
+            </div> 
+                  
         <!-- Chemicals which haven't been in the db -->  
         <br>     
         If you haven't find the chimecals that you need:
             <div>
-                <table id="main">
+                <table id="NEWmain">
                     <th class="head">Chemicals</th>
                     <th class="head">Dosage</th>
 
@@ -150,9 +127,6 @@
             </div>
         <br>
 
-
-
-
         <!-- Submit --> 
             <div class="form-group">
                 <button name="submit" type="submit" class="btn btn-primary">Submit</button>
@@ -162,54 +136,12 @@
 </body>
 
 
+                        
 
-
-
-
-
-
-
-
-<!--The Controller-->
-<script>
-    var app = angular.module('chemicals', []);
-    app.controller('myController', function ($scope) {
-
-        // JSON ARRAY TO POPULATE TABLE.
-        $scope.chemicalArray =[];
-
-        // GET VALUES FROM INPUT BOXES AND ADD A NEW ROW TO THE TABLE.
-        $scope.addRow = function () {
-            if ($scope.name != undefined && $scope.dosage != undefined) {
-                var chemical = [];
-                chemical.name = $scope.name;
-                chemical.dosage = $scope.dosage;
-
-                $scope.chemicalArray.push(chemical);
-
-                // CLEAR TEXTBOX.
-                $scope.name = null;
-                $scope.dosage = null;
-            }
-        };
-
-        // Remove selected rows from table.
-        $scope.removeRow = function () {
-            var arrchemical = [];
-            angular.forEach($scope.chemicalArray, function (value) {
-                if (!value.Remove) {
-                    arrchemical.push(value);
-                }
-            });
-            $scope.chemicalArray = arrchemical;
-        };
-
-    });
-</script>
-
+<!-- New chemicals-->
 <script>
     function addRow() {
-    var table = document.getElementById("main");
+    var table = document.getElementById("NEWmain");
 	var rws = table.rows;
 	var cols = table.rows[0].cells.length;
     var row = table.insertRow(rws.length);
@@ -223,5 +155,45 @@
     }
 </script>
 
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+    $('.search-box input[type="text"]').on("keyup input", function(){
+        /* Get input value on change */
+        var inputVal = $(this).val();
+        var resultDropdown = $(this).siblings(".result");
+        if(inputVal.length){
+            $.get("ajaxFORinsert.php", {term: inputVal}).done(function(data){
+                // Display the returned data in browser
+                resultDropdown.html(data);
+            });
+        } else{
+            resultDropdown.empty();
+        }
+    });
+    
+    // Set search input value on click of result item
+    $(document).on("click", ".result p", function(){
+        $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
+        $(this).parent(".result").empty();
+    });
+
+    $('#add').click(function(){
+        var html = '<tr>';
+        html += '<td>';
+        html += '<div class="search-box">';
+        html += '<input type="text" autocomplete="off" placeholder="Search Chemicals" name="chemicals[]" />';
+        html += '<div class="result"></div>';
+        html += '</div>';
+        html += '</td>';
+        html += '<td><input type="number" placeholder="Enter Dosage" name="dosages[]"></td>';
+        html += '</tr>';
+        $('#main tbody').append(html);
+    });
+
+});
+</script>
 
 </html>
