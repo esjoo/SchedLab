@@ -64,7 +64,7 @@
 
     <h1>Create a new protocol</h1>
     <div class="form">
-        <form action="insert.inc.php" method='post'>
+        <form action="showProtocol.php" method='post'>
         
         <!-- Protocol name -->
             <div class="form-group form-inline" style="padding-left:10px">
