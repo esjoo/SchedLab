@@ -43,16 +43,13 @@
     <?php 
         include 'header.php';
         include "db.php";
-        //$name = mysqli_real_escape_string($conn, $_POST['name']);
-        //$procedure = mysqli_real_escape_string($conn, $_POST['procedure']);
-        //$equipment = mysqli_real_escape_string($conn, $_POST['equipment']);
+
         $name = $_POST['name'];
         $procedure = $_POST['procedure'];
         $equipment = $_POST['equipment'];
         $chemicals = $_POST['chemicals'];
         $dosages = $_POST['dosages'];
-        $NEWchemicals = $_POST['NEWchemicals'];
-        $NEWdosages = $_POST['NEWdosages'];  
+ 
         include "closeDB.php";
     ?>
 
