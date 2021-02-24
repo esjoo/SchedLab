@@ -41,13 +41,11 @@ CREATE TABLE ProtocolGuide (
     SupID int
 );
 
-CREATE TABLE Purchase (
-    OrderID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE Inventory (
+    InventID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     Amount int,
     Unit varchar(50),
     Unitprice int,
-    TotalPrice int,
-    OrderDate date,
     SupID int,
     UserID int
 );
@@ -70,7 +68,7 @@ ALTER TABLE ProtocolGuide
     ADD (FOREIGN KEY (ProtID) REFERENCES Protocols(ProtID),
     FOREIGN KEY (SupID) REFERENCES Supplement(SupID));
 
-ALTER TABLE Purchase 
+ALTER TABLE Inventory 
     ADD (FOREIGN KEY (SupID) REFERENCES Supplement(SupID),
     FOREIGN KEY (UserID) REFERENCES Users(UserID));
 
