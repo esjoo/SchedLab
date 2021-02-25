@@ -17,39 +17,69 @@
     }
     ?>
   </div>
-       <?php
-       
-    $tmpContent =array( "Analyzing biological data to produce meaningful information involves writing and.",
-    "Before sequences can be analyzed they have to be obtained from the data storage bank example the Genbank.",
-     "This process needs to be automated because most genomes are too large to annotate by hand, not to mention the desire to annotate as many genomes as possible, as the rate of sequencing has ceased to pose a bottleneck. Annotation is made possible by the fact that genes have recognisable start and stop regions, although the exact sequence found in these regions can vary between genes.");
+      <?php
+      for ($i = 1; $i<=7; $i++) {	
+        $active = 'bg-secondary';
+          //Check which day
+          if(date_format(date_create(),'l jS') == date_format( $day,'l jS')) {
+            $active = 'bg-primary';
+          }	
+          //day wrapper
+          $bg = '';
+          echo('<div class ="col p-0 border border-dark weekday"  style="background: url("gfx/T.png") background-repeat:repeat-y" >'); 
+          //print header
+          printf('<div class=" p-2 border border-dark  %s"> %s </div>',$active,date_format( $day,'l jS') );
 
-    $startTime = 1613972301;
-    $endTime = 	1613982311;
-    $trgButton = dateTimeToElement($startTime,$endTime)/(17-8)*100 . '%'; 
-    $protocolHeader = 'HEADER OF EXPERIMENT GOES HERE';
-    
-    for ($i = 1; $i<=7; $i++) {	
-      $active = 'bg-secondary';
-      //Check which day
-      if(date_format(date_create(),'l jS') == date_format( $day,'l jS')) {
-        $active = 'bg-primary';
-      }	
-      //day wrapper
-      $bg = '';
-      echo('<div class ="col p-0 border border-dark weekday"  style="background: url("gfx/T.png") background-repeat:repeat-y" >'); 
-      //print header
-      printf('<div class=" p-2 border border-dark  %s"> %s </div>',$active,date_format( $day,'l jS') );
-
-      // print content
-      foreach($tmpContent as $protocolContent) {
-        printf('
-        <div class="btn btn-primary col mb-1 mr-1 day" data-toggle="modal" data-target="#exampleModal" data-protocolHead=" %s" data-protocolContent="%s" style="height:%s">%s</div>
-        ',$protocolHeader,$protocolContent,$trgButton,$protocolHeader);
-      }
+          // Get calender events
+          include_once('db.php');
+          $sql = "SELECT * FROM usercalendar ORDER BY FromDateTime";
+          $result = mysqli_query($conn, $sql);
+          while ($row = mysqli_fetch_row($result)) {
+            $sameDay = FALSE;
+            if (isset($date)){
+              $prevDateTime = $date;
+              $prevDate = $date->format('Y-m-d');
+              $prevEventEnd = $dateEnd->format('G:i:s');
+            }
+            $date = DateTime::createFromFormat('Y-m-d G:i:s', $row[1]);
+            $dateEnd = DateTime::createFromFormat('Y-m-d G:i:s', $row[2]);
+            $thisDate = $date->format('Y-m-d');
+            if (isset($prevDate) && $thisDate == $prevDate) {
+              $sameDay = TRUE;
+            }
+            if(date_format($date,'l jS') == date_format( $day,'l jS')) {
+            $protocolContent = "Time and date for the experiment: ".$row[1]."-".$row[2];
+            
+            // Get the date and time of an experiment
+            $trgButton = dateTimeToElement($row[1], $row[2])/11*100 . '%';
+            $eventStart = $date->format('G:i:s');
+            if ($sameDay){
+              $num_margin = floatval($eventMargin);
+              //echo dateTimeToElement($prevEventEnd, $eventStart);
+              $eventMargin = dateTimeToElement($prevEventEnd, $eventStart)/11*100 . '%';
+            } else {
+              $eventMargin = dateTimeToElement('08:00:00', $eventStart)/11*100 . '%';
+            }
+            
+            // Get header of an experiment
+            $protID = (int)$row[4];
+            $prot_sql = "SELECT ProtID, ProtName FROM protocols WHERE ProtID=$protID";
+            $protName = mysqli_query($conn, $prot_sql);
+            $protocolName = mysqli_fetch_row($protName);
+            $protocolHeader = $protocolName[1];
+          
+            // print content
+            printf('<div class="border border-0" style="height:%s"></div>
+                          ',$eventMargin);
+            printf('
+            <div class="btn btn-primary col mr-1 border border-0 p-0 day" data-toggle="modal" data-target="#exampleModal" data-protocolHead=" %s" data-protocolContent="%s" style="height:%s">%s</div>
+            ',$protocolHeader,$protocolContent,$trgButton,$protocolHeader);
+            }
+          }
       
-      //close day wrapper
-      printf('</div>');
-      // Increment day
+          //close day wrapper
+          printf('</div>');
+        // Increment day
 			$day = date_modify($day,"1 days");
 		}
 
