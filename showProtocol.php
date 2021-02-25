@@ -152,9 +152,9 @@
             </form>
 
             <form action="editProtocol.php" method='post'>
-                <input type="hidden" name="name" value="<?echo $name?>">
-                <input type="hidden" name="procedure" value="<?echo $procedure?>">
-                <input type="hidden" name="equipment" value="<?echo $equipment?>">
+                <input type="hidden" name="name" value="<?php echo $name?>">
+                <input type="hidden" name="procedure" value="<?php echo $procedure?>">
+                <input type="hidden" name="equipment" value="<?php echo $equipment?>">
                 
                 <?php
                     $len = count($chemicals);
