@@ -134,11 +134,18 @@
     
         <div class="form-inline" style="text-align: center">
             <form action="insert.inc.php" method='post'>
-                <input type="hidden" name="name" value="<?echo $name?>">
-                <input type="hidden" name="procedure" value="<?echo $procedure?>">
-                <input type="hidden" name="equipment" value="<?echo $equipment?>">
-                <input type="hidden" name="chemicals" value="<?echo $chemicalse?>">
-                <input type="hidden" name="dosages" value="<?echo $dosages?>">
+                <input type="hidden" name="name" value="<?php echo $name?>">
+                <input type="hidden" name="procedure" value="<?php echo $procedure?>">
+                <input type="hidden" name="equipment" value="<?php echo $equipment?>">
+
+                <?php
+                    $len = count($chemicals);
+                    for($i=0;$i<$len;$i++){
+                        echo '<input type="hidden" name="chemicals[]" value="' . $chemicals[$i] . '">';
+                        echo '<input type="hidden" name="dosages[]" value="' . $dosages[$i] . '">';
+                    }
+                ?>
+
                 <div>
                     <button name="submit" type="submit" class="button" style="width: 200px"><span>Submit</span></button>
                 </div>
@@ -148,8 +155,14 @@
                 <input type="hidden" name="name" value="<?echo $name?>">
                 <input type="hidden" name="procedure" value="<?echo $procedure?>">
                 <input type="hidden" name="equipment" value="<?echo $equipment?>">
-                <input type="hidden" name="chemicals" value="<?echo $chemicalse?>">
-                <input type="hidden" name="dosages" value="<?echo $dosages?>">
+                
+                <?php
+                    $len = count($chemicals);
+                    for($i=0;$i<$len;$i++){
+                        echo '<input type="hidden" name="chemicals[]" value="' . $chemicals[$i] . '">';
+                        echo '<input type="hidden" name="dosages[]" value="' . $dosages[$i] . '">';
+                    }
+                ?>
 
 
                 <div>
