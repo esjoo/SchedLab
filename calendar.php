@@ -1,59 +1,59 @@
-<?php 
-include('db.php');
-	# TODO
-    #Return the whole DB
-    $sql = 'SELECT movies.name, genres.name, movies.rating, movies.year 
-    FROM movies
-    LEFT JOIN genres ON movies.genre = genres.id';
-  
+<!-- calendar window-->
+<div class="row h-100 flex-nowrap">
+  <!-- column Time wrapper -->
+  <div class= "d-flex flex-column border border-dark">
+    <!-- header-->
+    <div class="p-2 border border-dark "> Time </div>
+    <!-- content -->
+    <?php 
+    #$hours = range(0,24);
+    
+    foreach (range(8,17) as $hour) {
+      $active='';
+      if($hour == localtime(time(),TRUE)['tm_hour']){
+        $active = 'bg-primary';
+      }
+      printf('<div class="col border border-dark flex-grow-1 %s"> %s:00 </div>',$active,$hour);
+    }
+    ?>
+  </div>
+       <?php
+       
+    $tmpContent =array( "Analyzing biological data to produce meaningful information involves writing and.",
+    "Before sequences can be analyzed they have to be obtained from the data storage bank example the Genbank.",
+     "This process needs to be automated because most genomes are too large to annotate by hand, not to mention the desire to annotate as many genomes as possible, as the rate of sequencing has ceased to pose a bottleneck. Annotation is made possible by the fact that genes have recognisable start and stop regions, although the exact sequence found in these regions can vary between genes.");
 
-    if(mysqli_query($conn, $sql)) {
-        $result = mysqli_query($conn, $sql);
-    } else {
-        echo('FAIL:'. mysqli_connect_error());
-}
-?>
+    $startTime = 1613972301;
+    $endTime = 	1613982311;
+    $trgButton = dateTimeToElement($startTime,$endTime)/(17-8)*100 . '%'; 
+    $protocolHeader = 'HEADER OF EXPERIMENT GOES HERE';
+    
+    for ($i = 1; $i<=7; $i++) {	
+      $active = 'bg-secondary';
+      //Check which day
+      if(date_format(date_create(),'l jS') == date_format( $day,'l jS')) {
+        $active = 'bg-primary';
+      }	
+      //day wrapper
+      $bg = '';
+      echo('<div class ="col p-0 border border-dark weekday"  style="background: url("gfx/T.png") background-repeat:repeat-y" >'); 
+      //print header
+      printf('<div class=" p-2 border border-dark  %s"> %s </div>',$active,date_format( $day,'l jS') );
 
-<table class="table table table-hover table-bordered">
-    <thead class="thead-dark">
-      <tr>
-	  	<th>Time</th>
-		<?php
-		if(!isset($_GET['week'])) {
-			$day =(strtotime("Monday"));
+      // print content
+      foreach($tmpContent as $protocolContent) {
+        printf('
+        <div class="btn btn-primary col mb-1 mr-1 day" data-toggle="modal" data-target="#exampleModal" data-protocolHead=" %s" data-protocolContent="%s" style="height:%s">%s</div>
+        ',$protocolHeader,$protocolContent,$trgButton,$protocolHeader);
+      }
+      
+      //close day wrapper
+      printf('</div>');
+      // Increment day
+			$day = date_modify($day,"1 days");
 		}
 
-		for ($i = 1; $i<=7; $i++) {
-			#$start =date_add($start,date_interval_create_from_date_string('1 days'));
-			
-			printf('<th>%s</th>',date('l jS', $day) );
-			$day = strtotime("+$i day");
-		}
-		
-		
+    include('experimentModal.php');
+    ?>
 
-		?>
-
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <?php 
-        while($row = mysqli_fetch_row($result)){
-        
-           printf('
-		   <tr>
-            <td>%s</td>
-            <td>%s</td>
-            <td>%s</td>
-			<td>%s</td>
-			<td>%s</td>
-			<td>%s</td>
-			<td>%s</td>
-			<td>%s</td>
-           </tr>',$row[0],$row[1],$row[2],$row[3],'empty','empty','empty','empty','empty'
-        );
-        }
-        ?>
-    </tbody>
-  </table>
+  </div>
