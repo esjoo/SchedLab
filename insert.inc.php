@@ -5,6 +5,7 @@ if(isset($_POST['submit'])) {
 
     // insert the protocol into the database
     $name = mysqli_real_escape_string($conn, $_POST['name']);
+
     $procedure = mysqli_real_escape_string($conn, $_POST['procedure']);
     $equipment = mysqli_real_escape_string($conn, $_POST['equipment']);
 
@@ -96,4 +97,5 @@ if(isset($_POST['submit'])) {
 }
 
 include "closeDB.php"
+
 ?>

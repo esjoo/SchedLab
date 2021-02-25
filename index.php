@@ -3,9 +3,14 @@
   $content = "home.php";
 	$footer = "footer.php";
 
+  $register ='signup.php';
   include($header);
-   
-  include($content);
+  if(isset($_SESSION['loggedIn'])) {
+    include($content);
+  } else {
+    include($register);
+  }
+  
 ?>
 
 

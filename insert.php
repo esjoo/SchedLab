@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-
-<html>
-<head>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <style>
         div {
             margin-top:25px;
@@ -99,7 +92,6 @@
     </style>
 </head>
 
-<body style="background-color:#FBF3F3;">
     <?php 
         include 'header.php';  
         include 'db.php';
@@ -108,6 +100,15 @@
         $result = mysqli_query($conn, $sql);
         include 'closeDB.php';
     ?> 
+
+
+        <!-- Equipment -->
+        <div class="form-group">
+            <div id="equipmentArea" class="controls">
+                <label for="equipment">Equipment:</label><br>
+                <textarea name="equipment" cols="40" rows="5" placeholder="Insert all equipments"></textarea>
+            </div>
+        </div>
 
 
 <h1 class="margin">Create a new protocol</h1>
@@ -132,6 +133,8 @@
             <h5 class="margin"><label for="procedure">Procedure</label></h5>
             <textarea name="procedure" style="width:600px;height:200px;" placeholder="Insert procedure"></textarea>
         </div>
+
+            $("#plus").remove();
 
 
         <!-- chemicals which have been in the db --> 
@@ -224,4 +227,4 @@ $(document).ready(function(){
 })();
 </script>
 
-</html>
+
