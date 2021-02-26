@@ -134,7 +134,6 @@
             <textarea name="procedure" style="width:600px;height:200px;" placeholder="Insert procedure"></textarea>
         </div>
 
-            $("#plus").remove();
 
 
         <!-- chemicals which have been in the db --> 

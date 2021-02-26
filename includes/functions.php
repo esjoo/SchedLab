@@ -16,39 +16,24 @@ function dateTimeToElement($startTime,$endTime) {
 
 #get protocols
 function get_protocols() {
-    include('db.php');
-    $sql = "SELECT UserName
-    FROM Users"; 
+  include('db.php');
+  $sql = "SELECT protocols.ProtName
+  FROM protocols"; 
 
-    $stmt = mysqli_stmt_init($conn);
-    if($stmt =mysqli_prepare($conn, $sql)) {
 
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_bind_result($stmt,$dbNames);
-        mysqli_stmt_store_result ($stmt);
-    }
-    include('closeDB.php');
+  $stmt = mysqli_stmt_init($conn);
+  if($stmt =$conn->prepare($sql)) {
 
-    // get the q parameter from URL
-$q = $_REQUEST["q"];
-
-$hint = "";
-
-// lookup all hints from array if $q is different from ""
-if ($q !== "") {
-  $q = strtolower($q);
-  $len=strlen($q);
-  foreach($dbNames as $name) {
-    if (stristr($q, substr($name, 0, $len))) {
-      if ($hint === "") {
-        $hint = $name;
-      } else {
-        $hint .= ", $name";
-      }
-    }
+    mysqli_stmt_execute($stmt);
+    $stmt->bind_result($protName);
+    
   }
-}
-
-// Output "no suggestion" if no hint was found or output correct values
-echo $hint === "" ? "no suggestion" : $hint;
+  
+  
+  while($stmt->fetch()) {
+      $protNames[] = $protName;
+  }
+  $stmt->close();
+include('closeDB.php');
+return $protNames;
 }

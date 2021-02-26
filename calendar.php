@@ -26,12 +26,12 @@
           }	
           //day wrapper
           $bg = '';
-          echo('<div class ="col p-0 border border-dark weekday"  style="background: url("gfx/T.png") background-repeat:repeat-y" >'); 
+          echo('<div class ="col p-0 border border-dark weekday overflow-hidden"  style="background: url("gfx/T.png") background-repeat:repeat-y" >'); 
           //print header
           printf('<div class=" p-2 border border-dark  %s"> %s </div>',$active,date_format( $day,'l jS') );
 
           // Get calender events
-          include_once('db.php');
+          include('db.php');
           $sql = "SELECT * FROM usercalendar ORDER BY FromDateTime";
           $result = mysqli_query($conn, $sql);
           while ($row = mysqli_fetch_row($result)) {
