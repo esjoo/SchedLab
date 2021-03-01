@@ -16,7 +16,8 @@
       printf('<div class="col border border-dark flex-grow-1 %s"> %s:00 </div>',$active,$hour);
     }
     ?>
-	</div>
+
+  </div>
 	<?php
 	for ($i = 1; $i<=7; $i++) {	
 		$active = 'bg-secondary';
