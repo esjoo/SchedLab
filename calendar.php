@@ -69,7 +69,8 @@
 
 		// Get calender events
 		include('db.php');
-		$sql = "SELECT * FROM usercalendar WHERE UserID = 1 ORDER BY FromDateTime"; #TODO: Use the correct UserID
+    $userID = get_current_user_id();
+		$sql = "SELECT * FROM usercalendar WHERE UserID = $userID ORDER BY FromDateTime";
 		$result = mysqli_query($conn, $sql);
 		while ($row = mysqli_fetch_row($result)) {
 			$sameDay = FALSE;
@@ -98,7 +99,6 @@
 
 				// Add correct spacing befor the event
 				if ($sameDay){
-					$num_margin = floatval($eventMargin);
 					$eventMargin = dateTimeToElement($prevEventEnd, $eventStart)/11*100 . '%';
 				} else {
 					$eventMargin = dateTimeToElement('08:00:00', $eventStart)/11*100 . '%';
