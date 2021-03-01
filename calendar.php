@@ -11,7 +11,7 @@
     foreach (range(8,17) as $hour) {
       $active='';
       if($hour == localtime(time(),TRUE)['tm_hour']){
-        $active = 'bg-primary';
+        $active = 'green';
       }
       printf('<div class="col border border-dark flex-grow-1 %s"> %s:00 </div>',$active,$hour);
     }
@@ -22,7 +22,7 @@
         $active = 'bg-secondary';
           //Check which day
           if(date_format(date_create(),'l jS') == date_format( $day,'l jS')) {
-            $active = 'bg-primary';
+            $active = 'green';
           }	
           //day wrapper
           $bg = '';
@@ -32,7 +32,7 @@
 
           // Get calender events
           include_once('db.php');
-          $sql = "SELECT * FROM usercalendar ORDER BY FromDateTime";
+          $sql = "SELECT * FROM usercalendar WHERE UserID = 1 ORDER BY FromDateTime"; #TODO: Use the correct UserID
           $result = mysqli_query($conn, $sql);
           while ($row = mysqli_fetch_row($result)) {
             $sameDay = FALSE;
@@ -72,7 +72,7 @@
             printf('<div class="border border-0" style="height:%s"></div>
                           ',$eventMargin);
             printf('
-            <div class="btn btn-primary col mr-1 border border-0 p-0 day" data-toggle="modal" data-target="#exampleModal" data-protocolHead=" %s" data-protocolContent="%s" style="height:%s">%s</div>
+            <div class="btn btn-calendar col mr-1 border border-0 p-0 day" data-toggle="modal" data-target="#exampleModal" data-protocolHead=" %s" data-protocolContent="%s" style="height:%s">%s</div>
             ',$protocolHeader,$protocolContent,$trgButton,$protocolHeader);
             }
           }
