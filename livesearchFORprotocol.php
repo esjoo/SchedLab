@@ -28,7 +28,7 @@ if(isset($_REQUEST["term"])){
                 echo "<p>No matches found</p>";
             }
         } else{
-            echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+            echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
         }
     }
      

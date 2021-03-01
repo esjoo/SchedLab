@@ -2,7 +2,7 @@
 $hostname = "localhost:3316";
 $username = "root";
 $password = "";
-$dbname = "protest";
+$dbname = "movdb";
 $conn = mysqli_connect($hostname, $username, $password,$dbname);
 
 // Check connection

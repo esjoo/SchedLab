@@ -4,6 +4,7 @@
 	        margin-bottom:25px;
 	        margin-right:25px;
 	        margin-left:25px;
+            color:black;
         }
         div.part {
             border-radius: 5px;
@@ -94,11 +95,13 @@
 
     <?php 
         include 'header.php';  
-        $name = $_POST['name'];
+        $name = $_POST['protName'];
         $procedure = $_POST['procedure'];
         $equipment = $_POST['equipment'];
         $chemicals = $_POST['chemicals'];
         $dosages = $_POST['dosages'];
+        $ProtCreater = $_POST['ProtCreater'];
+
     ?> 
 
 <h1 class="margin">Create a new protocol</h1>
@@ -108,7 +111,7 @@
             <!-- Protocol name -->
             <div class="form-group">
                 <h5 class="margin"><label for="name">Protocol name</label></h5>
-                <input type="text" style="width:600px" class="form-control" placeholder="Enter name" name="name" value="<?php echo $name?>">
+                <input type="text" style="width:600px" class="form-control" placeholder="Enter name" name="protName" value="<?php echo $name?>">
             </div>
                 
             <!-- Equipment -->          
@@ -161,6 +164,11 @@
                         ?>
                     </tbody>
                 </table>
+            </div>
+
+            <!-- Protocol Creater -->
+            <div>
+                <input type="hidden" name="ProtCreater" value="<?php echo $ProtCreater?>">
             </div>
 
             <!-- Submit --> 
@@ -223,13 +231,4 @@ $(document).ready(function(){
     });    
 </script>
 
-<script>
-(function(){
-    var f1 = document.getElementById('name'),     
-        b1 = document.getElementById('add'),
-		t = document.getElementById('To_che');
-    b1.onclick = function() {
-        t.value = f1.value;        
-    };
-})();
-</script>
+

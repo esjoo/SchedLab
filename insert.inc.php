@@ -1,15 +1,17 @@
 <?php 
-if(isset($_POST['submit'])) {
+if(isset($_POST['submit1'])) {
     
     include('db.php');
 
     // insert the protocol into the database
-    $name = mysqli_real_escape_string($conn, $_POST['name']);
+    $protName = mysqli_real_escape_string($conn, $_POST['protName']);
     $procedure = mysqli_real_escape_string($conn, $_POST['procedure']);
     $equipment = mysqli_real_escape_string($conn, $_POST['equipment']);
+    $ProtCreater = $_POST['ProtCreater'];
 
-    $sql = "INSERT INTO protocols (ProtName, ProtMethod, EquipmentID) 
-    VALUES ('$name', '$procedure','$equipment')";
+
+    $sql = "INSERT INTO protocols (ProtName, ProtMethod, EquipmentID, Creater) 
+    VALUES ('$protName', '$procedure','$equipment','$ProtCreater')";
 
     if ($conn->query($sql) === TRUE) {
         echo "Successfully enter a new protocol!";
@@ -28,7 +30,7 @@ if(isset($_POST['submit'])) {
     $sql2 = "INSERT INTO ProtocolGuide (Dosage, ProtID, SupID)  VALUES(?, ?, ?)"; 
     $stmt2 = mysqli_stmt_init($conn);
 
-    $ProtID0 = mysqli_query($conn,"SELECT * FROM Protocols WHERE ProtName = '$name'");
+    $ProtID0 = mysqli_query($conn,"SELECT * FROM Protocols WHERE ProtName = '$protName'");
     while($row = $ProtID0->fetch_assoc()){
         $ProtID = $row['ProtID'];
     }
@@ -59,7 +61,8 @@ if(isset($_POST['submit'])) {
             mysqli_stmt_execute($stmt2);
         }
     }
+    include 'closeDB.php';
 }
 
-include "closeDB.php"
+
 ?>
