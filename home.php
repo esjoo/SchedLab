@@ -37,8 +37,15 @@
                     if(!isset($_GET['w'])) {
                       #set first day
                       $today = date_create();
-                    
+                      
                       $day = date_isodate_set($today, date_format($today,'o'), date_format($today,'W') , 1 ); #TODO: change year
+                      
+                      #set week endpoint
+                      $monday = $day;
+                      $sunday = date_isodate_set(date_create(), date_format($today,'o'), date_format($today,'W') , 7 );
+                      
+                      
+                      #print week
                       $week = date_format($day,'W');
                       echo 'Calendar for '. date_format($day,'M') .' Week '. $week;
                       
@@ -46,9 +53,13 @@
                     } else {
                       #set monday of specified week
                       $day = date_isodate_set(date_create(), date_format(date_create(),'o'), $_GET['w'] , 1 ); #TODO: change year
+                     
+                      #set week endpoint
+                      $monday = $day;
+                      $sunday = date_isodate_set(date_create(), date_format($day,'o'), date_format($day,'W') , 7 );
+                      
+                      #print week
                       $week = $_GET['w'];
-                      
-                      
                       echo 'Calendar for Week '. date_format($day,'W').' '. date_format($day,'M');
                     }
                     ?>
