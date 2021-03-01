@@ -100,6 +100,27 @@ require_once('includes/functions.php');
         print($navOptions);
       }
       ?>
+      
+       <!-- Inventory -->
+       <?php
+      $navOptions = '
+      <li class="nav-item">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Inventory</a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a href="inventory.php" class="dropdown-item">Chemicals</a>  
+                    </div>
+                </li>
+            </ul>
+    </li>
+      ';
+      
+      if(isset($_SESSION['userName'])) {
+        print($navOptions);
+      }
+      ?>
+      
     </ul>
   </div>  
 </nav>
