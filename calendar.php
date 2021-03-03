@@ -39,8 +39,6 @@
     <div class="p-2 border border-dark "> Time </div>
     <!-- content -->
     <?php 
-    #$hours = range(0,24);
-    
     foreach (range(8,17) as $hour) {
       $active='';
       if($hour == localtime(time(),TRUE)['tm_hour']){
@@ -61,7 +59,6 @@
 		}	
 		
 		//day wrapper
-		$bg = '';
 		echo('<div class ="col p-0 border border-dark weekday"  style="background: url("gfx/T.png") background-repeat:repeat-y" >'); 
 
 		//print header
@@ -127,6 +124,7 @@
 		$day = date_modify($day,"1 days");	
 	}
 
+  include('closeDB.php');
 	include('experimentModal.php');
 	?>
 
