@@ -1,3 +1,36 @@
+<style>
+/* Calender event styling */
+.btn-calendar {
+    background-color:#E9C5C5;
+    border: none;
+    color:white;
+    font-size: 20px;
+    text-align: center;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+.btn-calendar span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+.btn-calendar span:after {
+    content: '\00bb';        
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;        
+}        
+.btn-calendar:hover, .btn-calendar:focus, .btn-calendar:active, .btn-calendar.active{
+    background-color: #518451;
+}
+.green{
+    background-color: #518451;       
+}
+</style>
+
 <!-- calendar window-->
 <div class="row h-100 flex-nowrap">
   <!-- column Time wrapper -->
@@ -33,7 +66,8 @@
 
 		// Get calender events
 		include('db.php');
-		$sql = "SELECT * FROM usercalendar WHERE UserID = 1 ORDER BY FromDateTime"; //TODO: Use the correct UserID
+    $userID = get_current_user_id();
+		$sql = "SELECT * FROM usercalendar WHERE UserID = $userID ORDER BY FromDateTime";
 		$result = mysqli_query($conn, $sql);
 		while ($row = mysqli_fetch_row($result)) {
 			$sameDay = FALSE;
@@ -62,7 +96,6 @@
 
 				// Add correct spacing befor the event
 				if ($sameDay){
-					$num_margin = floatval($eventMargin);
 					$eventMargin = dateTimeToElement($prevEventEnd, $eventStart)/11*100 . '%';
 				} else {
 					$eventMargin = dateTimeToElement('08:00:00', $eventStart)/11*100 . '%';
@@ -79,7 +112,7 @@
 				printf('<div class="border border-0" style="height:%s"></div>
 				',$eventMargin);
 				printf('
-				<div class="btn btn-calendar col mr-1 border border-0 p-0 day" data-toggle="modal" data-target="#exampleModal" data-protocolHead=" %s" data-protocolContent="%s" style="height:%s">%s</div>
+				<div class="btn col mr-1 border p-0 day btn-calendar" data-toggle="modal" data-target="#exampleModal" data-protocolHead=" %s" data-protocolContent="%s" style="height:%s">%s</div>
 		    		',$protocolHeader,$protocolContent,$trgButton,$protocolHeader);
 			}
 		}
