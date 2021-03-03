@@ -104,9 +104,9 @@ require_once('includes/functions.php');
       }
       ?>
       
-       <!-- Inventory -->
+      <!-- Inventory -->
        <?php
-      $navOptions = '
+      $adminOptions_invent = '
       <li class="nav-item">
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item dropdown">
@@ -119,8 +119,10 @@ require_once('includes/functions.php');
     </li>
       ';
       
-      if(isset($_SESSION['userName'])) {
-        print($navOptions);
+      if(isset($_SESSION['isAdmin'])) {
+        if($_SESSION['isAdmin']) {
+          print($adminOptions_invent);
+        }
       }
       ?>
       
