@@ -6,6 +6,7 @@ $labID = get_current_user_lab();
 if(isset($_POST["user"])){
     $user = $_POST["user"];
     $user_info = explode(',', $user);
+    $user = mysqli_real_escape_string($user_info[0]);
     $sql = "UPDATE users SET lab=$labID WHERE UserName='$user_info[0]'";
     $result = mysqli_query($conn, $sql);
     $done = TRUE;
