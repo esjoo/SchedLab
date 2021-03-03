@@ -8,8 +8,8 @@ if(isset($_POST['submit'])) {
     $password =mysqli_real_escape_string($conn, $_POST['pwd']);
 
     # TODO
-    $sql = "SELECT UserName, UserPassword, UserType, UserID
-    FROM Users 
+    $sql = "SELECT UserName, UserPassword, UserType, UserID, lab
+    FROM users 
     WHERE UserName = ?"; 
 
     $stmt = mysqli_stmt_init($conn);
@@ -17,7 +17,7 @@ if(isset($_POST['submit'])) {
 
         mysqli_stmt_bind_param($stmt, "s",$name);
         mysqli_stmt_execute($stmt);
-        mysqli_stmt_bind_result($stmt,$dbName,$dbhash,$isAdmin,$userID);
+        mysqli_stmt_bind_result($stmt,$dbName,$dbhash,$isAdmin,$userID, $lab);
         mysqli_stmt_store_result ($stmt);
     }
     
@@ -31,6 +31,7 @@ if(isset($_POST['submit'])) {
         $_SESSION['loggedIn'] = TRUE;
         $_SESSION['isAdmin'] = $isAdmin;
         $_SESSION['userID'] = $userID;
+        $_SESSION['lab'] = $lab;
         mysqli_stmt_close($stmt);
         include '../closeDB.php'; 
         header('Location: ../index.php?state=S');
