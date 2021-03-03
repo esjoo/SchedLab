@@ -1,4 +1,8 @@
 <?php
+if(!isset($_SESSION)) {
+  session_start();
+}
+
 function dateTimeToElement($startTime,$endTime) {
     $startTime = strtotime($startTime);
     $endTime = strtotime($endTime);
@@ -44,4 +48,12 @@ function get_current_user_id() {
     return 0;
   } 
   return $_SESSION['userID'];
+}
+
+// Get lab of logged in user
+function get_current_user_lab() {
+  if (!isset($_SESSION['lab'])){
+    return 0;
+  } 
+  return $_SESSION['lab'];
 }
