@@ -9,7 +9,7 @@
               
               ?>
         </div>
-        <h3>[labName]</h3>
+        <h3><?php echo get_current_user_labName(); ?></h3>
         <p>This week at a glimpse.</p>
         <ul class="nav nav-pills flex-column">
           <li class="nav-item">
