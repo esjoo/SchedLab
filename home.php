@@ -9,7 +9,7 @@
               
               ?>
         </div>
-        <h3>[labName]</h3>
+        <h3><?php echo get_current_user_labName(); ?></h3>
         <p>This week at a glimpse.</p>
         <ul class="nav nav-pills flex-column">
           <li class="nav-item">
@@ -65,9 +65,9 @@
                     ?>
           </h2> 
 
-          <a class="" href=<?php echo('?w='. $week-1); ?>><img src="gfx/left_cal.png"></a>
-          <a class="" href=<?php echo(' ?w='. $week+1); ?>><img src="gfx/right_cal.png"></a>
-          <a class="ml-auto p-2" ' data-toggle='modal' href='#newExperiment'><img src="gfx/plus.png"></a>
+          <a class="" href=<?php echo('?w='. ((int)$week-1)); ?>><img src="gfx/left_cal.png"></a>
+          <a class="" href=<?php echo('?w='. ((int)$week+1)); ?>><img src="gfx/right_cal.png"></a>
+          <a class="ml-auto p-2" data-toggle='modal' href='#newExperiment'><img src="gfx/plus.png"></a>
           
         </div>
             <?php include('newExperiment.php'); ?>

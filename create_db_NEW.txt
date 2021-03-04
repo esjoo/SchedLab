@@ -6,6 +6,7 @@ CREATE TABLE Users (
     UserEmail varchar(100) NOT NULL,
     UserFirstName varchar(50) NOT NULL,
     UserLastName varchar(50) NOT NULL,
+    lab int,
     UNIQUE(UserName)
 );
 
@@ -58,6 +59,16 @@ CREATE TABLE UserCalendar (
     ProtID int
 );
 
+CREATE TABLE lab (
+    LabID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    LabName varchar(100),
+    Manager int
+);
+
+
+ALTER TABLE Users 
+    ADD FOREIGN KEY (lab) REFERENCES lab(LabID);
+    
 ALTER TABLE Experiment 
     ADD (FOREIGN KEY (SupID) REFERENCES Supplement(SupID),
     FOREIGN KEY (CalenID) REFERENCES UserCalendar(CalenID),
@@ -75,3 +86,6 @@ ALTER TABLE Inventory
 ALTER TABLE UserCalendar 
     ADD (FOREIGN KEY (UserID) REFERENCES Users(UserID),
     FOREIGN KEY (ProtID) REFERENCES Protocols(ProtID));
+
+ALTER TABLE lab 
+    ADD FOREIGN KEY (Manager) REFERENCES users(UserID);

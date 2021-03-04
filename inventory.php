@@ -6,34 +6,66 @@ include_once("header.php");
 include_once("db.php");
 ?>
 
-<h1 style="color:#E9C5C5;font-family:Raleway;text-align:center;margin-top:20px">Inventory</h1>
+<h1 style="color:black;margin-left:50px;margin-top:20px">Inventory</h1>
 <body style="background-color:#FBF3F3">
 
 <style>
 th {
-    padding: 18px 80px;
-    background-color: white;
-    font-family:"Raleway";
+    padding: 18px 70px;
     font-size:18px;
+    text-align: center;
+    border:2px solid #e2a6a6;
+    background-color: #FBF3F3;
+    color: black;
+    width:50%;
 }
 td {
     padding: 8px;
     text-align: center;
-    background-color: white;
-    font-family:"Raleway";
+    border:2px solid #e2a6a6;
+    background-color: #FBF3F3;
+    width:50%;
+    font-weight: bold;
 }
 
-table.center {
-    margin-left: auto;
-    margin-right: auto;
+table {
+    margin-left: 50px;
     margin-top: 15px;
+
+}
+
+.add_chemicals {
+    color: black;
+    margin-left: 50px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.button {
+    margin-top: 10px;
+    background-color:#79ab79;
+    border: none;
+    color:white;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 12px;
+    height: 40px;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+div.part {
+    border-radius: 5px;
+    background-color: #f5e0e0;
+    padding: 20px;
 }
 
 </style>
 
+<div class="part">
 <?php
 //Creating table of inventory
-$sql = "SELECT InventID, Amount, Unit FROM Inventory";
+$sql = "SELECT InventName, Amount, Unit FROM Inventory ORDER BY InventName";
 $result = mysqli_query($conn,$sql);
 
 if (mysqli_num_rows($result) == 0) {
@@ -52,24 +84,29 @@ if (mysqli_num_rows($result) == 0) {
 echo "</table>";
 
 ?>
+</div>
 
-
+<h2 style="color:black;margin-left:50px;margin-top:20px">Add chemicals to inventory</h2>
 
 <!--To add chemicals-->
-<form action="add_to_inventory.php" method="POST"> <!--Don't manage to center these-->
-    <label name="chemical_name" style="margin-left:100px;margin-top:20px">Chemical:</label><br>
-    <input type="text" name="chemical_name" style="margin-left:100px"><br>
-    <label name="amount" style="margin-left:100px">Amount:</label><br>
-    <select name="amount" style="margin-left:100px"><br>
+<div class="part">
+<div class='add_chemicals'>
+<form action="add_to_inventory.php" method="POST"> 
+    <label name="chemical_name">Chemical:</label><br>
+    <input type="text" name="chemical_name" style="border:2px solid #e2a6a6"><br>
+    <label name="amount">Amount (ml):</label><br>
+    <select name="amount" style="border:2px solid #e2a6a6"><br>
         <?php
-        for($x=10;$x<=10000;$x+=10) {
+        for($x=50;$x<=10000;$x+=50) {
             print "<option value='$x'>$x</option>";
         }
         ?>
     </select><br>
-    <input type="submit" value="Add" style="margin-top:10px;margin-left:100px">
+    <input class = "button" type="submit" value="Add">
 
 </form>
+</div>
+</div>
 
 </body>
 </html>

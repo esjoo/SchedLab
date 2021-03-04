@@ -1,4 +1,7 @@
-<?php session_start();
+<?php 
+if(!isset($_SESSION)) { 
+        session_start(); 
+      }
 #declare helper functions 
 require_once('includes/functions.php');
 ?>
@@ -40,7 +43,7 @@ require_once('includes/functions.php');
                 <li class="nav-item dropdown">';
         echo '<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">'.$_SESSION['userName'].'</a>';
         echo '<div class="dropdown-menu dropdown-menu-left">
-                  <a class="dropdown-item" href="#"> Account</a>
+                  <a class="dropdown-item" href="account.php"> Account</a>
                   <a href="logout.php"class="dropdown-item">Logout</a>
                   </div>
                 </li>
@@ -62,7 +65,7 @@ require_once('includes/functions.php');
                   <li class="nav-item dropdown">
                       <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Admin</a>
                       <div class="dropdown-menu dropdown-menu-right">
-                          <a href="#" class="dropdown-item">Manage Users</a>
+                          <a href="manageUsers.php" class="dropdown-item">Manage Users</a>
                           <a href="#" class="dropdown-item">ORDER</a>
                           <a href="#" class="dropdown-item">BOSS button</a>    
                       </div>
@@ -71,7 +74,7 @@ require_once('includes/functions.php');
           ';
 
       if(isset($_SESSION['isAdmin'])) {
-        if(!$_SESSION['isAdmin']) {
+        if($_SESSION['isAdmin']) {
           print($adminOptions);
         }
       }
@@ -101,9 +104,9 @@ require_once('includes/functions.php');
       }
       ?>
       
-       <!-- Inventory -->
+      <!-- Inventory -->
        <?php
-      $navOptions = '
+      $adminOptions_invent = '
       <li class="nav-item">
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item dropdown">
@@ -116,8 +119,10 @@ require_once('includes/functions.php');
     </li>
       ';
       
-      if(isset($_SESSION['userName'])) {
-        print($navOptions);
+      if(isset($_SESSION['isAdmin'])) {
+        if($_SESSION['isAdmin']) {
+          print($adminOptions_invent);
+        }
       }
       ?>
       

@@ -3,34 +3,69 @@ html,body{
     background-color: #FBF3F3;
     color: #E9C5C5;
   }
+  
+/* Page styling */
+div.part {
+  margin-bottom:25px;
+  margin-right:25px;
+  margin-left:25px;
+  border-radius: 5px;
+  background-color: #f5e0e0;
+  padding: 20px;
+}
+a:hover {
+  cursor: pointer;
+  background-color: yellow;
+}
+input[type=text] {
+  border: 2px solid #e2a6a6;
+}
+h1.margin, h2.margin {
+  margin-top:25px;
+  margin-bottom:25px;
+  margin-right:50px;
+  margin-left:50px;
+  color:black;
+}
+.button, .submit {
+  background-color:#79ab79;
+  border: none;
+  color:white;
+  font-size: 20px;
+  text-align: center;
+  margin:25px;
+  border-radius: 12px;
+  height: 40px;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
 
-/* Calender event styling */
-.btn-calendar {
-    background-color:#E9C5C5;
-    border: none;
-    color:white;
-    font-size: 20px;
-    text-align: center;
-    transition: all 0.5s;
-    cursor: pointer;
+.button:hover span {
+  padding-right: 25px;
 }
-.btn-calendar span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
 }
-.btn-calendar span:after {
-    content: '\00bb';        
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition: 0.5s;        
-}        
-.btn-calendar:hover, .btn-calendar:focus, .btn-calendar:active, .btn-calendar.active{
-    background-color: #518451;
+p{
+  color:black;
+  margin-bottom: 0rem !important;
 }
-.green{
-    background-color: #518451;       
+p.lable {
+  color:#e2a6a6;
 }
