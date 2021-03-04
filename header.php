@@ -43,7 +43,7 @@ require_once('includes/functions.php');
                 <li class="nav-item dropdown">';
         echo '<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">'.$_SESSION['userName'].'</a>';
         echo '<div class="dropdown-menu dropdown-menu-left">
-                  <a class="dropdown-item" href="#"> Account</a>
+                  <a class="dropdown-item" href="account.php"> Account</a>
                   <a href="logout.php"class="dropdown-item">Logout</a>
                   </div>
                 </li>
