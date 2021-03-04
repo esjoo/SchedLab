@@ -1,4 +1,48 @@
 
+<head>
+    <style>
+        div.part {
+            border-radius: 5px;
+            margin:50px;
+            background-color: #f5e0e0;
+            padding: 20px;
+        }
+        .button {
+            background-color:#79ab79;
+            border: none;
+            color:white;
+            font-size: 20px;
+            text-align: center;
+            border-radius: 12px;
+            height: 40px;
+            transition: all 0.5s;
+            cursor: pointer;
+        }
+        .button span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
+        .button span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+        .button:hover span {
+            padding-right: 25px;
+        }
+        .button:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+    </style>
+</head>
+
+
 <body>
 
     <?php
@@ -90,5 +134,3 @@ function submitform(){
 <script type="text/javascript">
   document.getElementById('myPname').value = "<?php echo $_POST['From_prot'];?>";
 </script>
-
-
