@@ -216,6 +216,7 @@ function checkName(){
 
 </html>
 
+<!-- submit the form -->
 <?php 
 if(isset($_POST['submit1'])) {
 
