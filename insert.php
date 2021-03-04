@@ -91,7 +91,7 @@
         }
     </style>
 </head>
-
+<body>
     <?php 
         include 'header.php';  
         include 'db.php';
@@ -103,29 +103,29 @@
 
 <h1 class="margin">Create a new protocol</h1>
 <div class="form" style="text-align: left;">
-        <form action="showProtocol.php" method='post'>
+        <form action="showProtocol.php" method='post' onsubmit="return checkip()">
         
             <!-- Protocol name -->
             <div class="form-group">
                 <h5 class="margin"><label for="name">Protocol name</label></h5>
-                <input type="text" style="width:600px" class="form-control" placeholder="Enter name" name="name">
+                <input type="text" style="width:600px" class="form-control" placeholder="Enter name" name="protName" id="protName">
             </div>
                 
             <!-- Equipment -->          
             <div id="equipmentArea" class="form-group">
                 <h5 class="margin"><label for="equipment">Equipment</label></h5>
-                <textarea name="equipment" style="width:600px;height:200px;" placeholder="Insert all equipments"></textarea>
+                <textarea name="equipment" id="equipment" style="width:600px;height:200px;" placeholder="Insert all equipments"></textarea>
             </div>
         
 
             <!-- Procedure -->
             <div class="form-group">
                 <h5 class="margin"><label for="procedure">Procedure</label></h5>
-                <textarea name="procedure" style="width:600px;height:200px;" placeholder="Insert procedure"></textarea>
+                <textarea name="procedure" id="procedure" style="width:600px;height:200px;" placeholder="Insert procedure"></textarea>
             </div>
 
 
-            <!-- chemicals which have been in the db --> 
+            <!-- chemicals--> 
             
             <div class="part">                
                 <div class="search-box">
@@ -144,6 +144,11 @@
 
                     </tbody>
                 </table>
+            </div>
+
+            <!-- Protocol Creater -->
+            <div>
+                <input type="hidden" name="ProtCreater" value="<?php echo $_SESSION['userName']?>">
             </div>
 
             <!-- Submit --> 
@@ -218,3 +223,26 @@ $(document).ready(function(){
 </script>
 
 
+<script language="javascript">
+ function checkip() {
+        var protName = $('#protName').val()
+        var procedure = $('#procedure').val()
+        var equipment = $('#equipment').val()
+        var chemical = $('#chem_name').val()
+        if (protName==""){
+            alert('Protocal name cannot be empty')
+            return false;
+        }else if(procedure==""){
+            alert('Procedure cannot be empty')
+            return false;
+        }else if(equipment==""){
+            alert('Equipment cannot be empty')
+            return false;
+        }else if(chemical.length==0){
+            alert('Chemicals cannot be empty')
+            return false;
+        }else{
+            return true;   
+        }
+    }
+</script>
