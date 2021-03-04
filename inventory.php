@@ -65,7 +65,7 @@ div.part {
 <div class="part">
 <?php
 //Creating table of inventory
-$sql = "SELECT InventName, Amount, Unit FROM Inventory";
+$sql = "SELECT InventName, Amount, Unit FROM Inventory ORDER BY InventName";
 $result = mysqli_query($conn,$sql);
 
 if (mysqli_num_rows($result) == 0) {
@@ -97,7 +97,7 @@ echo "</table>";
     <label name="amount">Amount (ml):</label><br>
     <select name="amount" style="border:2px solid #e2a6a6"><br>
         <?php
-        for($x=10;$x<=10000;$x+=10) {
+        for($x=50;$x<=10000;$x+=50) {
             print "<option value='$x'>$x</option>";
         }
         ?>
