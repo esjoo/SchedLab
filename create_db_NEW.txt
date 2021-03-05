@@ -44,6 +44,7 @@ CREATE TABLE ProtocolGuide (
 
 CREATE TABLE Inventory (
     InventID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    InventName varchar(250),
     Amount int,
     Unit varchar(50),
     Unitprice int,
