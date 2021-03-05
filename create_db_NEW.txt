@@ -66,6 +66,11 @@ CREATE TABLE lab (
     Manager int
 );
 
+CREATE TABLE log (
+    LogID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    ActionID int,
+    UserAction int
+);
 
 ALTER TABLE Users 
     ADD FOREIGN KEY (lab) REFERENCES lab(LabID);
@@ -90,3 +95,6 @@ ALTER TABLE UserCalendar
 
 ALTER TABLE lab 
     ADD FOREIGN KEY (Manager) REFERENCES users(UserID);
+    
+ALTER TABLE log 
+    ADD FOREIGN KEY (UserAction) REFERENCES users(UserID);
