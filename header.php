@@ -125,6 +125,19 @@ require_once('includes/functions.php');
         }
       }
       ?>
+            
+      <!-- Chemical consumption --> 
+      <?php
+      $navOptions = '
+      <li class="nav-item">
+        <a type="button" class="nav-link" href="chemicalcalculation.php" >Chemical consumption</a>
+      </li>
+      ';
+
+      if(isset($_SESSION['userName'])) {
+        print($navOptions);
+      }
+      ?>
       
     </ul>
   </div>  
