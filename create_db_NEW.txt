@@ -7,6 +7,7 @@ CREATE TABLE Users (
     UserFirstName varchar(50) NOT NULL,
     UserLastName varchar(50) NOT NULL,
     lab int,
+    request int,
     UNIQUE(UserName)
 );
 
@@ -74,7 +75,8 @@ CREATE TABLE log (
 );
 
 ALTER TABLE Users 
-    ADD FOREIGN KEY (lab) REFERENCES lab(LabID);
+    ADD (FOREIGN KEY (lab) REFERENCES lab(LabID), 
+    FOREIGN KEY (request) REFERENCES lab(LabID));
     
 ALTER TABLE Experiment 
     ADD (FOREIGN KEY (SupID) REFERENCES Supplement(SupID),
