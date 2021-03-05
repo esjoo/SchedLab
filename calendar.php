@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="style/calendar.css">
 
+
 <!-- calendar window-->
 <div class="row h-100 flex-nowrap">
   <!-- column Time wrapper -->
@@ -13,7 +14,7 @@
       if($hour == localtime(time(),TRUE)['tm_hour']){
         $active = 'green';
       }
-      printf('<div class="col border border-dark flex-grow-1 %s"> %s:00 </div>',$active,$hour);
+      printf('<div class="col border border-dark flex-grow-1  %s"> %s:00 </div>',$active,$hour);
     }
     ?>
 
@@ -28,7 +29,7 @@
 		}	
 		
 		//day wrapper
-		echo('<div class ="col p-0 border border-dark weekday"  style="background: url("gfx/T.png") background-repeat:repeat-y" >'); 
+		echo('<div class ="col p-0 border border-dark weekday overflow-hidden">'); 
 
 		//print header
 		printf('<div class=" p-2 border border-dark  %s"> %s </div>',$active,date_format( $day,'l jS') );
