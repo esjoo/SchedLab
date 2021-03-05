@@ -69,7 +69,8 @@ CREATE TABLE lab (
 CREATE TABLE log (
     LogID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     ActionID int,
-    UserAction int
+    UserAction int,
+    Timestamp DateTime
 );
 
 ALTER TABLE Users 
