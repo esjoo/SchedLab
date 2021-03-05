@@ -66,7 +66,7 @@ require_once('includes/functions.php');
                       <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Admin</a>
                       <div class="dropdown-menu dropdown-menu-right">
                           <a href="manageUsers.php" class="dropdown-item">Manage Users</a>
-                          <a href="#" class="dropdown-item">Logs</a>    
+                          <a href="log.php" class="dropdown-item">Logs</a>    
                       </div>
                   </li>
               </ul>
