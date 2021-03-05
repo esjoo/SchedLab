@@ -1,4 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+
+<body style="background-color:#FBF3F3">
+
 <?php
+//Error handling function
+function amountError($errno, $errstr) {
+    echo "<b>Error: </b> $errstr<br>";
+    die();
+}
+
+//Set error handler
+set_error_handler("amountError", E_USER_WARNING);
+
+
 include_once("db.php");
 $chemical_name=$_POST["chemical_name"];
 $chemical_name=mysqli_real_escape_string($conn,$chemical_name);
@@ -15,15 +31,31 @@ if (mysqli_num_rows($current_amount_result) > 0) {
         $current_amount = $current_amount[0];
         $current_amount = intval($current_amount);
         $new_amount = $current_amount + $amount;
-    }
-    $result = mysqli_query($conn, "UPDATE Inventory SET Amount = $new_amount WHERE InventName='$chemical_name'");   
-    //Get redirected back to the inventory page
-    header("Location: http://localhost/ims/schedlab/schedlab_vers2/inventory.php");
-
+        }
+    if ($new_amount < 0) {
+        trigger_error("The amount of " . $chemical_name . " cannot be lower than zero!", E_USER_WARNING);
+        echo "<form action='inventory.php'>";
+        echo "<input class='button' type='submit' value='Go back'>";
+        echo "</form>";
+    } else {
+        $result = mysqli_query($conn, "UPDATE Inventory SET Amount = $new_amount WHERE InventName='$chemical_name'");   
+        //Get redirected back to the inventory page
+        header("location: " . $_SERVER['HTTP_REFERER']);
+        }
 } else {
-    $result = mysqli_query($conn, "INSERT INTO Inventory (InventName, Amount, Unit) VALUES ('$chemical_name', $amount, 'ml')");
-    //Get redirected back to the inventory page
-    header("Location: http://localhost/ims/schedlab/schedlab_vers2/inventory.php");
+    if ($amount <0) {
+        trigger_error("The amount of " . $chemical_name . " cannot be lower than zero!", E_USER_WARNING);
+        echo "<form action='inventory.php'>";
+        echo "<input class='button' type='submit' value='Go back'>";
+        echo "</form>"; 
+    }else {
+        $result = mysqli_query($conn, "INSERT INTO Inventory (InventName, Amount, Unit) VALUES ('$chemical_name', $amount, 'ml')");
+        //Get redirected back to the inventory page
+        header("location: " . $_SERVER['HTTP_REFERER']);
+    }
 }
 
 ?>
+
+</body>
+</html>
