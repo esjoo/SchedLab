@@ -17,6 +17,7 @@
         <!-- Modal footer -->
         <div class="modal-footer">
         <button name="submit" type="submit" class="btn btn-primary">Edit Protocol</button>
+        <a class="btn btn-danger" href="remove_exp.php" onclick="return confirm('Are you sure you want to remove this experiment?');" >Remove experiment</a>
         </div>
     </div>
 </div>

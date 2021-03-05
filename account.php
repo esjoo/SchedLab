@@ -24,7 +24,9 @@ while($row = $result->fetch_assoc()){
     echo "<lable name='last_name'>Last name:</lable><br><input type='text' name='last_name' value=".$row['UserLastName']."><br>";
     echo "<p class='lable'>Username: </p><p>".$row['UserName']."</p>";
     echo "<lable name='email'>Email:</lable><br><input type='text' name='email' value=".$row['UserEmail']."><br>";
-    echo "<p class='lable'>Lab: </p><p>".$labName."</p>";
+    if (isset($labName)){
+        echo "<p class='lable'>Lab: </p><p>".$labName."</p>";
+    }
 }
 echo "<div><button class='button submit' type='submit' name='submit'><span>Submit changes</span></button></div>";
 echo "</form></div>";

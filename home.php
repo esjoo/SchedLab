@@ -9,7 +9,7 @@
               
               ?>
         </div>
-        <h3>[labName]</h3>
+        <h3><?php echo get_current_user_labName(); ?></h3>
         <p>This week at a glimpse.</p>
         <ul class="nav nav-pills flex-column">
           <li class="nav-item">
@@ -30,7 +30,7 @@
     <!--Main -->
     <div class="col">
         <!-- calendar top -->
-        <div class=" row">
+        <div class="row">
           <!--Top text -->
           <h2 class="h-100">
             <?php 
@@ -42,7 +42,7 @@
                       
                       #set week endpoint
                       $monday = $day;
-                      $sunday = date_isodate_set(date_create(), date_format($today,'o'), date_format($today,'W') , 7 );
+                      #$sunday = date_isodate_set(date_create(), date_format($today,'o'), date_format($today,'W') , 7 );
                       
                       
                       #print week
@@ -56,7 +56,7 @@
                      
                       #set week endpoint
                       $monday = $day;
-                      $sunday = date_isodate_set(date_create(), date_format($day,'o'), date_format($day,'W') , 7 );
+                      #$sunday = date_isodate_set(date_create(), date_format($day,'o'), date_format($day,'W') , 7 );
                       
                       #print week
                       $week = $_GET['w'];
@@ -70,8 +70,14 @@
           <a class="ml-auto p-2" data-toggle='modal' href='#newExperiment'><img src="gfx/plus.png"></a>
           
         </div>
-            <?php include('newExperiment.php'); ?>
-            <?php  include('calendar.php');?>
+        <?php    
+          if(isset($_SESSION['lab'])){
+            include('newExperiment.php'); 
+            include('calendar.php');
+            } else {
+              #include(''); //OOPS something went wrong
+            }?>
+            
       </div>
   </div>
 </div>

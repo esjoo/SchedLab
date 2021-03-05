@@ -1,7 +1,7 @@
 <?php 
 if(isset($_POST['submit'])) {
     require_once('../db.php');
-    
+    session_start();    
     # TODO: sanitise inputs 
 
     $protocolName = mysqli_real_escape_string($conn,$_POST['protocolName']);
@@ -9,6 +9,8 @@ if(isset($_POST['submit'])) {
     $labtimeStart = mysqli_real_escape_string($conn,date('Y-m-d G:i:s', strtotime($_POST['labtimeStart']))); 
     $labtimeEnd = mysqli_real_escape_string($conn,date('Y-m-d G:i:s', strtotime($_POST['labtimeEnd'])));
 
+
+    //get protocolID from input name
     $sql =  'SELECT protID FROM  protocols WHERE ProtName =?';
     $stmt = mysqli_stmt_init($conn);
 
@@ -21,12 +23,20 @@ if(isset($_POST['submit'])) {
         $stmt->close();
     }
 
+
+/*
+    // IF inventory checksout Insert ELSE THROW
+   if(checkInventory()) {
+       
+   }
+*/
+    //Insert
     $sql = "INSERT INTO usercalendar (UserID,ProtID,FromDateTime,TillDateTime) VALUES(?,?,?,?)";
     if($stmt = $conn->prepare($sql)) {
         
         $stmt->bind_param("ssss",$_SESSION['userID'],$protID,$labtimeStart,$labtimeEnd);
         $stmt->execute();
-
+        print_r( $stmt);
 
         echo "New record created successfully";
         require_once('../closeDB.php');

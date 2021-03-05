@@ -1,0 +1,30 @@
+/* Calender event styling */
+.btn-calendar {
+    background-color:#E9C5C5;
+    border: none;
+    color:white;
+    font-size: 20px;
+    text-align: center;
+    transition: all 0.5s;
+    cursor: pointer;
+  }
+  .btn-calendar span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  .btn-calendar span:after {
+    content: '\00bb';        
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;        
+  }        
+  .btn-calendar:hover, .btn-calendar:focus, .btn-calendar:active, .btn-calendar.active{
+    background-color: #518451;
+  }
+  .green{
+    background-color: #518451;       
+  }

@@ -66,15 +66,14 @@ require_once('includes/functions.php');
                       <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Admin</a>
                       <div class="dropdown-menu dropdown-menu-right">
                           <a href="manageUsers.php" class="dropdown-item">Manage Users</a>
-                          <a href="#" class="dropdown-item">ORDER</a>
-                          <a href="#" class="dropdown-item">BOSS button</a>    
+                          <a href="#" class="dropdown-item">Logs</a>    
                       </div>
                   </li>
               </ul>
           ';
 
       if(isset($_SESSION['isAdmin'])) {
-        if(!$_SESSION['isAdmin']) {
+        if($_SESSION['isAdmin']) {
           print($adminOptions);
         }
       }
@@ -123,6 +122,19 @@ require_once('includes/functions.php');
         if($_SESSION['isAdmin']) {
           print($adminOptions_invent);
         }
+      }
+      ?>
+            
+      <!-- Chemical consumption --> 
+      <?php
+      $navOptions = '
+      <li class="nav-item">
+        <a type="button" class="nav-link" href="chemicalcalculation.php" >Chemical consumption</a>
+      </li>
+      ';
+
+      if(isset($_SESSION['userName'])) {
+        print($navOptions);
       }
       ?>
       

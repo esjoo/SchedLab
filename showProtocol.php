@@ -9,6 +9,7 @@
 	        margin-bottom:25px;
 	        margin-right:50px;
 	        margin-left:50px;
+            color:black;
         }
         div.part {
             border-radius: 5px;
@@ -20,6 +21,7 @@
 	        margin-bottom:25px;
 	        margin-right:50px;
 	        margin-left:50px;
+            color:black;
         }
         table, td, th 
         {
@@ -76,11 +78,12 @@
         include 'header.php';
         include "db.php";
 
-        $name = $_POST['name'];
+        $protName = $_POST['protName'];
         $procedure = $_POST['procedure'];
         $equipment = $_POST['equipment'];
         $chemicals = $_POST['chemicals'];
         $dosages = $_POST['dosages'];
+        $ProtCreater = $_POST['ProtCreater'];
  
         include "closeDB.php";
     ?>
@@ -88,7 +91,7 @@
     <h2 class="margin">Protocol Name</h2>
         <div class="part">
         <?php
-            echo "<div>{$name}</div>";
+            echo "<div>{$protName}</div>";
         ?>
         </div>
 
@@ -96,6 +99,7 @@
         <div class="part">
         <?php
             $procedure = nl2br($procedure, true);
+
             echo "<div>{$procedure}</div>";
         ?>
         </div>
@@ -104,6 +108,7 @@
         <div class="part">
         <?php
             $equipment = nl2br($equipment, true);
+ 
             echo "<div>{$equipment}</div>";
         ?>
         </div>
@@ -133,10 +138,26 @@
         </div>
     
         <div class="form-inline" style="text-align: center">
-            <form action="insert.inc.php" method='post'>
-                <input type="hidden" name="name" value="<?php echo $name?>">
-                <input type="hidden" name="procedure" value="<?php echo $procedure?>">
-                <input type="hidden" name="equipment" value="<?php echo $equipment?>">
+            <form action="insert.inc.php" method='post' onsubmit="return checkName()">
+                
+                <?php
+                    // check if there is a same protocol name in the db.
+                    include 'db.php';
+                    $result = mysqli_query($conn,"SELECT ProtName FROM Protocols WHERE ProtName = '$protName'");
+                    $num1 = mysqli_num_rows($result);
+                    if($num1 == '0'){
+                        echo '<input type="hidden" id="test1" name="test1" value="0">';
+                    }else{
+                        echo '<input type="hidden" id="test1" name="test1" value="1">';
+                    }
+                    include 'closeDB.php';
+
+                ?>
+
+                <input type="hidden" name="protName" value="<?php echo $protName?>">
+                <input type="hidden" name="ProtCreater" value="<?php echo $ProtCreater?>">
+                <input type="hidden" name="procedure" value="<?php echo strip_tags($procedure, true)?>">
+                <input type="hidden" name="equipment" value="<?php echo strip_tags($equipment, true)?>">
 
                 <?php
                     $len = count($chemicals);
@@ -147,12 +168,12 @@
                 ?>
 
                 <div>
-                    <button name="submit" type="submit" class="button" style="width: 200px"><span>Submit</span></button>
+                    <button name="submit1" type="submit" class="button" style="width: 200px"><span>Submit</span></button>
                 </div>
             </form>
 
             <form action="editProtocol.php" method='post'>
-                <input type="hidden" name="name" value="<?php echo $name?>">
+                <input type="hidden" name="protName" value="<?php echo $protName?>">
                 <input type="hidden" name="procedure" value="<?php echo $procedure?>">
                 <input type="hidden" name="equipment" value="<?php echo $equipment?>">
                 
@@ -164,11 +185,35 @@
                     }
                 ?>
 
-
                 <div>
-                    <button name="submit" type="submit" class="button" style="width: 200px"><span>Edit</span></button>
+
+                    <?php
+                        $userName = $_SESSION['userName'];
+                        echo '<input type="hidden" name="ProtCreater" value="' . $userName . '">';
+                        if ($userName == $ProtCreater){
+                            echo '<button name="submit2" type="submit" class="button" style="width: 200px"><span>Edit</span></button>';
+                        }else{
+                            echo '<button name="submit2" type="submit" class="button" style="width: 200px"><span>Copy</span></button>';
+                        }
+                    ?>
+                    
                 </div>
             </form>
         </div>
 
+
+<!-- send form to insert.inc.php -->
+<script language="javascript">
+function checkName(){
+    var protTest1 = $('#test1').val()
+    if(protTest1 == 1){
+        alert('Protocol name already exists, please change!')
+        return false;
+    }else{
+        return true;
+    }
+}
+</script>
+
 </html>
+

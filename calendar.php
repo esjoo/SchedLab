@@ -1,35 +1,5 @@
-<style>
-/* Calender event styling */
-.btn-calendar {
-    background-color:#E9C5C5;
-    border: none;
-    color:white;
-    font-size: 20px;
-    text-align: center;
-    transition: all 0.5s;
-    cursor: pointer;
-}
-.btn-calendar span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
-}
-.btn-calendar span:after {
-    content: '\00bb';        
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition: 0.5s;        
-}        
-.btn-calendar:hover, .btn-calendar:focus, .btn-calendar:active, .btn-calendar.active{
-    background-color: #518451;
-}
-.green{
-    background-color: #518451;       
-}
-</style>
+<link rel="stylesheet" href="style/calendar.css">
+
 
 <!-- calendar window-->
 <div class="row h-100 flex-nowrap">
@@ -44,7 +14,7 @@
       if($hour == localtime(time(),TRUE)['tm_hour']){
         $active = 'green';
       }
-      printf('<div class="col border border-dark flex-grow-1 %s"> %s:00 </div>',$active,$hour);
+      printf('<div class="col border border-dark flex-grow-1  %s"> %s:00 </div>',$active,$hour);
     }
     ?>
 
@@ -59,7 +29,7 @@
 		}	
 		
 		//day wrapper
-		echo('<div class ="col p-0 border border-dark weekday"  style="background: url("gfx/T.png") background-repeat:repeat-y" >'); 
+		echo('<div class ="col p-0 border border-dark weekday overflow-hidden">'); 
 
 		//print header
 		printf('<div class=" p-2 border border-dark  %s"> %s </div>',$active,date_format( $day,'l jS') );

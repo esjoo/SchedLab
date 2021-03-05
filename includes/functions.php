@@ -57,3 +57,18 @@ function get_current_user_lab() {
   } 
   return $_SESSION['lab'];
 }
+
+// Get labname of logged in user
+function get_current_user_labName() {
+  if (!isset($_SESSION['lab'])){
+    return 0;
+  } 
+  $labID = $_SESSION['lab'];
+  include "db.php";
+  $sql = "SELECT LabName FROM lab WHERE LabID=$labID";
+  $result = mysqli_query($conn, $sql);
+  include "closeDB.php";
+  if($r = mysqli_fetch_row($result)) {
+    return $r[0];
+  }
+}
