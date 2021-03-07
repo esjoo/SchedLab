@@ -1,66 +1,65 @@
 <?php 
 if(isset($_POST['submit'])) {
     
-    require_once('db.php');
+    include('db.php');
 
+    // insert the protocol into the database
     $name = mysqli_real_escape_string($conn, $_POST['name']);
     $procedure = mysqli_real_escape_string($conn, $_POST['procedure']);
     $equipment = mysqli_real_escape_string($conn, $_POST['equipment']);
-    $i = 1;
-    $chemicals = array();
-    while(mysqli_real_escape_string($conn, $_POST['chemical' . $i]) != NULL) {
-        array_push($chemicals, mysqli_real_escape_string($conn, $_POST['chemical' . $i]));
-        $i++;
-    }
-    //$chemical = mysqli_real_escape_string($conn, $_POST['chemical1']);
-    $str_chemicals = implode($chemicals);
-    print( $str_chemicals );
-    
-    $val = "\"".$name."\""   .','  . "\"".$procedure. "\"" .','. "\"".$equipment."\"".','."\"".$str_chemicals."\""; 
-   
-    $sql = "INSERT INTO protocol (ProtName, Method, AllEquipment, AllReagent) VALUES (".$val.");";
-   
-    if (mysqli_query($conn, $sql)) {
-        $sql = "SELECT ProtID FROM protocol WHERE (ProtName='$name', Method='$procedure');";
-        $prot_id = mysqli_query($conn, $sql);
-        echo "New record created successfully";
 
-        // $chemicals = explode(",", $chemicals, 1000);
-        for ($x = 1; $x <= count($chemicals); $x++){
-            if (!mysqli_query($conn, "SELECT SupID FROM supplement WHERE SupName=$chemicals[$x];")){
-                if (mysqli_quary($conn, "INSERT INTO supplement (SupName) VALUES ('$chemicals[$x]');")) {
-                    echo "New supplement added successfully";
-                } else {
-                    echo "Error: " . $sql . "" . mysqli_error($conn);
-                }
-            }
-            $sql = "SELECT id FROM supplement WHERE SupName=$chemical";
-            $sup_id = mysqli_query($conn, $sql);
-            
-            $sql = "INSERT INTO include (ProtocolNum, SupID) VALUES ($prot_id, $sup_id);";
-            if (mysqli_query($conn, $sql)) {
-                echo "New reagent added successfully";
+    $sql = "INSERT INTO protocols (ProtName, ProtMethod, EquipmentID) 
+    VALUES ('$name', '$procedure','$equipment')";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Successfully enter a new protocol!";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+
+    // insert the amount of chemicals have been in db into the ProtocolGuid db
+    $chemicals = $_POST['chemicals'];
+    $dosages = $_POST['dosages'];
+
+    $sql1 = "INSERT INTO Supplement (SupName, SupPrice, Stock)  VALUES(?, ?, ?)"; 
+    $stmt1 = mysqli_stmt_init($conn);
+
+    $sql2 = "INSERT INTO ProtocolGuide (Dosage, ProtID, SupID)  VALUES(?, ?, ?)"; 
+    $stmt2 = mysqli_stmt_init($conn);
+
+    $ProtID0 = mysqli_query($conn,"SELECT * FROM Protocols WHERE ProtName = '$name'");
+    while($row = $ProtID0->fetch_assoc()){
+        $ProtID = $row['ProtID'];
+    }
+
+    $length = count($chemicals);
+    for($i=0;$i<$length;$i++){
+        $chemical = $chemicals[$i];
+        $result = mysqli_query($conn,"SELECT SupName FROM Supplement WHERE SupName = '$chemical'");
+        $num = mysqli_num_rows($result);
+        
+        if($num == "0"){
+            if (mysqli_stmt_prepare($stmt1, $sql1)) {
+                mysqli_stmt_bind_param($stmt1, 'sii', $SupName, $SupPrice, $Stock);               
+                $SupPrice = 0;
+                $Stock = 0;               
+                $SupName = $chemical;           
+                mysqli_stmt_execute($stmt1);               
             }
         }
-        /*$i = 1;
-        while (isset($chemical)) {
-            $sql = "SELECT id FROM supplement WHERE SupName=$chemical";
-            if (!mysqli_query($conn, $sql)) {
-                $sql1 = "INSERT INTO supplement (SupName) VALUES ('$chemical');";
-                mysqli_query($conn, $sql1);
+
+        if (mysqli_stmt_prepare($stmt2, $sql2)) {        
+            mysqli_stmt_bind_param($stmt2, 'iii', $Dosage, $ProtID, $SupID);           
+            $Dosage = $dosages[$i];           
+            $SupID0 = mysqli_query($conn,"SELECT * FROM Supplement WHERE SupName = '$chemical'");
+            while($row = $SupID0->fetch_assoc()){
+                $SupID = $row['SupID'];
             }
-            $sup_id = mysqli_query($conn, $sql);
-            
-            $sql = "INSERT INTO include (ProtocolNum, SupID) VALUES ($prot_id, $sup_id);";
-            $i++;
-            $chem_tag = "chemical".$i;
-            $chemical = mysqli_real_escape_string($conn, $_POST[$chem_tag]);
+            mysqli_stmt_execute($stmt2);
         }
-        */
-        //header('Location: index.php');
-        //exit();
-     } else {
-        echo "Error: " . $sql . "" . mysqli_error($conn);
-     }  
-    } 
+    }
+}
+
+include "closeDB.php"
 ?>

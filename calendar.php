@@ -1,59 +1,100 @@
-<?php 
-include('db.php');
-	# TODO
-    #Return the whole DB
-    $sql = 'SELECT movies.name, genres.name, movies.rating, movies.year 
-    FROM movies
-    LEFT JOIN genres ON movies.genre = genres.id';
-  
+<link rel="stylesheet" href="style/calendar.css">
 
-    if(mysqli_query($conn, $sql)) {
-        $result = mysqli_query($conn, $sql);
-    } else {
-        echo('FAIL:'. mysqli_connect_error());
-}
-?>
+<!-- calendar window-->
+<div class="row h-100 flex-nowrap">
+  <!-- column Time wrapper -->
+  <div class= "d-flex flex-column border border-dark">
+    <!-- header-->
+    <div class="p-2 border border-dark "> Time </div>
+    <!-- content -->
+    <?php 
+    foreach (range(8,17) as $hour) {
+      $active='';
+      if($hour == localtime(time(),TRUE)['tm_hour']){
+        $active = 'green';
+      }
+      printf('<div class="col border border-dark flex-grow-1 %s"> %s:00 </div>',$active,$hour);
+    }
+    ?>
 
-<table class="table table table-hover table-bordered">
-    <thead class="thead-dark">
-      <tr>
-	  	<th>Time</th>
-		<?php
-		if(!isset($_GET['week'])) {
-			$day =(strtotime("Monday"));
+  </div>
+	<?php
+	for ($i = 1; $i<=7; $i++) {	
+		$active = 'bg-secondary';
+		  
+		//Check which day
+		if(date_format(date_create(),'l jS') == date_format( $day,'l jS')) {
+		    $active = 'green';
+		}	
+		
+		//day wrapper
+		echo('<div class ="col p-0 border border-dark weekday"  style="background: url("gfx/T.png") background-repeat:repeat-y" >'); 
+
+		//print header
+		printf('<div class=" p-2 border border-dark  %s"> %s </div>',$active,date_format( $day,'l jS') );
+
+		// Get calender events
+		include('db.php');
+    $userID = get_current_user_id();
+		$sql = "SELECT * FROM usercalendar WHERE UserID = $userID ORDER BY FromDateTime";
+		$result = mysqli_query($conn, $sql);
+		while ($row = mysqli_fetch_row($result)) {
+			$sameDay = FALSE;
+			if (isset($date)){
+				$prevDateTime = $date;
+				$prevDate = $date->format('Y-m-d');
+				$prevEventEnd = $dateEnd->format('G:i:s');
+			}
+
+			$date = DateTime::createFromFormat('Y-m-d G:i:s', $row[1]);
+			$dateEnd = DateTime::createFromFormat('Y-m-d G:i:s', $row[2]);
+			$thisDate = $date->format('Y-m-d');
+	
+			// Check if there is another event before this the same day
+			if (isset($prevDate) && $thisDate == $prevDate) {
+				$sameDay = TRUE;
+			}
+
+			// Get event information 
+			if(date_format($date,'l jS') == date_format( $day,'l jS')) {
+				$protocolContent = "Time and date for the experiment: ".$row[1]."-".$row[2];
+
+				// Get the date and time of an experiment
+				$trgButton = dateTimeToElement($row[1], $row[2])/11*100 . '%';
+				$eventStart = $date->format('G:i:s');
+
+				// Add correct spacing befor the event
+				if ($sameDay){
+					$eventMargin = dateTimeToElement($prevEventEnd, $eventStart)/11*100 . '%';
+				} else {
+					$eventMargin = dateTimeToElement('08:00:00', $eventStart)/11*100 . '%';
+				}
+
+				// Get header of an experiment
+				$protID = (int)$row[4];
+				$prot_sql = "SELECT ProtID, ProtName FROM protocols WHERE ProtID=$protID";
+				$protName = mysqli_query($conn, $prot_sql);
+				$protocolName = mysqli_fetch_row($protName);
+				$protocolHeader = $protocolName[1];
+
+				// print content
+				printf('<div class="border border-0" style="height:%s"></div>
+				',$eventMargin);
+				printf('
+				<div class="btn col mr-1 border p-0 day btn-calendar" data-toggle="modal" data-target="#exampleModal" data-protocolHead=" %s" data-protocolContent="%s" style="height:%s">%s</div>
+		    		',$protocolHeader,$protocolContent,$trgButton,$protocolHeader);
+			}
 		}
 
-		for ($i = 1; $i<=7; $i++) {
-			#$start =date_add($start,date_interval_create_from_date_string('1 days'));
-			
-			printf('<th>%s</th>',date('l jS', $day) );
-			$day = strtotime("+$i day");
-		}
-		
-		
+		//close day wrapper
+		printf('</div>');
 
-		?>
+		// Increment day
+		$day = date_modify($day,"1 days");	
+	}
 
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <?php 
-        while($row = mysqli_fetch_row($result)){
-        
-           printf('
-		   <tr>
-            <td>%s</td>
-            <td>%s</td>
-            <td>%s</td>
-			<td>%s</td>
-			<td>%s</td>
-			<td>%s</td>
-			<td>%s</td>
-			<td>%s</td>
-           </tr>',$row[0],$row[1],$row[2],$row[3],'empty','empty','empty','empty','empty'
-        );
-        }
-        ?>
-    </tbody>
-  </table>
+  include('closeDB.php');
+	include('experimentModal.php');
+	?>
+
+</div>

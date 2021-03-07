@@ -10,20 +10,23 @@ if(isset($_POST['submit'])) {
     # TODO
     $sql = "SELECT usersEmail, usersName 
     FROM users 
-    WHERE usersPwd = $password AND usersPwd= $email"; 
+    WHERE usersPwd = $password AND usersEmail= $email"; 
     
     
     $query = mysqli_query($conn, $sql);
 
-    $result = mysqli_fetch_assoc($query);
+    $result = mysqli_fetch_array($query);
 
     # TODO
-    if(empty(($result)) ) {   
-        print_r($result);
-        $_SESSION['userName'] = $result['userName'];
-        header('Location: index.php');
-        exit();
+    if(mysqli_num_rows($query) > 0) {   
+        session_start();
+        $_SESSION['userName'] = $result['usersName'];
+        $_SESSION['loggedIn'] = TRUE;
+        print($_SESSION['userName']);
+        #eader('Location: index.php');
+        #exit();
     } else {
+        echo'FAILED';
         header('Location: index.php?=fail');
     }
 }
