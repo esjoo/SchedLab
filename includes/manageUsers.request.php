@@ -15,7 +15,6 @@ if(isset($_POST["request"]) && $_POST["request"]=="approve") {
     }
     $sql = "UPDATE users SET lab=$newLab, request=NULL WHERE UserName='$approve_user'";
     $result = mysqli_query($conn, $sql); 
-    echo $approve_user.", ".$newLab;
 
     // Add action to log
     $action = "Approved move of ".$approve_user." from lab ".$labName." to lab ".$newLab;
@@ -37,6 +36,6 @@ if(isset($_POST["request"]) && $_POST["request"]=="reject") {
 }
 include "../closeDB.php";
 
-//header("Location: ../manageUsers.php");
-//die();
+header("Location: ../manageUsers.php");
+die();
 ?>
