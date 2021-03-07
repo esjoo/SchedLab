@@ -97,7 +97,7 @@ function get_current_user_labName() {
 
 
 
-//Get supplement list WHERE ProtID
+//Get supplement list WHERE ProtID: Returns array of arrays (Inventory stocks,supplementIDs,protocol required dosages)
 function getInventory($protID) {
   include('db.php');
 
@@ -143,3 +143,26 @@ function checkInventory($inventory,$supplements) {
 return min(array_map($func, $inventory,$supplements))>=0;
 } 
 
+//get Time allocated week
+function timeAllocated($w) {
+  include('db.php');
+
+  $sql =  'SELECT SUM(TIME_TO_SEC(TIMEDIFF(FromDateTime,TillDateTime))/3600) FROM usercalendar WHERE userID=1 AND WEEK(FromDateTime)=10';
+
+  
+  if($stmt =$conn->prepare($sql)) {
+    
+      #$stmt->bind_param("ss",$_SESSION['userID'],$w);
+    
+      $stmt->execute();
+      print_r($stmt);
+      $stmt->bind_result($time);
+     
+      $tmp = $time->fetch();
+      
+
+      $stmt->close();
+    include('closeDB.php');
+    return $tmp;  
+  }
+}

@@ -35,7 +35,7 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+                <button name="submit" type="submit" class="btn btn-primary btn-green-transform">Submit</button>
             </div>
             </form>
         </div>

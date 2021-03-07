@@ -1,6 +1,6 @@
 html,body{
     height:100%;
-    background-color: #FBF3F3;
+    background-color: #f8e5e5;
     color: black;
   }
   
@@ -15,7 +15,7 @@ div.part {
 }
 a:hover {
   cursor: pointer;
-  background-color: yellow;
+ 
 }
 input[type=text] {
   border: 2px solid #e2a6a6;
@@ -68,4 +68,57 @@ p{
 }
 p.lable {
   color:#e2a6a6;
+}
+#calendar {
+  height: 90%;
+  background-image:linear-gradient(to right, #fff 1px, transparent 1px), linear-gradient(#ccc 1px, transparent 1px);
+  background-size:  100% 9.53%;
+  background-repeat: repeat-y;
+  background-position: 0% 16.1%;
+}
+#main {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+
+.box {
+  display: flex;
+  flex-flow: row;
+  height: 100%;
+}
+.box-child {
+  flex: 0 1 auto;
+  margin: 0%;
+  padding: 0;
+}
+.weekdayheader {
+  height:auto;
+  border-top-right-radius: 25px
+}
+.weekday {
+ 
+}
+#newExperiment .modal-content {
+  background-color: #FBF3F3;
+}
+#newExperiment .modal-content {
+  background-color: #FBF3F3;
+}
+
+.btn-green-transform {
+  background-color:#79ab79;
+  border: none;
+  color:black;
+
+  text-align: center;
+
+  border-radius: 12px;
+
+  transition: all 0.5s;
+  cursor: pointer;
+}
+.btn-green-transform:hover {
+  background-color:#79ab79;
+  color:black;
 }
