@@ -41,7 +41,7 @@ require_once('includes/functions.php');
       <?php if(isset($_SESSION['userName'])) {
         echo '<ul class="nav navbar-nav ml-auto">
                 <li class="nav-item dropdown">';
-        echo '<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">'.$_SESSION['userName'].'</a>';
+        echo '<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">'.$_SESSION['userFirstName'].'</a>';
         echo '<div class="dropdown-menu dropdown-menu-left">
                   <a class="dropdown-item" href="account.php"> Account</a>
                   <a href="logout.php"class="dropdown-item">Logout</a>
