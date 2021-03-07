@@ -1,7 +1,7 @@
-<div class="container-fluid w-100 h-100">
-  <div class="d-flex h-75">
+<div class="" id="main">
+  <div class="box">
   <!--SIDEBAR -->
-    <div class="py-2">
+    <div class="box-child">
       <div class="collapse" id="leftCol">
         <div class="p-2">
           <?php 
@@ -13,16 +13,13 @@
         <p>This week at a glimpse.</p>
         <ul class="nav nav-pills flex-column">
           <li class="nav-item">
-            <a class="nav-link active" href="#">This week costs: {}</a>
+            <a class="nav-link" href="#">This week costs: {}</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">List of materials consumed</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Time allocated</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
           </li>
         </ul>
       </div>
@@ -71,7 +68,7 @@
           
         </div>
         <?php    
-          if(isset($_SESSION['lab'])){
+          if(!isset($_SESSION['lab'])){
             include('newExperiment.php'); 
             include('calendar.php');
             } else {
