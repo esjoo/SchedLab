@@ -103,7 +103,7 @@
 
 <h1 class="margin">Create a new protocol</h1>
 <div class="form" style="text-align: left;">
-        <form action="showProtocol.php" method='post' onsubmit="return checkip()">
+        <form action="showProtocol.php" method='post' name="protForm" onsubmit="return checkip()">
         
             <!-- Protocol name -->
             <div class="form-group">
@@ -129,7 +129,7 @@
             
             <div class="part">                
                 <div class="search-box">
-                    <input style="height:40px" type="text" autocomplete="off" placeholder="Search Chemicals" id="chem_name" /><button type="button" class="add-row button" id="add"><span>ADD</span></button><button type="button" class="delete-row button"><span>REMOVE</span></button>
+                    <input style="height:40px" type="text" autocomplete="off" placeholder="Search Chemicals" id="chem_name" /><button type="button" class="add-row button" id="add" onClick="nameCheck();"><span>ADD</span></button><button type="button" class="delete-row button"><span>REMOVE</span></button>
                     <div class="result"></div>
                 </div>
                 <table style="width:60%">
@@ -162,9 +162,8 @@
 </body>
 
 
-               
+<!-- live search box -->           
 <script type="text/javascript">
-
 $(document).ready(function(){
     $('.search-box input[type="text"]').on("keyup input", function(){
         /* Get input value on change */
@@ -189,15 +188,35 @@ $(document).ready(function(){
 });
 </script>
 
+
+<!-- add the row of chemicals and dosages + check if there is same chemical name -->
 <script>
     $(document).ready(function(){
         $(".add-row").click(function(){
             var name = $("#chem_name").val();
             var markup = '<tr> '+
                          '<td><input type="checkbox" name="record"></td>' +
-                         '<td><input type="text" placeholder="Enter Chemical" style="color:black" name="chemicals[]" id="To_che" value="'+ name +'"/>' + '</td>'+
-                         '<td style="color:black"><input type="number" placeholder="Enter Dosage" name="dosages[]"></td></tr>';
-            $("table tbody").prepend(markup);
+                         '<td><input type="text" placeholder="Enter Chemical" style="color:black" name="chemicals[]" id="To_che" class="chemicals" value="'+ name +'"/>' + '</td>'+
+                         '<td style="color:black"><input type="number" step="0.0001" oninput="validity.valid||(value=``);" onpress="isNumber(event)" placeholder="Enter Dosage" name="dosages[]"></td></tr>';
+            var objs  = document.getElementsByName("chemicals[]");
+            var my_chem = new Array();
+            for(var i = 0; i < objs.length; i++){
+                my_chem.push(objs[i].value);
+            };
+            
+            if(objs.length == 0){
+                $("table tbody").prepend(markup);
+            }else{
+                               
+                if(my_chem.indexOf(name)>-1){
+                    alert("There are reduplicate chemical names!");
+                    return false;
+                }else{
+                    $("table tbody").prepend(markup);
+                };
+                return true;            
+            }
+                       
         });
         
         // Find and remove selected table rows
@@ -211,18 +230,7 @@ $(document).ready(function(){
     });    
 </script>
 
-<script>
-(function(){
-    var f1 = document.getElementById('name'),     
-        b1 = document.getElementById('add'),
-		t = document.getElementById('To_che');
-    b1.onclick = function() {
-        t.value = f1.value;        
-    };
-})();
-</script>
-
-
+<!-- check if there are empty value -->
 <script language="javascript">
  function checkip() {
         var protName = $('#protName').val()
@@ -246,3 +254,18 @@ $(document).ready(function(){
         }
     }
 </script>
+
+<!-- dosage value control -->
+<script language="javascript">
+  function isNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    let charCode = (evt.which) ? evt.which : evt.keyCode;
+    if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+      evt.preventDefault();
+    } else {
+      return true;
+    }
+  }
+</script>
+
+
