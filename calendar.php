@@ -6,7 +6,7 @@
   <!-- column Time wrapper -->
   <div class= "d-flex flex-column border-right">
     <!-- header-->
-    <div class="p-2 border-top-right-radius: 50px 20px; "> Time </div>
+    <div class="p-2 border-bottom "> Time </div>
     <!-- content -->
     <?php 
     foreach (range(8,17) as $hour) {
