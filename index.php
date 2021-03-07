@@ -1,6 +1,7 @@
 <?php
   $header = "header.php";
   $content = "home.php";
+	$footer = "footer.php";
 
   $register ='signup.php';
   include($header);
@@ -13,6 +14,10 @@
 ?>
 
 
+<?php
+	include($footer);
+?>
+
 
 </body>
-</html>
+
