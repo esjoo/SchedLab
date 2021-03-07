@@ -13,7 +13,7 @@
         }
 
         // Manage user-move requests
-        $sql_req = "SELECT UserID, UserName, UserFirstName, UserLastName FROM users WHERE (request IS NOT NULL AND lab=$lab_ID)";
+        $sql_req = "SELECT users.UserID, users.UserName, users.UserFirstName, users.UserLastName, lab.LabName FROM users LEFT JOIN lab ON lab=LabID WHERE (request IS NOT NULL AND lab=$lab_ID)";
         $requested_moves = mysqli_query($conn, $sql_req);
 
         // Users in the lab
@@ -41,13 +41,15 @@ if (mysqli_num_rows($requested_moves)>0){
             <th><h6 class="font" style="text-align: center;">Username</h6></th> 
             <th><h6 class="font" style="text-align: center;">First Name</h6></th>
             <th><h6 class="font" style="text-align: center;">Last Name</h6></th>
+            <th><h6 class="font" style="text-align: center;">Move to lab</h6></th>
         </tr>       
         <tbody>';
     while ($moves = mysqli_fetch_row($requested_moves)){    
         echo '<tr><th><input type="radio" name="request_user" value='.$moves[1].'></th>';                 
         echo '<th>'.$moves[1].'</th>'; //UserName
         echo '<th>'.$moves[2].'</th>'; //FirstName
-        echo '<th>'.$moves[3].'</th></tr>'; //LastName
+        echo '<th>'.$moves[3].'</th>'; //LastName
+        echo '<th>'.$moves[4].'</th></tr>'; //Lab
     }
     
     echo '</tbody>
