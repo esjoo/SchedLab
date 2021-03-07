@@ -41,7 +41,7 @@ require_once('includes/functions.php');
       <?php if(isset($_SESSION['userName'])) {
         echo '<ul class="nav navbar-nav ml-auto">
                 <li class="nav-item dropdown">';
-        echo '<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">'.$_SESSION['userName'].'</a>';
+        echo '<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">'.$_SESSION['userFirstName'].'</a>';
         echo '<div class="dropdown-menu dropdown-menu-left">
                   <a class="dropdown-item" href="account.php"> Account</a>
                   <a href="logout.php"class="dropdown-item">Logout</a>
@@ -66,8 +66,7 @@ require_once('includes/functions.php');
                       <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Admin</a>
                       <div class="dropdown-menu dropdown-menu-right">
                           <a href="manageUsers.php" class="dropdown-item">Manage Users</a>
-                          <a href="#" class="dropdown-item">ORDER</a>
-                          <a href="#" class="dropdown-item">BOSS button</a>    
+                          <a href="log.php" class="dropdown-item">Logs</a>    
                       </div>
                   </li>
               </ul>
@@ -123,6 +122,19 @@ require_once('includes/functions.php');
         if($_SESSION['isAdmin']) {
           print($adminOptions_invent);
         }
+      }
+      ?>
+            
+      <!-- Chemical consumption --> 
+      <?php
+      $navOptions = '
+      <li class="nav-item">
+        <a type="button" class="nav-link" href="chemicalcalculation.php" >Chemical consumption</a>
+      </li>
+      ';
+
+      if(isset($_SESSION['userName'])) {
+        print($navOptions);
       }
       ?>
       

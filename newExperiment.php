@@ -12,7 +12,7 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form autocomplete="off" action="includes/newExperiment.inc.php" method="post" name="experimentForm">
+                <form autocomplete="off" action="includes/newExperiment.inc.php<?php echo(isset($_GET['w']) ? '?w='.$_GET['w'] : '');?>" method="post" name="experimentForm">
                     <div class="form-group" ng-app="searchModule">
                         <label for="protocol">Protocol:</label>
                         <div ng-controller="searchController">
@@ -35,14 +35,15 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+                <button name="submit" type="submit" class="btn btn-primary btn-green-transform">Submit</button>
             </div>
             </form>
         </div>
     </div>
-</div>
+
 <!--DIRTY -->
 <script>
     var data = <?php echo json_encode(get_protocols()); ?>;
 </script>
 <script src="scripts/autocomplete.js"></script>
+</div>
