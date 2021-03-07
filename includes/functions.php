@@ -1,4 +1,5 @@
 <?php
+
 if(!isset($_SESSION)) {
   session_start();
 }
@@ -42,6 +43,27 @@ include('closeDB.php');
 return $protNames;
 }
 
+
+//get protocolID from input name
+function get_protocolID($protocolName) {
+  include('db.php');
+    $sql =  'SELECT protID FROM  protocols WHERE ProtName =?';
+    $stmt = mysqli_stmt_init($conn);
+
+    if($stmt =$conn->prepare($sql)) {
+
+        $stmt->bind_param("s",$protocolName);
+        mysqli_stmt_execute($stmt);
+        $stmt->bind_result($protID);
+        $protID = $stmt->fetch();
+        $stmt->close();
+    }
+  include('closeDB.php');
+  return $protID;
+  }
+
+
+
 // Get userID of logged in user
 function get_current_user_id() {
   if (!isset($_SESSION['userID'])){
@@ -72,3 +94,52 @@ function get_current_user_labName() {
     return $r[0];
   }
 }
+
+
+
+//Get supplement list WHERE ProtID
+function getInventory($protID) {
+  include('db.php');
+
+  $sql =  'SELECT inventory.Amount as stock, inventory.SupID, protocolguide.Dosage as dose  
+  FROM inventory
+  INNER JOIN protocolguide ON inventory.UserID= ? AND inventory.SupID=protocolguide.SupID AND protocolguide.ProtID = ?';
+  $stmt = mysqli_stmt_init($conn);
+
+  
+  if($stmt =$conn->prepare($sql)) {
+    
+      $stmt->bind_param("ss",$_SESSION['userID'],$protID);
+    
+      $stmt->execute();
+
+      $stmt->bind_result($stock,$supID, $dose);
+     
+      while ($stmt->fetch()) {
+        
+        $stocks[] = $stock;
+        $supIDs[] = $supID;
+        $doses[] = $dose;
+        
+    }
+      
+
+      $stmt->close();
+    include('closeDB.php');
+    return array($stocks,$supIDs, $doses);  
+  }
+  
+}
+
+
+
+//checkInventory 
+//Param ->Inventory as array supplements as array :bool
+function checkInventory($inventory,$supplements) {
+  $func = function($a,$b) {
+    return $a-$b;
+};
+
+return min(array_map($func, $inventory,$supplements))>=0;
+} 
+
