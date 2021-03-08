@@ -133,7 +133,7 @@ require_once('includes/functions.php');
       <?php
       $navOptions = '
       <li class="nav-item">
-        <a type="button" class="nav-link" href="chemicalcalculation.php" >Chemical consumption</a>
+        <a type="button" class="nav-link" href="chemicalCalcThis.php" >Chemical consumption</a>
       </li>
       ';
 
