@@ -20,7 +20,7 @@ if(isset($_POST['submit'])) {
         echo "New record created successfully";
         require_once('../closeDB.php');
 
-        header('Location: ../index.php');
+        header('Location: ../index.php?state=S');
         
     } else {
         echo "Error: " . $sql . "" . mysqli_error($conn);

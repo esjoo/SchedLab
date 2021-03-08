@@ -14,7 +14,7 @@
   </div>
   <div class="tab">Login Info:
     <p><input placeholder="Username..." oninput="this.className = ''" name="username"></p>
-    <p><input placeholder="Password..." oninput="this.className = ''" name="password" type="password"></p>
+    <p><input placeholder="Password..." oninput="this.className = ''" name="password" type="password" ></p>
   </div>
   <div style="overflow:auto;">
     <div style="float:right;">

@@ -3,7 +3,7 @@ if(isset($_POST['submit'])) {
     
     require_once('../db.php');
     # TODO
-    $name = mysqli_real_escape_string($conn, $_POST['name']);
+    $name = mysqli_real_escape_string($conn, $_POST['userName']);
 
     $password =mysqli_real_escape_string($conn, $_POST['pwd']);
 

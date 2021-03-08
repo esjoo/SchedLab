@@ -68,12 +68,13 @@
           
         </div>
         <?php    
-          if(!isset($_SESSION['lab'])){
+          #if(!isset($_SESSION['lab'])){
             include('newExperiment.php'); 
             include('calendar.php');
-            } else {
+            #} else {
               #include(''); //OOPS something went wrong
-            }?>
+            #}
+            ?>
             
       </div>
   </div>

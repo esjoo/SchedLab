@@ -16,8 +16,8 @@
         
         <!-- Modal footer -->
         <div class="modal-footer">
-        <button name="submit" type="submit" class="btn btn-primary">Edit Protocol</button>
-        <a class="btn btn-danger" href="remove_exp.php" onclick="return confirm('Are you sure you want to remove this experiment?');" >Remove experiment</a>
+        <a href="#" class="btn btn-green-transform">View Protocol</a>
+        <a class="btn btn-danger" href="remove_exp.php?" onclick="return confirm('Are you sure you want to remove this experiment?');" >Remove experiment</a>
         </div>
     </div>
 </div>
@@ -27,7 +27,7 @@ $('#exampleModal').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget) // Button that triggered the modal
   var protocolContent = button.attr('data-protocolContent'); // Extract info from data-* attributes
   var protocolHead = button.attr('data-protocolHead');
-  
+  var protocolID = button.attr('data-protocolID');
   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
   var modal = $(this)

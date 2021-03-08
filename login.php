@@ -1,7 +1,7 @@
 
 
 <!-- The Modal -->
-<div class="modal fade" id="login">
+<div class="modal fade" id="login" ng-app="">
     <div class="modal-dialog">
       <div class="modal-content">
       
@@ -13,23 +13,32 @@
         
         <!-- Modal body -->
         <div class="modal-body">
-            <form action="includes/login.inc.php" method='post'>
-                <div class="form-group">
-                    <label for="Name">Name:</label>
-                    <input type="name" class="form-control" placeholder="Enter name" id="name" name="name">
-                </div>
-                <div class="form-group">
-                    <label for="pwd">Password:</label>
-                    <input type="password" class="form-control" placeholder="Enter password" id="pwd" name="pwd">
-                </div>
-                <div class="form-group form-check">
-                    <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox"> Remember me </label>
-                </div>
+            <form action="includes/login.inc.php" method='post' name="loginForm">
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+					  <span class="input-group-text pr-4" id="usernamelabel">Name</span>
+					</div>
+					<input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="usernamelabel" name="userName" ng-model="userName" required>
+				  </div>
+				  <span ng-show="loginForm.userName.$touched && loginForm.userName.$invalid">Username is required.</span>
+			
+				  <div class="input-group mb-3">
+					<div class="input-group-prepend">
+					  <span class="input-group-text" id="passwordlabel">Password</span>
+					</div>
+					<input type="password" class="form-control" placeholder="Enter password" aria-label="Username" aria-describedby="passwordlabel"  id="pwd" name="pwd" required>
+				  </div>
         </div>
         
         <!-- Modal footer -->
         <div class="modal-footer">
-        <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+        <button name="submit" type="submit" class="btn btn-green-transform">Submit</button>
         </div>
             </form>
+
+            <script>
+                $(document).ready( function () {
+                    showLogin();
+            });
+            </script>
+            

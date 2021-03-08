@@ -1,4 +1,5 @@
 var currentTab = 0; // Current tab is set to be the first tab (0)
+var passmatch = new RegExp("(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}");
 showTab(currentTab); // Display the current tab
 
 function showTab(n) {
