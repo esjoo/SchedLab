@@ -6,6 +6,7 @@ CREATE TABLE Users (
     UserEmail varchar(100) NOT NULL,
     UserFirstName varchar(50) NOT NULL,
     UserLastName varchar(50) NOT NULL,
+    Hash varchar(32),
     UNIQUE(UserName)
 );
 
@@ -13,7 +14,8 @@ CREATE TABLE Protocols (
     ProtID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     ProtName varchar(100),
     ProtMethod text, 
-    EquipmentID int
+    EquipmentID text,
+    Creater text
 );
 
 CREATE TABLE Supplement (
