@@ -1,6 +1,8 @@
+<!-- Now, users can submit protocol in showProtocol.php, so, this file is useless -->
+
 <?php 
 if(isset($_POST['submit1'])) {
-    
+
     include('db.php');
 
     // insert the protocol into the database
@@ -63,6 +65,4 @@ if(isset($_POST['submit1'])) {
     }
     include 'closeDB.php';
 }
-
-
 ?>
