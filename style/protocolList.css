@@ -1,0 +1,52 @@
+div.list {
+    margin:0 25px;
+}
+div.part {
+    border-radius: 5px;
+    margin:50px;
+    background-color: #f5e0e0;
+    padding: 20px;
+}
+h6.list {
+    margin-bottom:20px;
+    color:black;
+}
+form{
+    display: inline;
+}
+button {
+    background-color:#79ab79;
+    border-radius: 4px;
+    border: none;
+    color:white;
+    font-size: 20px;
+    text-align: center;
+    height: 40px;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+.button1 {border-radius: 4px;}
+button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+button:hover span {
+    padding-right: 25px;
+}
+button:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+.button1:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}

@@ -3,7 +3,7 @@
 
 <form id="regForm" action="includes/signup.inc.php" method="post">
   <h1>🧬 Welcome to schedLab 🧬 </h1>
-  <h2>Register below</h2>
+  <h2>Register below to rule your lab like the one ring 🏝️</h2>
   <!-- One "tab" for each step in the form: -->
   <div class="tab">Name:
     <p><input placeholder="First name..." oninput="this.className = ''" name="fname"></p>

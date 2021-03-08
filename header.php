@@ -45,7 +45,7 @@ require_once('includes/functions.php');
       <?php if(isset($_SESSION['userName'])) {
         echo '<ul class="nav navbar-nav ml-auto">
                 <li class="nav-item dropdown">';
-        echo '<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">'.$_SESSION['userFirstName'].'</a>';
+        echo '<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">'.$_SESSION['userName'].'</a>';
         echo '<div class="dropdown-menu dropdown-menu-left">
                   <a class="dropdown-item" href="account.php"> Account</a>
                   <a href="logout.php"class="dropdown-item">Logout</a>
@@ -128,9 +128,9 @@ require_once('includes/functions.php');
         }
       }
       ?>
-            
-      <!-- Chemical consumption --> 
-      <?php
+      
+            <!-- Chemical consumption --> 
+            <?php
       $navOptions = '
       <li class="nav-item">
         <a type="button" class="nav-link" href="chemicalcalculation.php" >Chemical consumption</a>
@@ -141,7 +141,6 @@ require_once('includes/functions.php');
         print($navOptions);
       }
       ?>
-      
     </ul>
   </div>  
 </nav>

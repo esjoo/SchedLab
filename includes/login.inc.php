@@ -8,7 +8,7 @@ if(isset($_POST['submit'])) {
     $password =mysqli_real_escape_string($conn, $_POST['pwd']);
 
     # TODO
-    $sql = "SELECT UserName, UserPassword, UserType, UserID, lab, UserFirstName
+    $sql = "SELECT UserName, UserPassword, UserType, UserID, lab
     FROM users 
     WHERE UserName = ?"; 
 
@@ -17,7 +17,7 @@ if(isset($_POST['submit'])) {
 
         mysqli_stmt_bind_param($stmt, "s",$name);
         mysqli_stmt_execute($stmt);
-        mysqli_stmt_bind_result($stmt,$dbName,$dbhash,$isAdmin,$userID,$lab,$UserfirstName);
+        mysqli_stmt_bind_result($stmt,$dbName,$dbhash,$isAdmin,$userID, $lab);
         mysqli_stmt_store_result ($stmt);
     }
     
@@ -28,12 +28,9 @@ if(isset($_POST['submit'])) {
     if(password_verify($password,$dbhash))  {   
         session_start();
         $_SESSION['userName'] = $dbName;
-        $_SESSION['userFirstName']= $UserfirstName;        
-        
         $_SESSION['loggedIn'] = TRUE;
         $_SESSION['isAdmin'] = $isAdmin;
         $_SESSION['userID'] = $userID;
-
         $_SESSION['lab'] = $lab;
         mysqli_stmt_close($stmt);
         include '../closeDB.php'; 

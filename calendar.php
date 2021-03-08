@@ -1,12 +1,11 @@
 <link rel="stylesheet" href="style/calendar.css">
 
-
 <!-- calendar window-->
-<div class="box" id="calendar">
+<div class="row h-100 flex-nowrap">
   <!-- column Time wrapper -->
-  <div class= "d-flex flex-column border-right">
+  <div class= "d-flex flex-column border border-dark">
     <!-- header-->
-    <div class="p-2 border-bottom "> Time </div>
+    <div class="p-2 border border-dark "> Time </div>
     <!-- content -->
     <?php 
     foreach (range(8,17) as $hour) {
@@ -14,14 +13,14 @@
       if($hour == localtime(time(),TRUE)['tm_hour']){
         $active = 'green';
       }
-      printf('<div class="col  %s"> %s:00 </div>',$active,$hour);
+      printf('<div class="col border border-dark flex-grow-1 %s"> %s:00 </div>',$active,$hour);
     }
     ?>
 
   </div>
 	<?php
 	for ($i = 1; $i<=7; $i++) {	
-		$active = '';
+		$active = 'bg-secondary';
 		  
 		//Check which day
 		if(date_format(date_create(),'l jS') == date_format( $day,'l jS')) {
@@ -29,10 +28,10 @@
 		}	
 		
 		//day wrapper
-		echo('<div class ="col p-0 border-right  weekday overflow-hidden">'); 
+		echo('<div class ="col p-0 border border-dark weekday"  style="background: url("gfx/T.png") background-repeat:repeat-y" >'); 
 
 		//print header
-		printf('<div class=" p-2 border-bottom   %s weekdayheader"> %s </div>',$active,date_format( $day,'D jS') );
+		printf('<div class=" p-2 border border-dark  %s"> %s </div>',$active,date_format( $day,'l jS') );
 
 		// Get calender events
 		include('db.php');

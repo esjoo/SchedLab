@@ -1,7 +1,7 @@
-<div class="" id="main">
-  <div class="box">
+<div class="container-fluid w-100 h-100">
+  <div class="d-flex h-75">
   <!--SIDEBAR -->
-    <div class="box-child">
+    <div class="py-2">
       <div class="collapse" id="leftCol">
         <div class="p-2">
           <?php 
@@ -13,7 +13,7 @@
         <p>This week at a glimpse.</p>
         <ul class="nav nav-pills flex-column">
           <li class="nav-item">
-            <a class="nav-link" href="#">This week costs: {}</a>
+            <a class="nav-link active" href="#">This week costs: {}</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">List of materials consumed</a>
@@ -21,13 +21,16 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Time allocated</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+          </li>
         </ul>
       </div>
     </div>
     <!--Main -->
     <div class="col">
         <!-- calendar top -->
-        <div class="row">
+        <div class=" row">
           <!--Top text -->
           <h2 class="h-100">
             <?php 
@@ -39,7 +42,7 @@
                       
                       #set week endpoint
                       $monday = $day;
-                      #$sunday = date_isodate_set(date_create(), date_format($today,'o'), date_format($today,'W') , 7 );
+                      $sunday = date_isodate_set(date_create(), date_format($today,'o'), date_format($today,'W') , 7 );
                       
                       
                       #print week
@@ -53,7 +56,7 @@
                      
                       #set week endpoint
                       $monday = $day;
-                      #$sunday = date_isodate_set(date_create(), date_format($day,'o'), date_format($day,'W') , 7 );
+                      $sunday = date_isodate_set(date_create(), date_format($day,'o'), date_format($day,'W') , 7 );
                       
                       #print week
                       $week = $_GET['w'];
