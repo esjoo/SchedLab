@@ -49,13 +49,28 @@ echo "<h2 class='margin'>Change password</h2>";
 echo "<div class='part'>";
 echo "<form method='POST'>";
 echo "<lable name='password'>New password:</lable><br><input placeholder='Password...' name='password' type='password'><br>";
+echo "<lable name='confirm_password'>Confirm password:</lable><br><input type='password' placeholder='Confirm Password' name='confirm_password' required>";
 echo "<div><button class='button submit' type='submit' name='new_password'><span>Change password</span></button><br></div>";
-echo "</div></form>";
 if(isset($_POST['new_password'])){
-    $password = password_hash( mysqli_real_escape_string($conn,$_POST['password']),PASSWORD_DEFAULT);
-    $sql = "UPDATE users SET UserPassword='$password' WHERE UserID=$userID";
-    $result = mysqli_query($conn, $sql);
+    if ($_POST['password']==$_POST['confirm_password']){
+        $password = password_hash( mysqli_real_escape_string($conn,$_POST['password']),PASSWORD_DEFAULT);
+        $sql = "UPDATE users SET UserPassword='$password' WHERE UserID=$userID";
+        $result = mysqli_query($conn, $sql);
+    } else {
+        echo "<p>Passwords not matching</p>";
+    }
 }
+echo "</div></form>";
+
+echo '<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(event) { 
+    var scrollpos = localStorage.getItem("scrollpos");
+    if (scrollpos) window.scrollTo(0, scrollpos);
+});
+
+window.onbeforeunload = function(e) {
+    localStorage.setItem("scrollpos", window.scrollY);
+};
+</script>';
 include "closeDB.php";
-include "footer.php";
 ?>

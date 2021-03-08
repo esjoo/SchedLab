@@ -13,7 +13,7 @@
         }
 
         // Manage user-move requests
-        $sql_req = "SELECT users.UserID, users.UserName, users.UserFirstName, users.UserLastName, lab.LabName FROM users LEFT JOIN lab ON request=LabID WHERE (request IS NOT NULL AND lab=$lab_ID)";
+        $sql_req = "SELECT users.UserID, users.UserName, users.UserFirstName, users.UserLastName, lab.LabName FROM users LEFT JOIN lab ON lab=LabID WHERE (request IS NOT NULL AND lab=$lab_ID)";
         $requested_moves = mysqli_query($conn, $sql_req);
 
         // Users in the lab

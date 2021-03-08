@@ -1,5 +1,95 @@
-<head>
-    <link rel="stylesheet" type="text/css" href="style/protocol.css">
+    <style>
+        div {
+            margin-top:25px;
+	        margin-bottom:25px;
+	        margin-right:25px;
+	        margin-left:25px;
+        }
+        div.part {
+            border-radius: 5px;
+            background-color: #f5e0e0;
+            padding: 20px;
+        }
+        a:hover {
+            cursor: pointer;
+            
+        }
+        table, input {
+            margin-top:15px;
+	        margin-bottom:15px;
+            text-align:left;
+        }
+        table, td, th 
+        {
+            margin:25px;
+            padding:4px 20px;
+            border:2px solid #e2a6a6;
+            background-color: #FBF3F3;
+        }
+        input[type=text] {
+            border: 2px solid #e2a6a6;
+        }
+        input[type=number] {
+            border: 2px solid #e2a6a6;
+        }
+        textarea{
+            border: 2px solid #e2a6a6;
+        }
+        select{
+            border: 2px solid #e2a6a6;
+        }
+        h1.margin {
+            margin-top:25px;
+	        margin-bottom:25px;
+	        margin-right:50px;
+	        margin-left:50px;
+            color:black;
+        }
+        h5.margin {
+            margin-top:1px;
+	        margin-bottom:1px;
+            color:black;
+        }
+        h6.font {
+            margin:0px;
+            color:black;
+        }
+        .button {
+            background-color:#79ab79;
+            border: none;
+            color:white;
+            font-size: 20px;
+            text-align: center;
+            border-radius: 12px;
+            height: 40px;
+            transition: all 0.5s;
+            cursor: pointer;
+        }
+        .button span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
+        .button span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+        .button:hover span {
+            padding-right: 25px;
+        }
+        .button:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+        p{
+            color:black;
+        }
+    </style>
 </head>
 <body>
     <?php 
@@ -36,11 +126,10 @@
 
 
             <!-- chemicals--> 
-            <div class="part">
-                               
+            
+            <div class="part">                
                 <div class="search-box">
-                    <h5 class="margin">Chemical</h5> 
-                    <input style="height:40px" type="text" autocomplete="off" placeholder="Search Chemicals" id="chem_name" /><button class="add-row button" id="add"><span>ADD</span></button><button class="delete-row button"><span>REMOVE</span></button>
+                    <input style="height:40px" type="text" autocomplete="off" placeholder="Search Chemicals" id="chem_name" /><button type="button" class="add-row button" id="add"><span>ADD</span></button><button type="button" class="delete-row button"><span>REMOVE</span></button>
                     <div class="result"></div>
                 </div>
                 <table style="width:60%">

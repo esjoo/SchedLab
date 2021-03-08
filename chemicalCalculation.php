@@ -8,7 +8,7 @@ $wednesday = date("Y-m-d", strtotime("next Monday + 2 days"));
 $thursday = date("Y-m-d", strtotime("next Monday + 3 days"));
 $friday = date("Y-m-d", strtotime("next Monday + 4 days"));
 
-//Get SupNames for all chemicals that are in experiments next week 
+//Get SupNames for all chemicals that are in experiments next week, sort by SupID
 $SupNames = mysqli_query($conn,"SELECT SupName FROM Supplement WHERE SupID IN (
 SELECT SupID FROM Experiment WHERE CalenID IN (
 SELECT CalenID FROM UserCalendar 
@@ -23,21 +23,19 @@ while($row = mysqli_fetch_row($SupNames)){
     array_push($chemicals, $row["0"]);
 }
 
-$ConsumeAmount = mysqli_query($conn,"SELECT ConsumeAmount, SupID, ExpNum FROM Experiment WHERE CalenID IN (
+$ConsumeAmount = mysqli_query($conn,"SELECT ConsumeAmount, SupID FROM Experiment WHERE CalenID IN (
     SELECT CalenID FROM UserCalendar 
     WHERE FromDateTime LIKE '$monday%' 
     OR FromDateTime LIKE '$tuesday%'
     OR FromDateTime LIKE '$wednesday%'
     OR FromDateTime LIKE '$thursday%'
-    OR FromDateTime LIKE '$friday%') ORDER BY SupID;");
-
+    OR FromDateTime LIKE '$friday%');");
+    
 $amounts = array();
 $SupID = array();
-$ExpNum = array();
 while($row = mysqli_fetch_row($ConsumeAmount)){
     array_push($amounts, $row["0"]);
     array_push($SupID, $row["1"]);
-    array_push($ExpNum,$row["2"]);
 }
 
 $key_array = array();
@@ -78,9 +76,6 @@ foreach ($SupID as $value) {
     $i++;
 }
 ksort($add_SupID);
-
-$SupID_unique = array_unique($SupID, SORT_REGULAR);
-$chemicals = array_combine($SupID_unique, $chemicals);
 
 ?>
 
@@ -125,203 +120,25 @@ div.part {
     background-color: #f5e0e0;
     padding: 20px;
 }
-div {
-    margin-bottom:25px;
-    margin-right:25px;
-    margin-left:25px;
-}
-
-a:hover {
-    cursor: pointer;
-    background-color: yellow;
-}
-
-table, input {
-    margin-top:15px;
-    margin-bottom:15px;
-    text-align:left;
-}
-
-input[type=text] {
-    border: 2px solid #e2a6a6;
-}
-
-input[type=number] {
-    border: 2px solid #e2a6a6;
-}
-
-textarea{
-    border: 2px solid #e2a6a6;
-}
-
-select{
-    border: 2px solid #e2a6a6;
-}
-
-h1.margin, h2.margin {
-    margin-top:25px;
-    margin-bottom:25px;
-    margin-right:50px;
-    margin-left:50px;
-    color:black;
-}
-
-h5.margin {
-    margin-top:1px;
-    margin-bottom:1px;
-    color:black;
-}
-
-h6.font {
-    margin:0px;
-    color:black;
-}
-
-.button, .submit {
-    background-color:#79ab79;
-    border: none;
-    color:white;
-    font-size: 20px;
-    text-align: center;
-    border-radius: 12px;
-    height: 40px;
-    transition: all 0.5s;
-    cursor: pointer;
-}
-
-.button span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
-}
-
-.button span:after {
-    content: '\00bb';
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition: 0.5s;
-}
-
-.button:hover span {
-    padding-right: 25px;
-}
-
-.button:hover span:after {
-    opacity: 1;
-    right: 0;
-}
-
-p{
-    color:black;
-}
-
-.dropbtn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block; 
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {background-color: #ddd;}
-
-.dropdown:hover .dropdown-content {display: block;}
-
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
 
 </style>
 
 <div class="part">
+<?php
 
-<div class="search-box">
-    <form action="chemicalCalculation.php" method="POST">
-        <input style="height:40px" type="text" autocomplete="off" placeholder="Search chemical" id="search" name="search" />
-        <button class="submit"><span>Search</span></button>
-        <div class="result"></div>
-    </form>
-</div>
+echo "<table border='1' class='center'>";
+echo "<tr><th>Chemical</th><th>Amount to be used (ml)</th>";
 
-<?php 
-include "db.php";
-
-error_reporting(0);
-ini_set('display_errors', 0);
-
-$search_result = $_POST['search'];
-$result = mysqli_query($conn, "SELECT SupID FROM Supplement WHERE SupName LIKE '$search_result'");
-
-while ($row = mysqli_fetch_row($result)){
-    echo "<table border='1' class='center'>";
-    echo "<tr><th>Chemical</th><th>Amount to be used (ml)</th>";
-    echo "<tr><td>".$chemicals[$row['0']]."</td><td>".$add_SupID[$row['0']]."</td></tr>";
+$i = 0;
+foreach ($add_SupID as $value) {
+    echo "<tr><td>"."$chemicals[$i]"."</td><td>"."$value"."</td></tr>";
+    $i++;
 }
 
 echo "</table>";
 
-include "closeDB.php"; 
-
-if ($search_result == "") { 
-    echo "<table border='1' class='center'>";
-    echo "<tr><th>Chemical</th><th>Amount to be used (ml)</th>";
-
-    foreach ($add_SupID as $value) {
-        $key = array_search($value,$add_SupID);
-        echo "<tr><td>"."$chemicals[$key]"."</td><td>"."$value"."</td></tr>";
-    }
-
-    echo "</table>";
-}
-
 ?>
 </div>
+
 </body>
 </html>
-
-<script type="text/javascript">
-$(document).ready(function(){
-    $('.search-box input[type="text"]').on("keyup input", function(){
-        /* Get input value on change */
-        var inputVal = $(this).val();
-        var resultDropdown = $(this).siblings(".result");
-        if(inputVal.length){
-            $.get("livesearchFORchemicalCalculation.php", {term: inputVal}).done(function(data){
-                // Display the returned data in browser
-                resultDropdown.html(data);
-            });
-        } else{
-            resultDropdown.empty();
-        }
-    });
-    
-    // Set search input value on click of result item
-    $(document).on("click", ".result p", function(){
-        $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
-        $(this).parent(".result").empty();
-    });
-
-});
-</script>
