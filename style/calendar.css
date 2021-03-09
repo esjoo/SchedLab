@@ -1,15 +1,16 @@
 * {box-sizing: border-box;}
 ul {list-style-type: none;}
 
-/* Calender */
+/* Calendar */
 #calendar {
   text-align:center;
   height:80%;
-  width:90%;
+  width:80%;
   background-image:linear-gradient(to right, rgba(233,197,197,0.5), rgba(197,215,233,0.5)), linear-gradient(#DDDDDD 0.5px, transparent 1px);
   background-size:  100% 9%;
   background-repeat: repeat-y;
   background-position: 0% 9%;
+  border-radius: 12px;
 }
 #main {
     display: flex;

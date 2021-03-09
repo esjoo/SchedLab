@@ -2,7 +2,7 @@ html,body{
   height:100%;
   background-color: #FFFFFF;
   color: #343A40;
-  font-family: Verdana, sans-serif;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 }
 
 /* Page styling */
@@ -46,10 +46,11 @@ cursor: pointer;
 
 /* button style */
 .button, .submit {
-background-color:#343A40;
+background-image: linear-gradient(to right, #09203f 0%, #537895 100%); 
 border: none;
 opacity: 0.5;
-color:#FFFFFF;
+color: rgba(255, 255, 255, 0.925);
+box-shadow: 1px 2px 2px #666;
 font-size: 15px;
 text-align: center;
 margin:10px;
