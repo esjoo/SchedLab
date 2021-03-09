@@ -28,7 +28,7 @@ table, input {
 }
 table, td, th 
 {
-    margin:25px;
+    margin:auto;
     padding:4px 20px;
     border: 2px #e2a6a6;
     background-color: white;
