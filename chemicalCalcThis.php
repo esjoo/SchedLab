@@ -90,10 +90,10 @@ $chemicals = array_combine($SupID_unique, $chemicals);
 include_once("header.php");
 include_once("db.php");
 
-$lastweek = date('W', strtotime('last week'));
+$thisweek = date('W', strtotime('this week'));
 ?>
 
-<h1 style="color:black;margin-left:50px;margin-top:20px">Chemical consumption for week <?php echo $lastweek ?></h1>
+<h1 style="color:black;margin-left:50px;margin-top:20px">Chemical consumption for week <?php echo $thisweek ?></h1>
 <body style="background-color:#FBF3F3">
 
 <style>
