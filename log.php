@@ -1,11 +1,11 @@
-<link rel="stylesheet" href="style/main.css">
+<link rel="stylesheet" href="style/protocol.css">
 <?php
 include "header.php";
 include "db.php";
 ?>
 
 <h1>Log</h1>
-<div class="part">
+<div class="color">
     <table>
         <tr><th><h6>Time</h6></th><th><h6>User</h6></th><th><h6>Action</h6></th></tr>
         <?php
