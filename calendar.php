@@ -2,23 +2,25 @@
 
 
 <!-- calendar window-->
-<div class="box" id="calendar">
-  <!-- column Time wrapper -->
-  <div class= "d-flex flex-column border-right">
-    <!-- header-->
-    <div class="p-2 border-bottom "> Time </div>
-    <!-- content -->
-    <?php 
-    foreach (range(8,17) as $hour) {
-      $active='';
-      if($hour == localtime(time(),TRUE)['tm_hour']){
-        $active = 'green';
-      }
-      printf('<div class="col  %s"> %s:00 </div>',$active,$hour);
-    }
-    ?>
 
-  </div>
+<div class="box" style="margin:0 auto;" id="calendar">
+
+	<!-- column Time wrapper -->
+  	<div class= "d-flex flex-column border-right">
+		<!-- header-->
+		<div class="p-2 border-bottom" style="background-color:#ddd"> Time </div>
+		<!-- content -->
+		<?php 
+		foreach (range(8,17) as $hour) {
+		$active='';
+		if($hour == localtime(time(),TRUE)['tm_hour']){
+			$active = 'hour';
+		}
+		printf('<div class="col %s" > %s:00 </div>',$active,$hour);
+		}
+		?>
+
+  	</div>
 	<?php
 	for ($i = 1; $i<=7; $i++) {	
 		$active = '';
@@ -36,7 +38,7 @@
 
 		// Get calender events
 		include('db.php');
-    $userID = get_current_user_id();
+    	$userID = get_current_user_id();
 		$sql = "SELECT * FROM usercalendar WHERE UserID = $userID ORDER BY FromDateTime";
 		$result = mysqli_query($conn, $sql);
 		while ($row = mysqli_fetch_row($result)) {
@@ -99,3 +101,4 @@
 	?>
 
 </div>
+

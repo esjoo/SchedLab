@@ -1,5 +1,5 @@
 <?php
-echo '<link rel="stylesheet" href="style/main.css">';
+echo '<link rel="stylesheet" href="style/protocol.css">';
 include "header.php";
 include "db.php";
 include_once "includes/functions.php";
@@ -15,9 +15,10 @@ $userID = get_current_user_id();
 $sql = "SELECT * from users WHERE UserID=$userID";
 $result = mysqli_query($conn, $sql);
 
-echo "<h1 class='margin'>Account</h1>";
-echo "<h2 class='margin'>Your information</h2>";
-echo "<div class='part'>";
+echo "<h1>Account</h1>";
+echo "<div>";
+echo "<h2>Your information</h2>";
+echo "<div class='color'>";
 echo "<form method='POST'>";
 while($row = $result->fetch_assoc()){
     echo "<lable name='first_name'>First name:</lable><br><input type='text' name='first_name' value=".$row['UserFirstName']."><br>";
@@ -28,7 +29,7 @@ while($row = $result->fetch_assoc()){
         echo "<p class='lable'>Lab: </p><p>".$labName."</p>";
     }
 }
-echo "<div><button class='button submit' type='submit' name='submit'><span>Submit changes</span></button></div>";
+echo "<button class='button submit' type='submit' name='submit'><span>Submit changes</span></button>";
 echo "</form></div>";
 
 if(isset($_POST['submit'])){
@@ -45,12 +46,12 @@ if(isset($_POST['submit'])){
         </script>";
 }
 
-echo "<h2 class='margin'>Change password</h2>";
-echo "<div class='part'>";
+echo "<h2>Change password</h2>";
+echo "<div class='color'>";
 echo "<form method='POST'>";
 echo "<lable name='password'>New password:</lable><br><input placeholder='Password...' name='password' type='password'><br>";
 echo "<lable name='confirm_password'>Confirm password:</lable><br><input type='password' placeholder='Confirm Password' name='confirm_password' required>";
-echo "<div><button class='button submit' type='submit' name='new_password'><span>Change password</span></button><br></div>";
+echo "<button class='button submit' type='submit' name='new_password'><span>Change password</span></button>";
 if(isset($_POST['new_password'])){
     if ($_POST['password']==$_POST['confirm_password']){
         $password = password_hash( mysqli_real_escape_string($conn,$_POST['password']),PASSWORD_DEFAULT);
@@ -60,7 +61,9 @@ if(isset($_POST['new_password'])){
         echo "<p>Passwords not matching</p>";
     }
 }
-echo "</div></form>";
+echo "</form></div>";
+echo "<h2 style='opacity:0'> Name </h2>";
+echo"</div>";
 
 echo '<script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function(event) { 

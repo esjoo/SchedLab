@@ -1,30 +1,93 @@
+* {box-sizing: border-box;}
+ul {list-style-type: none;}
+
+/* Calender */
+#calendar {
+  text-align:center;
+  height:80%;
+  width:90%;
+  background-image:linear-gradient(to right, rgba(233,197,197,0.5), rgba(197,215,233,0.5)), linear-gradient(#DDDDDD 0.5px, transparent 1px);
+  background-size:  100% 9%;
+  background-repeat: repeat-y;
+  background-position: 0% 9%;
+}
+#main {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+
+.box {
+  display: flex;
+  flex-flow: row;
+  height: 100%;
+}
+.box-child {
+  flex: 0 1 auto;
+  margin: 0%;
+  padding: 0;
+}
+.weekdayheader {
+  height:auto;
+  background-color:#ddd;
+}
+
+#newExperiment .modal-content {
+  background-color: #FBF3F3;
+}
+#newExperiment .modal-content {
+  background-color: #FBF3F3;
+}
+
+.btn-green-transform {
+  background-color:#79ab79;
+  border: none;
+  color:black;
+  text-align: center;
+  border-radius: 12px;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+.btn-green-transform:hover {
+  background-color:#79ab79;
+  color:black;
+}
+
+
 /* Calender event styling */
 .btn-calendar {
-    background-color:#E9C5C5;
-    border: none;
-    color:white;
-    font-size: 20px;
-    text-align: center;
-    transition: all 0.5s;
-    cursor: pointer;
-  }
-  .btn-calendar span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
-  }
-  .btn-calendar span:after {
-    content: '\00bb';        
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition: 0.5s;        
-  }        
-  .btn-calendar:hover, .btn-calendar:focus, .btn-calendar:active, .btn-calendar.active{
-    background-color: #518451;
-  }
-  .green{
-    background-color: #518451;       
-  }
+  background-color:#E9C5C5;
+  border: none;
+  color:white;
+  font-size: 20px;
+  text-align: center;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+.btn-calendar span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+.btn-calendar span:after {
+  content: '\00bb';        
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;        
+}        
+.btn-calendar:hover, .btn-calendar:focus, .btn-calendar:active, .btn-calendar.active{
+  background-color: #E9C5C5;
+}
+.green{
+  height:auto;
+  background-color: #E9C5C5;
+  border-radius: 15px;
+}
+.hour{
+  padding: 0px;
+  background-color: #E9C5C5;
+  border-radius: 15px;
+}
