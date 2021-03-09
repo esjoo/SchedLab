@@ -1,0 +1,70 @@
+div {
+    margin:25px;
+    text-align:center;
+}
+div.color{
+    width:60%;
+    background-image: linear-gradient(to right, rgba(233,197,197,0.5), rgba(197,215,233,0.5));
+    box-shadow: 10px 10px 5px #DDDDDD;
+    text-align:center;
+    margin:auto;
+    border-radius: 20px;
+    padding:25px;
+}
+div.part{
+    margin:0px;
+    background-color: #FFFFFF;
+    margin:auto;
+    border-radius: 20px;
+}
+a:hover {
+    cursor: pointer;
+    background-color: white;
+}
+table, input {
+    margin-top:15px;
+    margin-bottom:15px;
+    text-align:center;
+}
+table, td, th 
+{
+    margin:25px;
+    padding:4px 20px;
+    border: 2px #e2a6a6;
+    background-color: white;
+    border-style:none none none none;
+    border-radius: 20px; 
+}
+input[type=text] {
+    border: 2px #e2a6a6;
+    background-color: white;
+    border-style:none none solid none;
+    border-radius: 15px;  
+}
+input[type=number] {
+    border: 2px #e2a6a6;
+    background-color: white;
+    border-style:none none solid none;
+    border-radius: 15px; 
+}
+textarea{
+    border: 2px #e2a6a6;
+    background-color: white;
+    border-style:none none solid none;
+    border-radius: 15px; 
+}
+select{
+    border: 2px solid white;
+}
+
+.center {
+    text-align: center;
+}
+.center table {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+.center button{
+    text-align:center;
+}
