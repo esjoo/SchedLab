@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="style/main.css">
+<link rel="stylesheet" href="style/protocol.css">
 
     <?php 
         include "db.php";
@@ -25,13 +25,13 @@
     ?>
 
 
-<h1 class="margin">Manage users</h1>
-<h2 class="margin"><?php echo $labName; ?></h2>
+<h1>Manage users</h1>
+<h2><?php echo $labName; ?></h2>
 
 <!-- User requests --> 
 <?php
 if (mysqli_num_rows($requested_moves)>0){
-    echo '<div class="part">
+    echo '<div class="color">
         <h2>User move requests</h2>
         <form action="includes/manageUsers.request.php" method="POST">
         <table style="width:60%">
@@ -66,8 +66,8 @@ if (mysqli_num_rows($requested_moves)>0){
 ?>
 
 <!--Add new users to the labb-->
-<div class="part">
-    <h2>Add new users to the labb</h2>
+<div class="color">
+    <h3>Add new users to the lab</h3>
     <div class="search-box">
     <form action="includes/manageUsers.inc.php" method="POST">
         <input style="height:40px" type="text" autocomplete="off" placeholder="Search Username" id="user_name" name="user" />
@@ -77,43 +77,43 @@ if (mysqli_num_rows($requested_moves)>0){
     </div>
     
     <!-- Users beloning to a lab in the database --> 
-    <h2>Users in the lab</h2>
-    <form action="includes/manageUsers.inc.php" method="POST">
-    <table style="width:60%">
-    <thead>
-    <tr>
-        <th></th>
-        <th><h6 class="font" style="text-align: center;">Username</h6></th> 
-        <th><h6 class="font" style="text-align: center;">First Name</h6></th>
-        <th><h6 class="font" style="text-align: center;">Last Name</h6></th>
-    </tr>       
-    <tbody>
-           <?php
-           $i = 0;
-           while ($row = mysqli_fetch_row($result1)){    
-               if ($lab_ID==$row[0]){
-                   echo '<tr><th><input type="radio" name="record" value='.$row[4].'></th>';                 
-                   echo '<th>'.$row[4].'</th>'; //UserName
-                   echo '<th>'.$row[5].'</th>'; //FirstName
-                   echo '<th>'.$row[6].'</th></tr>'; //LastName
-                }
-                $i++;
-            }
-            ?>
-    
-    </tbody>
-    </thead>
-    </table>
-
     <div>
-        <button class="submit" name="removed_user"><span>Remove</span></button>
-    </div>    
+        <h3>Users in the lab</h3>
+        <form action="includes/manageUsers.inc.php" method="POST">
+        <table style="width:600px;margin:auto">
+        <thead>
+        <tr>
+            <th></th>
+            <th><h6>Username</h6></th> 
+            <th><h6>First Name</h6></th>
+            <th><h6>Last Name</h6></th>
+        </tr>       
+        <tbody>
+            <?php
+            $i = 0;
+            while ($row = mysqli_fetch_row($result1)){    
+                if ($lab_ID==$row[0]){
+                    echo '<tr><th><input type="radio" name="record" value='.$row[4].'></th>';                 
+                    echo '<th>'.$row[4].'</th>'; //UserName
+                    echo '<th>'.$row[5].'</th>'; //FirstName
+                    echo '<th>'.$row[6].'</th></tr>'; //LastName
+                    }
+                    $i++;
+                }
+                ?>
+        
+        </tbody>
+        </thead>
+        </table>
+    </div>
+        <button class="submit" name="removed_user"><span>Remove</span></button>   
     </form>
     </div>
             
 </div>
 </form>    
 </div>
+<h2 style='opacity:0'> Name </h2>
 </body>
 
 
