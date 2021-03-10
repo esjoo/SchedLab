@@ -16,7 +16,7 @@
 			$value=$_REQUEST["From_prot"];
 		}
 	?>
-    <div>
+    <div style="margin:25px">
         <div class="color">
         <br><h6 style="color:#343A40">Please enter the name of the protocol you want to query in the search box below.</h6></br>
         <form action="" method='post' id="myPname">
