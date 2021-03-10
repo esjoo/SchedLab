@@ -62,9 +62,9 @@
     </div>
 
 <!--DIRTY -->
-<script src="scripts/autocomplete.js"></script>
+<script src="scripts/inputValidationExperiment.js"></script>
 <script>
     var data =<?php echo(json_encode(get_protocols()));?>
 </script>
-<script src="scripts/Tester.js"></script>
+<script src="scripts/autocomplete.js"></script>
 </div>

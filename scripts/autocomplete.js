@@ -1,27 +1,39 @@
-function setTimeProtocol() {
-  var minTime = document.getElementById("labtimeStart").value;
+var app = angular.module('searchModule', []);
 
-  console.log(document.getElementById("labdate").value);
-  console.log(document.getElementById("labtimeStart").value);
-  console.log(document.getElementById("labtimeEnd").value);
-  document.getElementById("labtimeEnd").setAttribute('min', minTime);
-  document.getElementById("labtimeEnd").value = minTime;
-}
+// Defines the search controller by bringing the data into the scope.
+//
+app.controller('searchController', function($scope) {
+  $scope.data = data;
 
+  $scope.setQuery = function(query) {
+    $scope.query = query;
+    $scope.focus = false;
+  };
+});
 
-function earliestDate() {
-  // Use Javascript
-  var today = new Date();
-  var dd = today.getDate();
-  var mm = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
-  var yyyy = today.getFullYear();
-  if(dd<10){
-    dd='0'+dd
-  } 
-  if(mm<10){
-    mm='0'+mm
-  } 
+// Returns the search function that will perform the filter on the data.
+//
+app.filter('search', function() {
+  return search;
+});
 
-  today = yyyy+'-'+mm+'-'+dd;
-  document.getElementById("labdate").setAttribute("min", today);
-}
+// Returns an array of items where the item text matches the search query. In
+// this example, both the query and item are converted to lower case for easier
+// matching.
+//
+function search(arr, query) {
+  if (!query) {
+    return arr;
+  }
+
+  var results = [];
+  query = query.toLowerCase();
+
+  angular.forEach(arr, function(item) {
+    if (item.toLowerCase().indexOf(query) !== -1) {
+      results.push(item);
+    }
+  });
+
+  return results;
+};
