@@ -62,7 +62,7 @@ function get_protocolID($protocolName) {
   return $protID;
   }
 
-
+//get protocol name from id
 
 // Get userID of logged in user
 function get_current_user_id() {
