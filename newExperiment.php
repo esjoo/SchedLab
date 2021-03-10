@@ -26,12 +26,12 @@
                                     <label class="input-group-text pr-4"  for="protocolSearch" id="protocolSearchlabel">Protocol</label>
                                 </div>
                                 <!-- Search -->
-                                <input type="text" class="form-control" placeholder="Search" ng-model="query" ng-focus="focus=true">
+                                <input type="text" class="form-control" placeholder="Search" ng-model="query" ng-focus="focus=true" name="protocolName">
                                 
-                                    
+            
                             </div>
                             <div id="search-results" ng-show="focus">
-                                <div class="search-result" ng-repeat="item in data | search:query" ng-bind="item" ng-click="setQuery(item)"  name="protocolName" required></div>
+                                <div class="search-result" ng-repeat="item in data | search:query" ng-bind="item" ng-click="setQuery(item)"  id="protocolName" required></div>
                             </div>
                         </div>
                    
