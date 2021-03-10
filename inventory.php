@@ -20,12 +20,16 @@ include_once("db.php");
         print("No chemicals in inventory<br>\n");
     } else {
         echo "<table border='1' class='center'>";
-        echo "<tr><th>Chemical</th><th>Amount in inventory</th>";
+        echo "<tr><th>Chemical</th><th>Amount in inventory</th><th>Alerts</th>";
         while($row = mysqli_fetch_row($result)) {
             echo "<tr><td>";
             echo $row[0];
             echo "</td><td>";
             echo $row[1] . " " . $row[2];
+            echo "</td><td style='color:#FF0000'>";
+            if ($row[1] <= 50) {
+                echo "Running out of stock!";
+            }
             echo "</td><tr>";
         }
     }
@@ -40,7 +44,7 @@ include_once("db.php");
     <div class='add_chemicals' style="margin:0px">
     <form action="add_to_inventory.php" method="POST"> 
         <label name="chemical_name">Chemical:</label>
-        <input type="text" name="chemical_name">
+        <input type="text" name="chemical_name" required>
         <br><label name="amount">Amount (ml):</label>
         <select name="amount" style="width:200px"></br>
             <option selected="selected"></option>;

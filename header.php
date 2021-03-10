@@ -24,6 +24,7 @@ require_once('includes/functions.php');
   <link rel="stylesheet" href="style/main.css">
   <!--utility functions -->
   <script src="scripts/login.js"></script>
+  <script src="scripts/functions.js"></script>
 </head>
 
 
@@ -147,4 +148,5 @@ require_once('includes/functions.php');
   </div>  
 </nav>
 
-<body>
+<body ng-app="searchModule">
+
