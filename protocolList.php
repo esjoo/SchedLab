@@ -1,6 +1,6 @@
 
 <head>
-    <link rel="stylesheet" type="text/css" href="style/protocolList.css">
+    <link rel="stylesheet" type="text/css" href="style/protocol.css">
 </head>
 
 <body>
