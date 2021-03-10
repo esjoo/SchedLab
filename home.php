@@ -1,12 +1,9 @@
 <head>
     <link rel="stylesheet" type="text/css" href="style/main.css"> 
-    <div id="particles-js"></div>
-    <script type="text/javascript" src="scripts/particles.js"></script>
-    <script type="text/javascript" src="scripts/app.js"></script>
 </head>
 
-<div id="main" style="margin-top:-600px">
-    <div class="box" style="z-index:100">
+<div class="" id="main">
+    <div class="box">
     <!--SIDEBAR -->
         <div class="box-child">
             <div class="collapse" id="leftCol">
@@ -15,7 +12,7 @@
                   include('sidebarCalendar.php');
                 ?>
               </div>
-              <div class="part" style="z-index:100">
+              <div class="part">
                 <h5 id="demofont1"><?php echo get_current_user_labName(); ?></h5>
                 <h8 id="demofont2" style="margin:right">This week at a glimpse.</h8>
                 <ul class="nav nav-pills flex-column">
