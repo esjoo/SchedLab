@@ -1,15 +1,10 @@
 html,body{
-    height:100%;
-    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-    background-color: #fafafa;
-    color: #343A40;
-  }
+  height:100%;
+  background-color: #FFFFFF;
+  color: #343A40;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
 
-  .dark-mode {
-    background-color: black;
-    color: white;
-  }
-  
 /* Page styling */
 div.part {
 margin-bottom:25px;
@@ -45,11 +40,8 @@ h6 {
 margin:0px;
 color:#343A40;
 }
-h1.margin, h2.margin {
-  margin-top:25px;
-  margin-bottom:25px;
-  margin-right:50px;
-  margin-left:50px;
+a:hover {
+cursor: pointer;
 }
 
 /* button style */
@@ -92,96 +84,10 @@ right: 0;
 }
 
 p{
-  margin-bottom: 0rem !important;
+color:black;
+margin-bottom: 0rem !important;
 }
 p.lable {
-  color:#e2a6a6;
-}
-#calendar {
-  height: 90%;
-  background-image:linear-gradient(to right, #fff 0px, transparent 0px), linear-gradient(#ccc 1px, transparent 1px);
-  background-size:  100% 9.53%;
-  background-repeat: repeat-y;
-  background-position: 0% 16.1%;
-  
-}
-#main {
-    display: flex;
-    flex-flow: column;
-    height: 100%;
-    margin-left: 2%;
-    margin-right: 2%;
-}
-/* general layout */
-.box {
-  display: flex;
-  flex-flow: row;
-  height: 100%;
-}
-.box-row {
-  display: flex;
-  flex-flow: row;
-  width: 100%;
-  height: min-content;
-}
-.box-col {
-  display: flex;
-  flex-flow: column;
-  height: 100%;
+color:#e2a6a6;
 }
 
-.box-child {
-  flex: 0 1 auto;
-  margin: 0%;
-  padding: 0;
-}
-
-
-.weekdayheader {
-  height:auto;
-}
-
-.btn-green-transform {
-  background-color:#79ab79;
-  border: none;
-  color:black;
-
-  text-align: center;
-
-  border-radius: 12px;
-
-  transition: all 0.5s;
-  cursor: pointer;
-}
-.btn-green-transform:hover {
-  background-color:#79ab79;
-  color:black;
-}
-/*Livesearch */
-
-
-
-/* ACCOUNT */
-#userImage {
-  background-color: blue;
-  width: 150px;
-  height: 150px;
-  margin-top: 10%;
-  padding-right: 5%;
-  border-radius: 50%;
-}
-
-#accountLeftcol {
-  max-width: 200px;
-  height: 50%;
-}
-
-#accountHistory {
-  height: 75%;
-
-}
-
-/* Modal overrides */
-.modal-content {
-  background-color: #fafafa;
-}

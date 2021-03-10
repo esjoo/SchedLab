@@ -2,23 +2,23 @@
 
 
 <!-- calendar window-->
-<div class="box" id="calendar">
-  <!-- column Time wrapper -->
-  <div class= "d-flex flex-column border-right">
-    <!-- header-->
-    <div class="p-2 border-bottom bg-secondary"> Time </div>
-    <!-- content -->
-    <?php 
-    foreach (range(8,17) as $hour) {
-      $active='';
-      if($hour == localtime(time(),TRUE)['tm_hour']){
-        $active = 'green';
-      }
-      printf('<div class="col  %s"> %s:00 </div>',$active,$hour);
-    }
-    ?>
+<div class="box" style="margin:0 auto;" id="calendar">
+	<!-- column Time wrapper -->
+	<div class= "d-flex flex-column border-right">
+		<!-- header-->
+		<div class="p-2 border-bottom bg-secondary" style="background-color:#ddd"> Time </div>
+		<!-- content -->
+		<?php 
+		foreach (range(8,17) as $hour) {
+		$active='';
+		if($hour == localtime(time(),TRUE)['tm_hour']){
+			$active = 'green';
+		}
+		printf('<div class="col  %s"> %s:00 </div>',$active,$hour);
+		}
+		?>
 
-  </div>
+  	</div>
 	<?php
 	for ($i = 1; $i<=7; $i++) {	
 		$active = 'bg-secondary';
