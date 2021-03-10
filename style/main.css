@@ -82,6 +82,8 @@ h6 {
   font-style: normal;
   font-variant: small-caps;
   text-transform: none;
+  margin-left: 1.5%;
+  flex: auto;
 }
 
 #hypertext{
@@ -97,18 +99,7 @@ h6 {
 a:hover {
 cursor: pointer;
 }
-#link1{
-  margin-bottom:10px;
-  margin-left:81%;
-  margin-top:0px;
-  margin-right:0px;
-}
-#link2{
-  margin-bottom:10px;
-  margin-left:0px;
-  margin-top:0px;
-  margin-right:0px;
-}
+
 #imglink{
   opacity: 0.5;
 }

@@ -34,7 +34,7 @@
             <!-- calendar top -->
             <div class="row">
               <!--Top text -->
-              <h2 style="margin:25 50 50 0px">
+              <h2 id="demofont3">
                 <?php 
                         if(!isset($_GET['w'])) {
                           #set first day
@@ -42,14 +42,14 @@
                           
                           $day = date_isodate_set($today, date_format($today,'o'), date_format($today,'W') , 1 ); #TODO: change year
                           
-                          #set week endpoint
+                          #set week startpoint
                           $monday = $day;
-                          #$sunday = date_isodate_set(date_create(), date_format($today,'o'), date_format($today,'W') , 7 );
+                        
                           
                           
                           #print week
                           $week = date_format($day,'W');
-                          echo '<h id="demofont3"> Calendar for '. date_format($day,'M') .' Week </h>'. $week;
+                          echo 'Calendar for '. date_format($day,'M') .' Week '. $week;
                           
 
                         } else {
@@ -57,20 +57,21 @@
                           #set monday of specified week
                           $day = date_isodate_set(date_create(), date_format(date_create(),'o'), $_GET['w'] , 1 ); #TODO: change year
                         
-                          #set week endpoint
+                          #set week startpoint
                           $monday = $day;
-                          #$sunday = date_isodate_set(date_create(), date_format($day,'o'), date_format($day,'W') , 7 );
+                          
                           
                           #print week
                           $week = $_GET['w'];
-                          echo '<h id="demofont3"> Calendar for Week '. date_format($day,'W').' '. date_format($day,'M') . '</h>';
+                          echo 'Calendar for '. date_format($day,'M') .' Week '. $week;
                         }
                         ?>
               </h2>
+              <a class="week-link" href=<?php echo('?w='. ((int)$week-1)); ?>><img id='imglink' src="gfx/left_cal.png"></a>
+              <a class="week-link" href=<?php echo('?w='. ((int)$week+1)); ?>><img id='imglink' src="gfx/right_cal.png"></a>
+              <a class="week-link pr-3"  data-toggle='modal' href='#newExperiment'><img id='imglink' src="gfx/plus.png"></a>
             </div>
-              <a id="link1" href=<?php echo('?w='. ((int)$week-1)); ?>><img id='imglink' src="gfx/left_cal.png"></a>
-              <a id="link2" href=<?php echo('?w='. ((int)$week+1)); ?>><img id='imglink' src="gfx/right_cal.png"></a>
-              <a id="link2" data-toggle='modal' href='#newExperiment'><img id='imglink' src="gfx/plus.png"></a>
+
             
             <?php    
               #if(!isset($_SESSION['lab'])){
