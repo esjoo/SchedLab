@@ -56,6 +56,7 @@
                           
 
                         } else {
+                          $today = date_create();
                           #set monday of specified week
                           $day = date_isodate_set(date_create(), date_format(date_create(),'o'), $_GET['w'] , 1 ); #TODO: change year
                         
