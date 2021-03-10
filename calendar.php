@@ -96,7 +96,7 @@
 		$day = date_modify($day,"1 days");	
 	}
 
-  include('closeDB.php');
+  	include('closeDB.php');
 	include('experimentModal.php');
 	?>
 

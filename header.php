@@ -5,6 +5,7 @@ if(!isset($_SESSION)) {
 #declare helper functions 
 require_once('includes/functions.php');
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
