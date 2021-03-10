@@ -2,28 +2,26 @@
 
 
 <!-- calendar window-->
+<div class="box" id="calendar">
+  <!-- column Time wrapper -->
+  <div class= "d-flex flex-column border-right">
+    <!-- header-->
+    <div class="p-2 border-bottom bg-secondary"> Time </div>
+    <!-- content -->
+    <?php 
+    foreach (range(8,17) as $hour) {
+      $active='';
+      if($hour == localtime(time(),TRUE)['tm_hour']){
+        $active = 'green';
+      }
+      printf('<div class="col  %s"> %s:00 </div>',$active,$hour);
+    }
+    ?>
 
-<div class="box" style="margin:0 auto;" id="calendar">
-
-	<!-- column Time wrapper -->
-  	<div class= "d-flex flex-column border-right">
-		<!-- header-->
-		<div class="p-2 border-bottom" style="background-color:#ddd"> Time </div>
-		<!-- content -->
-		<?php 
-		foreach (range(8,17) as $hour) {
-		$active='';
-		if($hour == localtime(time(),TRUE)['tm_hour']){
-			$active = 'hour';
-		}
-		printf('<div class="col %s" > %s:00 </div>',$active,$hour);
-		}
-		?>
-
-  	</div>
+  </div>
 	<?php
 	for ($i = 1; $i<=7; $i++) {	
-		$active = '';
+		$active = 'bg-secondary';
 		  
 		//Check which day
 		if(date_format(date_create(),'l jS') == date_format( $day,'l jS')) {
@@ -39,7 +37,7 @@
 		// Get calender events
 		include('db.php');
     	$userID = get_current_user_id();
-		$sql = "SELECT * FROM usercalendar WHERE UserID = $userID ORDER BY FromDateTime";
+		$sql = "SELECT * FROM usercalendar WHERE UserID = $userID AND WEEK(FromDateTime)=".intval(date_format($today,'W')) ." ORDER BY FromDateTime";
 		$result = mysqli_query($conn, $sql);
 		while ($row = mysqli_fetch_row($result)) {
 			$sameDay = FALSE;
@@ -74,6 +72,7 @@
 				}
 
 				// Get header of an experiment
+				$calenID = $row[0];
 				$protID = (int)$row[4];
 				$prot_sql = "SELECT ProtID, ProtName FROM protocols WHERE ProtID=$protID";
 				$protName = mysqli_query($conn, $prot_sql);
@@ -84,8 +83,8 @@
 				printf('<div class="border border-0" style="height:%s"></div>
 				',$eventMargin);
 				printf('
-				<div class="btn col mr-1 border p-0 day btn-calendar" data-toggle="modal" data-target="#exampleModal" data-protocolHead=" %s" data-protocolContent="%s" style="height:%s">%s</div>
-		    		',$protocolHeader,$protocolContent,$trgButton,$protocolHeader);
+				<div class="btn col mr-1 border p-0 day btn-calendar" data-toggle="modal" data-target="#exampleModal" data-calenID="%s" data-protocolHead="%s" data-protocolContent="%s" style="height:%s">%s</div>
+		    		',$calenID,$protocolHeader,$protocolContent,$trgButton,$protocolHeader);
 			}
 		}
 
