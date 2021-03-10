@@ -5,8 +5,8 @@
     <script type="text/javascript" src="scripts/app.js"></script>
 </head>
 
-<div id="main" style="margin-top:-600px">
-    <div class="box" style="z-index:100">
+<div id="main">
+    <div class="box">
     <!--SIDEBAR -->
         <div class="box-child">
             <div class="collapse" id="leftCol">

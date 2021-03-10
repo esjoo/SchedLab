@@ -1,10 +1,14 @@
 @import "compass/css3";
-
+*{
+  z-index: inherit;
+}
 /* background */
 #particles-js{
   height:100%;
   background: #ffffff;
-  z-index:-999;
+  z-index:1;
+  position: fixed;
+  width: 100%;
 }
 
 html,body{
@@ -18,10 +22,7 @@ html,body{
   margin:0;
   padding:0;
   height:100vh;
-}
 
-#main{
-  z-index:100;
 }
 
 /* Page styling */
