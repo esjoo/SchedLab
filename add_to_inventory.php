@@ -58,6 +58,23 @@ if (mysqli_num_rows($current_amount_result) > 0) {
         header("location: " . $_SERVER['HTTP_REFERER']);
     }
 }
+    
+// Add action to log
+include_once('includes/functions.php');
+include_once('db.php');
+$userID = get_current_user_id();
+
+if (mysqli_num_rows($current_amount_result) > 0) {
+    $action = "Changed the amount of " . $chemical_name . " to " . $new_amount . " ml in inventory";
+    $timestamp = date("Y-m-d G:i:s");
+    $sql = "INSERT INTO logs(UserAction, Timestamp, Action) VALUES ($userID, '$timestamp', '$action')";
+    $result = mysqli_query($conn, $sql);
+} else {
+    $action = "Added " . $amount . " ml of " . $chemical_name . " to inventory";
+    $timestamp = date("Y-m-d G:i:s");
+    $sql = "INSERT INTO logs(UserAction, Timestamp, Action) VALUES ($userID, '$timestamp', '$action')";
+    $result = mysqli_query($conn, $sql); 
+}
 
 ?>
 
