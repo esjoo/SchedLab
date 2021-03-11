@@ -94,7 +94,7 @@ $chemicals = array_combine($SupID_unique, $chemicals);
 
 <html>
 <link rel="stylesheet" href="style/protocol.css">
-<h2>Chemical consumption for week <?php echo $thisweek ?></h2>
+<h2 id="demofont3">Chemical consumption for week <?php echo $thisweek ?></h2>
 <body>
 
 <div class="color">

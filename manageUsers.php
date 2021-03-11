@@ -25,23 +25,23 @@
     ?>
 
 
-<h1>Manage users</h1>
-<h2><?php echo $labName; ?></h2>
+<h1 id="demofont3">Manage users</h1>
+<h2 id="demofont3" style="text-align:center"><?php echo $labName; ?></h2>
 
 <!-- User requests --> 
 <?php
 if (mysqli_num_rows($requested_moves)>0){
     echo '<div class="color">
-        <h2>User move requests</h2>
+        <h2 id=demofont1>User move requests</h2>
         <form action="includes/manageUsers.request.php" method="POST">
         <table style="width:60%">
         <thead>
         <tr>
             <th></th>
-            <th><h6 class="font" style="text-align: center;">Username</h6></th> 
-            <th><h6 class="font" style="text-align: center;">First Name</h6></th>
-            <th><h6 class="font" style="text-align: center;">Last Name</h6></th>
-            <th><h6 class="font" style="text-align: center;">Move to lab</h6></th>
+            <th><h6 style="text-align: center;">Username</h6></th> 
+            <th><h6 style="text-align: center;">First Name</h6></th>
+            <th><h6 style="text-align: center;">Last Name</h6></th>
+            <th><h6 style="text-align: center;">Move to lab</h6></th>
         </tr>       
         <tbody>';
     while ($moves = mysqli_fetch_row($requested_moves)){    
@@ -67,18 +67,18 @@ if (mysqli_num_rows($requested_moves)>0){
 
 <!--Add new users to the labb-->
 <div class="color">
-    <h3>Add new users to the lab</h3>
+    <h3 id="demofont4">Add new users to the lab</h3>
     <div class="search-box">
     <form action="includes/manageUsers.inc.php" method="POST">
         <input style="height:40px" type="text" autocomplete="off" placeholder="Search Username" id="user_name" name="user" />
         <div class="result"></div>
-        <button class="submit"><span>Submit</span></button>
+        <button class="submit button"><span>Submit</span></button>
     </form>
     </div>
     
     <!-- Users beloning to a lab in the database --> 
     <div>
-        <h3>Users in the lab</h3>
+        <h3 id="demofont4">Users in the lab</h3>
         <form action="includes/manageUsers.inc.php" method="POST">
         <table style="width:600px;margin:auto">
         <thead>
@@ -106,7 +106,7 @@ if (mysqli_num_rows($requested_moves)>0){
         </thead>
         </table>
     </div>
-        <button class="submit" name="removed_user"><span>Remove</span></button>   
+        <button class="submit button" name="removed_user"><span>Remove</span></button>   
     </form>
     </div>
             

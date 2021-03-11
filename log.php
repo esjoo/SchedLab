@@ -4,10 +4,10 @@ include "header.php";
 include "db.php";
 ?>
 
-<h1>Log</h1>
+<h1 id="demofont3">Log Records</h1>
 <div class="color">
     <table>
-        <tr><th><h6>Time</h6></th><th><h6>User</h6></th><th><h6>Action</h6></th></tr>
+        <tr><th><h6 id="demofont4">Time</h6></th><th><h6 id="demofont4">User</h6></th><th><h6 id="demofont4">Action</h6></th></tr>
         <?php
         $sql = "SELECT logs.Timestamp, users.UserName, logs.Action 
         FROM logs 
