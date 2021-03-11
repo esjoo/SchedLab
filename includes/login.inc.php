@@ -37,7 +37,7 @@ if(isset($_POST['submit'])) {
         $_SESSION['lab'] = $lab;
         mysqli_stmt_close($stmt);
         include '../closeDB.php'; 
-        header('Location: ../index.php?state=S');
+        header('Location: ../index.php?state=L');
     } else {
         header('Location: ../index.php?state=F');
     }
