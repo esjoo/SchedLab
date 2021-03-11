@@ -15,14 +15,15 @@ if(isset($_GET['w'])) {
       </tr>
     </thead>
     <tbody>
-      <tr>
         <?php
           foreach($listSupplements as $t) {
-            printf('<td>%s</td>
-                    <td>%s</td>',$t['SupName'],$t['total']);
+            printf('<tr>
+                      <td>%s</td>
+                      <td>%s</td>
+                    </tr>',$t['SupName'],$t['total']);
           } 
         ?>
-      </tr>
+
     </tbody>
   </table>
 </div>

@@ -47,19 +47,15 @@ return $protNames;
 //get protocolID from input name
 function get_protocolID($protocolName) {
   include('db.php');
-    $sql =  'SELECT protID FROM  protocols WHERE ProtName =?';
-    $stmt = mysqli_stmt_init($conn);
-
-    if($stmt =$conn->prepare($sql)) {
-
-        $stmt->bind_param("s",$protocolName);
-        mysqli_stmt_execute($stmt);
-        $stmt->bind_result($protID);
-        $protID = $stmt->fetch();
-        $stmt->close();
-    }
+  $protName = $conn ->real_escape_string($protocolName);
+    $sql =  "SELECT protID FROM protocols WHERE protName=".'"'.$protocolName.'"';
+    if ($result = $conn->query($sql)) {  
+      return $result->fetch_array(MYSQLI_NUM)[0];
+  } else {
+    print $sql;
+    return -1;
+  }
   include('closeDB.php');
-  return $protID;
   }
 
 //get protocol name from id
@@ -108,13 +104,10 @@ function getInventory($protID) {
 
   
   if($stmt =$conn->prepare($sql)) {
-    
-      $stmt->bind_param("ss",$_SESSION['userID'],$protID);
-    
+      $stmt->bind_param("ii",$_SESSION['userID'],$protID);
       $stmt->execute();
 
       $stmt->bind_result($stock,$supID, $dose);
-     
       while ($stmt->fetch()) {
         
         $stocks[] = $stock;
@@ -218,7 +211,8 @@ function getWeekSupplements($week) {
   ON usercalendar.ProtID = protocolguide.ProtID
   INNER JOIN supplement
   ON protocolguide.SupID=supplement.SupID
-  WHERE UserID =$userID AND WEEK(usercalendar.FromDateTime)=$week";
+  WHERE UserID =$userID AND WEEK(usercalendar.FromDateTime)=$week
+  GROUP BY supplement.SupName";
 
   if ($result = $conn->query($sql)) {  
       //GET DAY
