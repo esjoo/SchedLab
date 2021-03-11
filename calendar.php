@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="style/calendar.css">
+<link rel="stylesheet" href="style/main.css">
 
 
 <!-- calendar window-->
@@ -83,7 +84,7 @@
 				printf('<div class="border border-0" style="height:%s"></div>
 				',$eventMargin);
 				printf('
-				<div class="btn col mr-1 border p-0 day btn-calendar" data-toggle="modal" data-target="#exampleModal" data-calenID="%s" data-protocolHead="%s" data-protocolContent="%s" style="height:%s">%s</div>
+				<div id="event" class="btn col mr-1 border p-0 day btn-calendar" data-toggle="modal" data-target="#exampleModal" data-calenID="%s" data-protocolHead="%s" data-protocolContent="%s" style="height:%s">%s</div>
 		    		',$calenID,$protocolHeader,$protocolContent,$trgButton,$protocolHeader);
 			}
 		}
