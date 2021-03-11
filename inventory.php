@@ -43,8 +43,11 @@ include_once("db.php");
 <div class="color">
     <div class='add_chemicals' style="margin:0px">
     <form action="add_to_inventory.php" method="POST"> 
-        <label name="chemical_name">Chemical:</label>
-        <input type="text" name="chemical_name" required>
+        <div class="search-box">
+            <label name="chemical_name">Chemical:</label>
+            <input type="text" name="chemical_name" required autocomplete="off" />
+            <div class="result"></div>
+        </div>
         <br><label name="amount">Amount (ml):</label>
         <select name="amount" style="width:200px"></br>
             <option selected="selected"></option>;
@@ -59,5 +62,31 @@ include_once("db.php");
     </div>
 </div>
 <h2 style='opacity:0'>Blank Space</h2>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.search-box input[type="text"]').on("keyup input", function(){
+        /* Get input value on change */
+        var inputVal = $(this).val();
+        var resultDropdown = $(this).siblings(".result");
+        if(inputVal.length){
+            $.get("livesearchFORinventory.php", {term: inputVal}).done(function(data){
+                // Display the returned data in browser
+                resultDropdown.html(data);
+            });
+        } else{
+            resultDropdown.empty();
+        }
+    });
+    
+    // Set search input value on click of result item
+    $(document).on("click", ".result p", function(){
+        $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
+        $(this).parent(".result").empty();
+    });
+
+});
+</script>
+
 </body>
 </html>
