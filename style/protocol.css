@@ -1,7 +1,4 @@
-div {
-    margin:25px;
-    text-align:center;
-}
+
 div.color{
     width:60%;
     background-image: linear-gradient(to right, rgba(233,197,197,0.5), rgba(197,215,233,0.5));
@@ -17,6 +14,16 @@ div.part{
     margin:auto;
     border-radius: 20px;
 }
+div.show{
+    margin-top:0px;
+    margin-bottom:0px;
+    margin-right:25px;
+    margin-left:25px;
+    border-radius: 15px;
+    background-image: #f5f0f0;
+    padding: 15px;
+}
+
 a:hover {
     cursor: pointer;
     background-color: white;

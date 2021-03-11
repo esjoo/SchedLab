@@ -15,9 +15,9 @@ $userID = get_current_user_id();
 $sql = "SELECT * from users WHERE UserID=$userID";
 $result = mysqli_query($conn, $sql);
 
-echo "<h1>Account</h1>";
-echo "<div>";
-echo "<h2>Your information</h2>";
+echo "<h1 id=demofont3>Account</h1>";
+echo "<div style=text-align:center>";
+echo "<h2 id=demofont1>Your information</h2>";
 echo "<div class='color'>";
 echo "<form method='POST'>";
 while($row = $result->fetch_assoc()){
@@ -46,7 +46,7 @@ if(isset($_POST['submit'])){
         </script>";
 }
 
-echo "<h2>Change password</h2>";
+echo "<h2 id=demofont1>Change password</h2>";
 echo "<div class='color'>";
 echo "<form method='POST'>";
 echo "<lable name='password'>New password:</lable><br><input placeholder='Password...' name='password' type='password'><br>";

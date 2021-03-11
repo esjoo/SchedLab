@@ -1,7 +1,7 @@
 <!-- The Modal -->
 <link rel="stylesheet" href="style/autocomplete.css">
 
-<div class="modal fade" id="newExperiment" >
+<div class="modal fade" id="newExperiment">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -26,12 +26,12 @@
                                     <label class="input-group-text pr-4"  for="protocolSearch" id="protocolSearchlabel">Protocol</label>
                                 </div>
                                 <!-- Search -->
-                                <input type="text" class="form-control" placeholder="Search" ng-model="query" ng-focus="focus=true">
+                                <input type="text" class="form-control" placeholder="Search" ng-model="query" ng-focus="focus=true" id="protocolName" oninput="validateProtocol()" name="protocolName">
                                 
-                                    
+            
                             </div>
                             <div id="search-results" ng-show="focus">
-                                <div class="search-result" ng-repeat="item in data | search:query" ng-bind="item" ng-click="setQuery(item)"  name="protocolName" required></div>
+                                <div class="search-result" ng-repeat="item in data | search:query" ng-bind="item" ng-click="setQuery(item)" required></div>
                             </div>
                         </div>
                    
@@ -62,9 +62,8 @@
     </div>
 
 <!--DIRTY -->
+
+<script>var data =<?php echo(json_encode(get_protocols()));?></script>
+<script src="scripts/inputValidationExperiment.js"></script>
 <script src="scripts/autocomplete.js"></script>
-<script>
-    var data =<?php echo(json_encode(get_protocols()));?>
-</script>
-<script src="scripts/Tester.js"></script>
 </div>

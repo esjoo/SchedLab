@@ -6,7 +6,7 @@ include_once("header.php");
 include_once("db.php");
 ?>
 
-<h2>Inventory</h2>
+<h2 id="demofont3">Inventory</h2>
 <body>
 <link rel="stylesheet" href="style/protocol.css">
 
@@ -38,7 +38,7 @@ include_once("db.php");
     ?>
 </div>
 
-<h2>Add or remove chemicals</h2>
+<h2 id="demofont3">Add or remove chemicals</h2>
 <!--To add chemicals-->
 <div class="color">
     <div class='add_chemicals' style="margin:0px">

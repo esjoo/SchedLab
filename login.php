@@ -26,7 +26,8 @@
 					<div class="input-group-prepend">
 					  <span class="input-group-text" id="passwordlabel">Password</span>
 					</div>
-					<input type="password" class="form-control" placeholder="Enter password" aria-label="Username" aria-describedby="passwordlabel"  id="pwd" name="pwd" required>
+					<input type="password" class="form-control" placeholder="Enter password" aria-label="Username" aria-describedby="passwordlabel"  id="pwd" name="pwd"
+          title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
 				  </div>
         </div>
         
