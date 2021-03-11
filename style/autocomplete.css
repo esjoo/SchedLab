@@ -1,18 +1,6 @@
-
-#search-results {
-  width: 280px;
-  max-height: 200px;
-  border: 1px solid #dedede;
-  border-radius: 3px;
-  box-sizing: border-box;
-  overflow-y: auto;
+#protocolName:invalid {
+    background-color: red;
 }
-
-.search-result {
-  background: white;
-  padding: 10px;
-}
-
-.search-result:nth-child(even) {
-  background: #fafafa;
+#protocolName:valid {
+    background-color: whitesmoke;
 }

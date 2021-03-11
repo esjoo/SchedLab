@@ -6,14 +6,14 @@ if(isset($_POST['submit'])) {
     include('db.php');
     $protocolName = $_POST['protocolName'];
 
-    $labtimeStart =date('Y-m-d G:i:s', strtotime($_POST['labtimeStart'])); 
-    $labtimeEnd = date('Y-m-d G:i:s', strtotime($_POST['labtimeEnd']));
+
+    $labtimeStart =$_POST['labdate'].' '.$_POST['labtimeStart'].':00';
+    $labtimeEnd =$_POST['labdate'].' '.$_POST['labtimeEnd'].':00';
 
 
     //fetch protocolID
     $protID = get_protocolID($protocolName);
     // TRY
-    
     try {
         
         $conn->autocommit(FALSE); //turn on transactions
@@ -63,7 +63,8 @@ if(isset($_POST['submit'])) {
              $conn->autocommit(TRUE); //turn off transactions + commit queued queries
         
 }catch(Exception $e) {
-    $mysqli->rollback(); //remove all queries from queue if error (undo)
+    $conn->rollback(); //remove all queries from queue if error (undo)
+    throw $e;
 }
 //non current week is set
 if(isset($_GET['w'])) {

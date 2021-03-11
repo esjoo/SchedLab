@@ -7,7 +7,10 @@ function showLogin() {
         console.log(loginstate);
         $('#login').modal('show');
     } else if(loginstate=='F') {
-    
-    }
+        
+    } else if(loginstate =='L') {
+        
+
+        }
     }
     

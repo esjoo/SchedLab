@@ -1,33 +1,32 @@
 <head>
-    <link rel="stylesheet" type="text/css" href="style/protocol.css">
+    <link rel="stylesheet" type="text/css" href="style/protocol.css"> 
 </head>
 
 <body>
     <?php 
         include 'header.php';  
     ?> 
-
-    <h1 class="margin">Create a new protocol</h1>
     <div>
+        <h1 id="demofont3">Create a new protocol</h1>
         <div class="color">
         <form action="showProtocol.php" method='post' onsubmit="return checkip()">
         
             <!-- Protocol name -->
             <div>
-                <h5><label for="name">Protocol name</label></h5>
+                <h5 id="demofont4"><label for="name">Protocol name</label></h5>
                 <input type="text" class="form-control" style="width:600px;margin:auto" placeholder="Enter name" name="protName" id="protName">
             </div>
                 
             <!-- Equipment -->          
             <div id="equipmentArea" class="form-group">
-                <h5><label for="equipment">Equipment</label></h5>
+                <h5 id="demofont4"><label for="equipment">Equipment</label></h5>
                 <textarea name="equipment" id="equipment" style="width:600px;height:200px;" placeholder="Insert all equipments"></textarea>
             </div>
         
 
             <!-- Procedure -->
             <div class="form-group">
-                <h5><label for="procedure">Procedure</label></h5>
+                <h5 id="demofont4"><label for="procedure">Procedure</label></h5>
                 <textarea name="procedure" id="procedure" style="width:600px;height:200px;" placeholder="Insert procedure"></textarea>
             </div>
 
@@ -35,7 +34,7 @@
             <!-- chemicals--> 
             
             <div>
-                <h5>Chemicals</h5>                
+                <h5 id="demofont4">Chemicals</h5>                
                 <div class="search-box" style="margin:0px">
                     <input style="height:40px" type="text" autocomplete="off" placeholder="Search Chemicals" id="chem_name" /><button type="button" class="add-row button" id="add"><span>ADD</span></button><button type="button" class="delete-row button"><span>REMOVE</span></button>
                     <div class="result"></div>
@@ -66,7 +65,6 @@
                 </div>
             </div>
         </form>
-        
     </div>
 </body>
 

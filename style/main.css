@@ -1,122 +1,181 @@
+@import "compass/css3";
+*{
+  z-index: inherit;
+}
+/* background */
+#particles-js{
+  height:100%;
+  background: #ffffff;
+  z-index:1;
+  position: fixed;
+  width: 100%;
+}
+
 html,body{
-    height:100%;
-    background-color: #f8e5e5;
-    color: black;
-  }
-  
+  height:100%;
+  background-color: #FFFFFF;
+  color: #4E5761;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  background-image:radial-gradient(center, #eee 0%,#bbb 100%);
+  background-size: cover;
+  background-position: center;
+  margin:0;
+  padding:0;
+  height:100vh;
+
+}
+
 /* Page styling */
 div.part {
+  margin-top:25px;
+  margin-bottom:0px;
+  margin-right:0px;
+  margin-left:25px;
+  border-radius: 15px;
+  background-image: linear-gradient(to right, rgba(221,214,243,0.5), rgba(250,169,168,0.5));
+  padding: 15px;
+  box-shadow: 10px 10px 5px #DDDDDD;
+}
+
+
+/* Font styling */
+
+h1 {
+  margin-top:25px;
   margin-bottom:25px;
   margin-right:25px;
   margin-left:25px;
-  border-radius: 5px;
-  background-color: #f5e0e0;
-  padding: 20px;
+  color:#4E5761;
 }
-a:hover {
-  cursor: pointer;
- 
-}
-input[type=text] {
-  border: 2px solid #e2a6a6;
-}
-h1.margin, h2.margin {
+h2 {
   margin-top:25px;
   margin-bottom:25px;
   margin-right:50px;
   margin-left:50px;
-  color:black;
+  color:#4E5761;
 }
+h5 {
+  margin:0px;
+  color:#4E5761;
+}
+h6 {
+  margin:0px;
+  color:#4E5761;
+}
+#demofont1{
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 29px;
+  letter-spacing: 0px;
+  word-spacing: 2px;
+  color: #4E5761;
+  font-weight: normal;
+  text-decoration: none solid rgba(250,169,168,0.5);
+  font-style: normal;
+  font-variant: small-caps;
+  text-transform: none;
+}
+#demofont2{
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 15px;
+  letter-spacing: 0px;
+  word-spacing: 2px;
+  color: #4E5761;
+  font-weight: 400;
+  text-decoration: none solid rgb(68, 68, 68);
+  font-style: normal;
+  font-variant: small-caps;
+  text-transform: none;
+}
+#demofont3{
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 40px;
+  letter-spacing: 1.8px;
+  word-spacing: 0.2px;
+  color: #4E5761;
+  font-weight: 400;
+  text-decoration: none solid rgb(68, 68, 68);
+  font-style: normal;
+  font-variant: small-caps;
+  text-transform: none;
+  margin-left: 1.5%;
+  flex: auto;
+}
+#demofont4{
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size: 24px;
+    letter-spacing: 1.8px;
+    word-spacing: 0.2px;
+    color: #4E5761;
+    font-weight: 400;
+    text-decoration: none solid rgb(68, 68, 68);
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+}
+
+
+#hypertext{
+  color:#5c6a78;
+  text-decoration: underline solid #778899;
+  font-size:13px;
+  letter-spacing: 1.2px;
+  margin-top:0px;
+  margin-bottom:0px;
+  text-transform: normal;
+}
+
+a:hover {
+cursor: pointer;
+}
+
+#imglink{
+  opacity: 0.5;
+}
+
+/* button style */
 .button, .submit {
-  background-color:#79ab79;
-  border: none;
-  color:white;
-  font-size: 20px;
-  text-align: center;
-  margin:25px;
-  border-radius: 12px;
-  height: 40px;
-  transition: all 0.5s;
-  cursor: pointer;
+background-image: linear-gradient(to right, #09203f 0%, #537895 100%); 
+border: none;
+opacity: 0.5;
+color: rgba(255, 255, 255, 0.925);
+box-shadow: 1px 2px 2px #666;
+font-size: 15px;
+text-align: center;
+margin:10px;
+border-radius: 12px;
+height: 40px;
+transition: all 0.5s;
+cursor: pointer;
 }
 .button span {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
+cursor: pointer;
+display: inline-block;
+position: relative;
+transition: 0.5s;
 }
 .button span:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
+content: '\00bb';
+position: absolute;
+opacity: 0;
+top: 0;
+right: -20px;
+transition: 0.5s;
 }
 
 .button:hover span {
-  padding-right: 25px;
+padding-right: 25px;
 }
 
 .button:hover span:after {
-  opacity: 1;
-  right: 0;
+opacity: 1;
+right: 0;
 }
+
 p{
-  color:black;
-  margin-bottom: 0rem !important;
+color:black;
+margin-bottom: 0rem !important;
 }
 p.lable {
-  color:#e2a6a6;
-}
-#calendar {
-  height: 90%;
-  background-image:linear-gradient(to right, #fff 1px, transparent 1px), linear-gradient(#ccc 1px, transparent 1px);
-  background-size:  100% 9.53%;
-  background-repeat: repeat-y;
-  background-position: 0% 16.1%;
-}
-#main {
-    display: flex;
-    flex-flow: column;
-    height: 100%;
+color:#e2a6a6;
 }
 
-.box {
-  display: flex;
-  flex-flow: row;
-  height: 100%;
-}
-.box-child {
-  flex: 0 1 auto;
-  margin: 0%;
-  padding: 0;
-}
-.weekdayheader {
-  height:auto;
-  border-top-right-radius: 25px
-}
-
-#newExperiment .modal-content {
-  background-color: #FBF3F3;
-}
-#newExperiment .modal-content {
-  background-color: #FBF3F3;
-}
-
-.btn-green-transform {
-  background-color:#79ab79;
-  border: none;
-  color:black;
-
-  text-align: center;
-
-  border-radius: 12px;
-
-  transition: all 0.5s;
-  cursor: pointer;
-}
-.btn-green-transform:hover {
-  background-color:#79ab79;
-  color:black;
-}
