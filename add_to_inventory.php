@@ -5,6 +5,7 @@
 <body style="background-color:#FBF3F3">
 
 <?php
+include_once('includes/functions.php');
 //Error handling function
 function amountError($errno, $errstr) {
     echo "<b>Error: </b> $errstr<br>";
@@ -53,14 +54,14 @@ if (mysqli_num_rows($current_amount_result) > 0) {
             echo "</div>";
         echo "</div>"; 
     }else {
-        $result = mysqli_query($conn, "INSERT INTO Inventory (InventName, Amount, Unit) VALUES ('$chemical_name', $amount, 'ml')");
+        $result = mysqli_query($conn, "INSERT INTO Inventory (UserID, InventName, Amount, Unit) VALUES ("."'". $_SESSION["lab"] ."'".",'$chemical_name', $amount, 'ml')");
         //Get redirected back to the inventory page
         header("location: " . $_SERVER['HTTP_REFERER']);
     }
 }
     
 // Add action to log
-include_once('includes/functions.php');
+
 include_once('db.php');
 $userID = get_current_user_id();
 
