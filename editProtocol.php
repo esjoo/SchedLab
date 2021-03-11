@@ -45,7 +45,7 @@
                 </div>
 
 
-                <!-- chemicals which have been in the db --> 
+                <!-- chemicals --> 
                 
                 <div>                
                     <div class="search-box">
@@ -67,7 +67,7 @@
                                     echo '<tr>';
                                     echo '<td><input type="checkbox" name="record"></td>';
                                     echo '<td><input type="text" placeholder="Enter Chemical" style="color:black" name="chemicals[]" id="To_che" value="' . $chemicals[$i] . '"/></td>';
-                                    echo '<td style="color:black"><input type="number" placeholder="Enter Dosage" name="dosages[]" value="' . $dosages[$i] . '"></td>';
+                                    echo '<td style="color:black"><input type="number" step="0.0001" oninput="validity.valid||(value=``);" onpress="isNumber(event)" placeholder="Enter Dosage" name="dosages[]" value="' . $dosages[$i] . '"></td>';                                   
                                     echo '</tr>';
                                 }
                             ?>
@@ -119,6 +119,7 @@ $(document).ready(function(){
 });
 </script>
 
+<!-- add the row of chemicals and dosages + check if there is same chemical name -->
 <script>
     $(document).ready(function(){
         $(".add-row").click(function(){
@@ -126,8 +127,25 @@ $(document).ready(function(){
             var markup = '<tr> '+
                          '<td><input type="checkbox" name="record"></td>' +
                          '<td><input type="text" placeholder="Enter Chemical" style="color:black" name="chemicals[]" id="To_che" value="'+ name +'"/>' + '</td>'+
-                         '<td style="color:black"><input type="number" placeholder="Enter Dosage" name="dosages[]"></td></tr>';
-            $("table tbody").prepend(markup);
+                         '<td style="color:black"><input type="number" step="0.0001" oninput="validity.valid||(value=``);" onpress="isNumber(event)" placeholder="Enter Dosage" name="dosages[]"></td></tr>';
+                         var objs  = document.getElementsByName("chemicals[]");
+            var my_chem = new Array();
+            for(var i = 0; i < objs.length; i++){
+                my_chem.push(objs[i].value);
+            };
+            
+            if(objs.length == 0){
+                $("table tbody").prepend(markup);
+            }else{
+                               
+                if(my_chem.indexOf(name)>-1){
+                    alert("There are reduplicate chemical names!");
+                    return false;
+                }else{
+                    $("table tbody").prepend(markup);
+                };
+                return true;            
+            }
         });
         
         // Find and remove selected table rows
@@ -139,4 +157,42 @@ $(document).ready(function(){
             });
         });
     });    
+</script>
+
+<!-- check if there are empty value -->
+<script language="javascript">
+ function checkip() {
+        var protName = $('#protName').val()
+        var procedure = $('#procedure').val()
+        var equipment = $('#equipment').val()
+        var chemical = $('#chem_name').val()
+        if (protName==""){
+            alert('Protocal name cannot be empty')
+            return false;
+        }else if(procedure==""){
+            alert('Procedure cannot be empty')
+            return false;
+        }else if(equipment==""){
+            alert('Equipment cannot be empty')
+            return false;
+        }else if(chemical.length==0){
+            alert('Chemicals cannot be empty')
+            return false;
+        }else{
+            return true;   
+        }
+    }
+</script>
+
+<!-- dosage value control -->
+<script language="javascript">
+  function isNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    let charCode = (evt.which) ? evt.which : evt.keyCode;
+    if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+      evt.preventDefault();
+    } else {
+      return true;
+    }
+  }
 </script>
