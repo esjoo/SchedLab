@@ -13,6 +13,7 @@ CREATE TABLE Users (
 
 CREATE TABLE Protocols (
     ProtID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    Creater text,
     ProtName varchar(100),
     ProtMethod text, 
     EquipmentID int
@@ -74,6 +75,11 @@ CREATE TABLE log (
     Timestamp DateTime
 );
 
+CREATE TABLE Contain (
+    LabID int,
+    ProtID int
+);
+
 ALTER TABLE Users 
     ADD (FOREIGN KEY (lab) REFERENCES lab(LabID), 
     FOREIGN KEY (request) REFERENCES lab(LabID));
@@ -101,3 +107,7 @@ ALTER TABLE lab
     
 ALTER TABLE log 
     ADD FOREIGN KEY (UserAction) REFERENCES users(UserID);
+
+ALTER TABLE Contain
+    ADD (FOREIGN KEY (ProtID) REFERENCES Protocols(ProtID),
+    FOREIGN KEY (LabID) REFERENCES Lab(LabID));
