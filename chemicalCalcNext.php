@@ -96,8 +96,8 @@ $nextweek = date('W', strtotime('next week'));
 
 <div class="color">
 
-    <a class="button" href="chemicalCalcPrev.php"><span>Previous week</span></a>
-    <a class="button" href="chemicalCalcThis.php"><span>This week</span></a>
+    <a class="button" style="padding: 6px 8px" href="chemicalCalcPrev.php"><span>Previous week</span></a>
+    <a class="button" style="padding: 6px 8px" href="chemicalCalcThis.php"><span>This week</span></a>
 
     <div class="search-box" style="margin:0px">
         <form action="chemicalCalcNext.php" method="POST">
