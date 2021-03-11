@@ -182,6 +182,30 @@ function getWeekCost($week) {
       return 0;
   }
 }
+//get cost of experiment
+//Param exp as int refers to calendarID
+function getExperimentCost($exp) {
+  include('db.php');
+  $userID = get_current_user_id();
+  $week = $conn->real_escape_string($week);
+  $sql = "SELECT SUM(protocolguide.Dosage *supplement.SupPrice)
+  FROM usercalendar
+  INNER JOIN protocolguide
+  ON usercalendar.ProtID = protocolguide.ProtID
+  INNER JOIN supplement
+  ON protocolguide.SupID=supplement.SupID
+  WHERE UserID =$userID AND usercalendar.CalenID=$exp";
+
+  if ($result = $conn->query($sql)) {  
+      //GET DAY
+      return $result->fetch_row()[0];
+  } else {
+      return 0;
+  }
+}
+
+
+
 
 //getList of used chemicals
 function getWeekSupplements($week) {
