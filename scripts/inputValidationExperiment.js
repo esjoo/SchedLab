@@ -1,9 +1,5 @@
 function setTimeProtocol() {
   var minTime = document.getElementById("labtimeStart").value;
-
-  console.log(document.getElementById("labdate").value);
-  console.log(document.getElementById("labtimeStart").value);
-  console.log(document.getElementById("labtimeEnd").value);
   document.getElementById("labtimeEnd").setAttribute('min', minTime);
   document.getElementById("labtimeEnd").value = minTime;
 }
@@ -25,5 +21,16 @@ function earliestDate() {
   today = yyyy+'-'+mm+'-'+dd;
   document.getElementById("labdate").setAttribute("min", today);
 }
+
+function validateProtocol() {
+  var invalue = document.getElementById("protocolName").value
+  if(data.indexOf(invalue)>-1 && invalue != ""){
+    document.getElementById("protocolName").setCustomValidity("");
+
+  } else {
+    document.getElementById("protocolName").setCustomValidity("Invalid field.");
+  }
+}
+
 
 

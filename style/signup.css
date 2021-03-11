@@ -1,6 +1,7 @@
 
 
 #regForm {
+  
   margin: 100px auto;
   font-family: Raleway;
   padding: 40px;
@@ -34,13 +35,19 @@
   color: black;
 }
 
-#regForm button {
-  background-color: #4CAF50;
-  color: #ffffff;
+.btnForm {
+  background-image: linear-gradient(to right, #09203f 0%, #537895 100%); 
   border: none;
-  padding: 10px 20px;
-  font-size: 17px;
-  font-family: Raleway;
+  opacity: 0.5;
+  color: rgba(255, 255, 255, 0.925);
+  box-shadow: 1px 2px 2px #666;
+  font-size: 15px;
+  text-align: center;
+  margin:10px;
+  margin-right: 3px;
+  border-radius: 12px;
+  height: 40px;
+  transition: all 0.5s;
   cursor: pointer;
 }
 

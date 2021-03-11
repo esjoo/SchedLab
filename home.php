@@ -5,8 +5,8 @@
     <script type="text/javascript" src="scripts/app.js"></script>
 </head>
 
-<div id="main" style="margin-top:-600px">
-    <div class="box" style="z-index:100">
+<div id="main">
+    <div class="box">
     <!--SIDEBAR -->
         <div class="box-child">
             <div class="collapse" id="leftCol">
@@ -20,13 +20,18 @@
                 <h8 id="demofont2" style="margin:right">This week at a glimpse.</h8>
                 <ul class="nav nav-pills flex-column">
                   <li class="nav-item">
-                    <a class="nav-link" id="hypertext" href="#">This week's cost</a>
+                    <a class="nav-link" id="hypertext" href="#">
+                      This week's cost <?php echo(isset($_GET['w']) ? getWeekCost($_GET['w']) .'$' : getWeekCost(date_format(date_create(),'W')) .'$');?>
+                    </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" id="hypertext" href="#">List of chemicals consumed</a>
+                    <a class="nav-link" id="hypertext" href="#">
+                      Time allocated <?php echo(isset($_GET['w']) ? getWeekHours($_GET['w']) .'h' : getWeekHours(date_format(date_create(),'W')) .'h');?>
+                    </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" id="hypertext" href="#">Time allocated</a>
+                    <a class="nav-link" id="hypertext" data-toggle="collapse" data-target="#supplementTable">List of chemicals consumed</a>
+                    <?php include('supplementsCalendar.php'); ?>
                   </li>
                 </ul>
               </div>

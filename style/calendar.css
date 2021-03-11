@@ -5,18 +5,20 @@ ul {list-style-type: none;}
 #calendar {
   text-align:center;
   background-image:linear-gradient(to right, rgba(233,197,197,0.5), rgba(197,215,233,0.5)), linear-gradient(#DDDDDD 0.5px, transparent 1px);
-  background-size:  100% 9%;
+  background-size:  100% 9.4237%;
   background-repeat: repeat-y;
-  background-position: 0% 9%;
+  background-position: 0% 5.799%;
   border-radius: 12px;
   box-shadow: 10px 10px 5px #DDDDDD;
 }
 #main {
     display: flex;
     flex-flow: column;
-    height: 80%;
+    height: 80vh;
     margin-left: 1%;
     margin-right: 1%;
+    z-index:100;
+    position: relative;
 }
 
 .box {
@@ -35,8 +37,20 @@ ul {list-style-type: none;}
 }
 
 #newExperiment .modal-content {
+  
   background-color: #FFFFFF;
+ 
 }
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+}
+
 
 .week-link {
   align-self: center;

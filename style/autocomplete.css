@@ -1,3 +1,6 @@
-search-result{
-    text-align: center;
+#protocolName:invalid {
+    background-color: red;
+}
+#protocolName:valid {
+    background-color: whitesmoke;
 }
