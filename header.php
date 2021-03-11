@@ -94,7 +94,8 @@ require_once('includes/functions.php');
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Protocols</a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a href="#" class="dropdown-item">Reports</a>
-                        <a href="insert.php" class="dropdown-item">Insert</a>    
+                        <a href="insert.php" class="dropdown-item">Insert</a>
+                        <a href="protocolList.php" class="dropdown-item">All protocol</a>    
                     </div>
                 </li>
             </ul>
