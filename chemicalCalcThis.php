@@ -99,8 +99,8 @@ $chemicals = array_combine($SupID_unique, $chemicals);
 
 <div class="color">
 
-    <a class="button" style="display:block font-size:15px" href="chemicalCalcPrev.php"><span>Prev week</span></a>
-    <a class="button" style="font-size:15px" href="chemicalCalcNext.php"><span>Next week</span></a>
+    <a class="button" style="padding: 6px 8px" href="chemicalCalcPrev.php"><span>Prev week</span></a>
+    <a class="button" style="padding: 6px 8px" href="chemicalCalcNext.php"><span>Next week</span></a>
 
     <div class="search-box" style="margin:0px">
         <form action="chemicalCalcThis.php" method="POST">
