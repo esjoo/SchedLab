@@ -1,7 +1,7 @@
 <!-- The Modal -->
 <link rel="stylesheet" href="style/autocomplete.css">
 
-<div class="modal fade" id="newExperiment" >
+<div class="modal fade" id="newExperiment">
     <div class="modal-dialog">
         <div class="modal-content">
 

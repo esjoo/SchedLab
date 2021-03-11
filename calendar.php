@@ -2,13 +2,15 @@
 
 
 <!-- calendar window-->
+
 <div class="box" style="margin:0 auto;" id="calendar">
+
 	<!-- column Time wrapper -->
 	<div class= "d-flex flex-column border-right">
 		<!-- header-->
 		<div class="p-2 border-bottom bg-secondary" style="background-color:#ddd"> Time </div>
 		<!-- content -->
-		<?php 
+		<?php
 		foreach (range(8,17) as $hour) {
 		$active='';
 		if($hour == localtime(time(),TRUE)['tm_hour']){
