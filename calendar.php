@@ -2,7 +2,7 @@
 
 
 <!-- calendar window-->
-<div class="box" style="margin:0 auto;" id="calendar">
+<div class="box"  id="calendar">
 	<!-- column Time wrapper -->
 	<div class= "d-flex flex-column border-right">
 		<!-- header-->
@@ -14,7 +14,7 @@
 		if($hour == localtime(time(),TRUE)['tm_hour']){
 			$active = 'green';
 		}
-		printf('<div class="col  %s"> %s:00 </div>',$active,$hour);
+		printf('<div class="col   %s"> %s:00 </div>',$active,$hour);
 		}
 		?>
 

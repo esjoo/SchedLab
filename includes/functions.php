@@ -144,25 +144,62 @@ return min(array_map($func, $inventory,$supplements))>=0;
 } 
 
 //get Time allocated week
-function timeAllocated($w) {
+//Param -> week as int: int
+function getWeekHours($week) {
   include('db.php');
+  $week = $conn->real_escape_string($week);
+  $userID = get_current_user_id();
+  $sql = "SELECT SUM(TIME_TO_SEC(TIMEDIFF(TillDateTime,FromDateTime))/3600)
+  FROM usercalendar 
+  WHERE UserID = $userID AND WEEK(usercalendar.FromDateTime)=".$week;
 
-  $sql =  'SELECT SUM(TIME_TO_SEC(TIMEDIFF(FromDateTime,TillDateTime))/3600) FROM usercalendar WHERE userID=1 AND WEEK(FromDateTime)=10';
+  if ($result = $conn->query($sql)) {  
+      //GET DAY
+      return round($result->fetch_row()[0],2);
+  } else {
+      return 0;
+  }
+}
 
-  
-  if($stmt =$conn->prepare($sql)) {
-    
-      #$stmt->bind_param("ss",$_SESSION['userID'],$w);
-    
-      $stmt->execute();
-      print_r($stmt);
-      $stmt->bind_result($time);
-     
-      $tmp = $time->fetch();
-      
+//get cost of week
+//Param -> week as int : int
+function getWeekCost($week) {
+  include('db.php');
+  $userID = get_current_user_id();
+  $week = $conn->real_escape_string($week);
+  $sql = "SELECT SUM(protocolguide.Dosage *supplement.SupPrice)
+  FROM usercalendar
+  INNER JOIN protocolguide
+  ON usercalendar.ProtID = protocolguide.ProtID
+  INNER JOIN supplement
+  ON protocolguide.SupID=supplement.SupID
+  WHERE UserID =$userID AND WEEK(usercalendar.FromDateTime)=$week";
 
-      $stmt->close();
-    include('closeDB.php');
-    return $tmp;  
+  if ($result = $conn->query($sql)) {  
+      //GET DAY
+      return $result->fetch_row()[0];
+  } else {
+      return 0;
+  }
+}
+
+//getList of used chemicals
+function getWeekSupplements($week) {
+  include('db.php');
+  $userID = get_current_user_id();
+  $week = $conn->real_escape_string($week);
+  $sql = "SELECT supplement.SupName,SUM(protocolguide.Dosage) as total
+  FROM usercalendar
+  INNER JOIN protocolguide
+  ON usercalendar.ProtID = protocolguide.ProtID
+  INNER JOIN supplement
+  ON protocolguide.SupID=supplement.SupID
+  WHERE UserID =$userID AND WEEK(usercalendar.FromDateTime)=$week";
+
+  if ($result = $conn->query($sql)) {  
+      //GET DAY
+      return $result->fetch_all(MYSQLI_ASSOC);
+  } else {
+      return 0;
   }
 }
