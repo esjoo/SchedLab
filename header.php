@@ -114,15 +114,8 @@ require_once('includes/functions.php');
        <?php
       $adminOptions_invent = '
       <li class="nav-item">
-            <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Inventory</a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a href="inventory.php" class="dropdown-item">Chemicals</a>  
-                    </div>
-                </li>
-            </ul>
-    </li>
+      <a type="button" class="nav-link" href="inventory.php" >Inventory</a>
+      </li>
       ';
       
       if(isset($_SESSION['isAdmin'])) {
