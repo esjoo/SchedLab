@@ -251,7 +251,7 @@ function insertSupplement($SupName,$SupPrice) {
 }
 
 //insert supplement to inventory Returns true on succes false on failure
-function insertSupplement($userID,$SupID,$Amount) {
+function insertToInventory($userID,$SupID,$Amount) {
  
     include('db.php');
     $sql = "INSERT INTO Inventory(UserID,SupID,Amount) VALUES ('$userID','$SupID','$Amount')";
