@@ -1,5 +1,3 @@
-
-
 <?php 
 
 include 'db.php';
@@ -12,34 +10,34 @@ $friday = date("Y-m-d", strtotime("Friday this week"));
 
 //Get SupNames for all chemicals that are in experiments next week 
 $SupNames = mysqli_query($conn,"SELECT SupName FROM Supplement WHERE SupID IN (
-SELECT SupID FROM Experiment WHERE CalenID IN (
+SELECT SupID FROM ProtocolGuide WHERE ProtID IN (
+SELECT ProtID FROM UserCalendar WHERE CalenID IN (
 SELECT CalenID FROM UserCalendar 
 WHERE FromDateTime LIKE '$monday%' 
 OR FromDateTime LIKE '$tuesday%'
 OR FromDateTime LIKE '$wednesday%'
 OR FromDateTime LIKE '$thursday%'
-OR FromDateTime LIKE '$friday%')) ORDER BY SupID;");
+OR FromDateTime LIKE '$friday%'))) ORDER BY SupID;");
 
 $chemicals = array();
 while($row = mysqli_fetch_row($SupNames)){
     array_push($chemicals, $row["0"]);
 }
 
-$ConsumeAmount = mysqli_query($conn,"SELECT ConsumeAmount, SupID, ExpNum FROM Experiment WHERE CalenID IN (
+$ConsumeAmount = mysqli_query($conn,"SELECT Dosage, SupID FROM ProtocolGuide WHERE ProtID IN (
+    SELECT ProtID FROM UserCalendar WHERE CalenID IN (
     SELECT CalenID FROM UserCalendar 
     WHERE FromDateTime LIKE '$monday%' 
     OR FromDateTime LIKE '$tuesday%'
     OR FromDateTime LIKE '$wednesday%'
     OR FromDateTime LIKE '$thursday%'
-    OR FromDateTime LIKE '$friday%') ORDER BY SupID;");
+    OR FromDateTime LIKE '$friday%')) ORDER BY SupID;");
 
 $amounts = array();
 $SupID = array();
-$ExpNum = array();
 while($row = mysqli_fetch_row($ConsumeAmount)){
     array_push($amounts, $row["0"]);
     array_push($SupID, $row["1"]);
-    array_push($ExpNum,$row["2"]);
 }
 
 $key_array = array();
@@ -133,8 +131,7 @@ $chemicals = array_combine($SupID_unique, $chemicals);
         echo "<table border='1' class='center'>";
         echo "<tr><th>Chemical</th><th>Amount to be used (ml)</th>";
 
-        foreach ($add_SupID as $value) {
-            $key = array_search($value,$add_SupID);
+        foreach ($add_SupID as $key => $value) {
             echo "<tr><td>"."$chemicals[$key]"."</td><td>"."$value"."</td></tr>";
         }
 
