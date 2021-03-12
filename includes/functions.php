@@ -258,7 +258,7 @@ function insertSupplement($userID,$SupID,$Amount) {
     
     $result = $conn->query($sql);
 
-    return ($result ? $conn->true: false);
+    return ($result ? true: $conn->error);
 
     
   }
