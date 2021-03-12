@@ -2,7 +2,11 @@
 include '../db.php';
 include_once('functions.php');
 $labID = get_current_user_lab();
-$labName = get_current_user_labName();
+$sql = "SELECT LabName FROM lab WHERE LabID=$labID";
+$result = mysqli_query($conn, $sql);
+if ($r = mysqli_fetch_row($result)){
+    $labName = $r[0];
+}
 $userID = get_current_user_id();
 
 // Add user
