@@ -250,7 +250,7 @@ function insertSupplement($SupName,$SupPrice) {
 
 }
 
-//insert supplement to inventory Returns true on succes false on failiure
+//insert supplement to inventory Returns true on succes false on failure
 function insertSupplement($userID,$SupID,$Amount) {
  
     include('db.php');
@@ -263,5 +263,4 @@ function insertSupplement($userID,$SupID,$Amount) {
     
   }
 
-}
 
