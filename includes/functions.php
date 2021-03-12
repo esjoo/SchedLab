@@ -82,10 +82,10 @@ function get_current_user_labName() {
     return 0;
   } 
   $labID = $_SESSION['lab'];
-  include "../db.php";
+  include "db.php";
   $sql = "SELECT LabName FROM lab WHERE LabID=$labID";
   $result = mysqli_query($conn, $sql);
-  include "../closeDB.php";
+  include "closeDB.php";
   if($r = mysqli_fetch_row($result)) {
     return $r[0];
   }
@@ -97,32 +97,22 @@ function get_current_user_labName() {
 function getInventory($protID) {
   include('db.php');
 
-  $sql =  'SELECT inventory.Amount as stock, inventory.SupID, protocolguide.Dosage as dose  
-  FROM inventory
-  INNER JOIN protocolguide ON inventory.UserID= ? AND inventory.SupID=protocolguide.SupID AND protocolguide.ProtID = ?';
-  $stmt = mysqli_stmt_init($conn);
+  $sql = "SELECT inventory.Amount as stock, inventory.SupID, protocolguide.Dosage as dose  
+      FROM inventory
+      INNER JOIN protocolguide ON inventory.UserID=". $_SESSION['userID'] ." AND inventory.SupID=protocolguide.SupID AND protocolguide.ProtID = $protID";
 
-  
-  if($stmt =$conn->prepare($sql)) {
-      $stmt->bind_param("ii",$_SESSION['userID'],$protID);
-      $stmt->execute();
 
-      $stmt->bind_result($stock,$supID, $dose);
-      while ($stmt->fetch()) {
-        
-        $stocks[] = $stock;
-        $supIDs[] = $supID;
-        $doses[] = $dose;
-        
+    if ($result = $conn->query($sql)) {  
+
+      return $result->fetch_all();
+      include('closeDB.php');
+      #return array($stocks,$supIDs, $doses);
+    } else {
+      return 0;
     }
-      
-
-      $stmt->close();
-    include('closeDB.php');
-    return array($stocks,$supIDs, $doses);  
-  }
-  
 }
+  
+
 
 
 
@@ -221,3 +211,57 @@ function getWeekSupplements($week) {
       return 0;
   }
 }
+
+//INVENTORY
+
+function supplementExists($SupName) {
+  include('db.php');
+  $sql = "SELECT SupName 
+  From supplement
+  WHERE SupName= '$SupName'";
+
+  if ($result = $conn->query($sql)) {
+
+     return ($result->num_rows ==1 ? true : false);
+  
+    } else {
+      return false;
+  }
+}
+
+//INSERT new Supplement param: supplement name & price. Returns last id (SupID) OR false 
+function insertSupplement($SupName,$SupPrice) {
+ 
+
+  if(supplementExists($SupName)) {
+    
+    return false;
+
+  } else {
+
+    include('db.php');
+    $sql = "INSERT INTO supplement(SupName,SupPrice) VALUES ('$SupName', '$SupPrice')";
+    $result = $conn->query($sql);
+
+    return ($result ? $conn->insert_id : false);
+
+    
+  }
+
+}
+
+//insert supplement to inventory Returns true on succes false on failiure
+function insertSupplement($userID,$SupID,$Amount) {
+ 
+    include('db.php');
+    $sql = "INSERT INTO Inventory(UserID,SupID,Amount) VALUES ('$userID','$SupID','$Amount')";
+    
+    $result = $conn->query($sql);
+
+    return ($result ? $conn->true: false);
+
+    
+  }
+
+}
+
