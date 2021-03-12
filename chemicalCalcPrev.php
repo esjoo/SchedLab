@@ -118,7 +118,7 @@ $lastweek = date('W', strtotime('last week'));
 
     while ($row = mysqli_fetch_row($result)){
         echo "<table>";
-        echo "<tr><th>Chemical</th><th>Amount to be used (ml)</th>";
+        echo "<tr><th>Chemical</th><th>Amount used (ml)</th>";
         echo "<tr><td>".$chemicals[$row['0']]."</td><td>".$add_SupID[$row['0']]."</td></tr>";
     }
 
