@@ -3,7 +3,7 @@
 if(!isset($_SESSION)) {
   session_start();
 }
-
+// CALENDAR
 function dateTimeToElement($startTime,$endTime) {
     $startTime = strtotime($startTime);
     $endTime = strtotime($endTime);
@@ -18,6 +18,77 @@ function dateTimeToElement($startTime,$endTime) {
     $time_diff = $hour_diff + ($min_diff/60);
     return ($time_diff);
 }
+
+function getCalendarWeek($week) {
+  include('db.php');
+  $sql =  "SELECT usercalendar.calenID, usercalendar.FromDateTime,usercalendar.TillDateTime, protocols.ProtName,protocols.ProtMethod  
+  FROM usercalendar
+  INNER JOIN protocols ON usercalendar.ProtID = protocols.ProtID
+  WHERE WEEK(usercalendar.FromDateTime,1)=$week AND usercalendar.UserID = ".$_SESSION['userID']." ORDER BY FromDateTime";
+  
+  
+  if ($result = $conn->query($sql)) {  
+    //GET DAY
+    return $result->fetch_all(MYSQLI_ASSOC);
+  } else {
+    return 0;
+}
+}
+//Creates array with events in specified day
+//Param: $w week from getCalendarWeek, $day specified day string (Monday .. Sunday) 
+function filterWeek($week,$day){
+
+  $result= array_filter($week, function ($var) use ($day) {
+        return (date('l', strtotime($var['FromDateTime'])) == $day);
+});
+return array_values($result);
+}
+
+//Prints weekday 
+//Param: $w week from getCalendarWeek, $numDay day specified 1->Monday..7->Sunday 
+function printWeekday($w,$numDay) {
+ 
+  if(count($w)==0) { //Return if there is nothing planned
+    return "";
+    }
+
+  $weekdays = ['','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+
+  //get events in day from week
+  $eventDay = filterWeek($w,$weekdays[$numDay]);
+ 
+  //Print events IN day
+  //initialise previous time
+  $prevEndTime = '08:00:00';
+ 
+  foreach($eventDay as $event) {
+    
+    $startTime = (explode(" ",$eventDay[0]['FromDateTime']))[1]; //keep timepart
+    $EndTime = (explode(" ",$eventDay[0]['TillDateTime']))[1];
+
+
+    if ($event==array_key_first($eventDay)){ 
+      $eventMargin = dateTimeToElement('08:00:00',$startTime)/11*100 .'%'; //First event of the day
+    } else {
+      $eventMargin = dateTimeToElement($prevEndTime,$startTime)/11*100 .'%';
+    }
+    $eventTime = dateTimeToElement($startTime,$EndTime)/11*100 .'%';
+    printf('
+          <div id="event" class="btn col mr-1 border p-0 day btn-calendar" data-toggle="modal" data-target="#exampleModal" data-calenID="%s" data-startTime="%s" data-endTime="%s" data-protocolHead="%s" data-protocolContent="%s" style="height:%s;margin-top:%s;">%s</div>
+              ',$event['calenID'], //calendar id
+              $startTime,  
+              $EndTime,
+              $event['ProtName'], //Protocol name
+              $event['ProtMethod'], //protocol method
+              $eventTime, //top margin for spacing
+              $eventMargin, //The time allocated for event
+              $event['ProtName']); //Protocolname displayed on button
+
+    $prevEndTime = $EndTime; //set endtime to calculate spacing
+  } 
+ 
+}
+
 
 #get protocols
 function get_protocols() {
@@ -96,23 +167,36 @@ function get_current_user_labName() {
 //Get supplement list WHERE ProtID: Returns array of arrays (Inventory stocks,supplementIDs,protocol required dosages)
 function getInventory($protID) {
   include('db.php');
+  print($protID);
+  $sql =  'SELECT inventory.Amount as stock, inventory.SupID, protocolguide.Dosage as dose  
+  FROM inventory
+  INNER JOIN protocolguide ON inventory.UserID= ? AND inventory.SupID=protocolguide.SupID AND protocolguide.ProtID = ?';
+  $stmt = mysqli_stmt_init($conn);
 
-  $sql = "SELECT inventory.Amount as stock, inventory.SupID, protocolguide.Dosage as dose  
-      FROM inventory
-      INNER JOIN protocolguide ON inventory.UserID=". $_SESSION['userID'] ." AND inventory.SupID=protocolguide.SupID AND protocolguide.ProtID = $protID";
-
-
-    if ($result = $conn->query($sql)) {  
-
-      return $result->fetch_all();
-      include('closeDB.php');
-      #return array($stocks,$supIDs, $doses);
-    } else {
-      return 0;
-    }
-}
   
+  if($stmt =$conn->prepare($sql)) {
+    
+      $stmt->bind_param("ss",$_SESSION['userID'],$protID);
+    
+      $stmt->execute();
 
+      $stmt->bind_result($stock,$supID, $dose);
+
+        while ($stmt->fetch()) {
+          
+          $stocks[] = $stock;
+          $supIDs[] = $supID;
+          $doses[] = $dose;
+        } 
+  
+    include('closeDB.php');
+    
+    return ($stmt->num_rows> 0 ? array($stocks,$supIDs, $doses):-1);  
+  } else {
+    return -1;
+  }
+  
+}
 
 
 
@@ -250,10 +334,16 @@ function insertSupplement($SupName,$SupPrice) {
 
 }
 
+//check IF 
+
+
+
+
 //insert supplement to inventory Returns true on succes false on failure
 function insertToInventory($userID,$SupID,$Amount) {
  
     include('db.php');
+
     $sql = "INSERT INTO Inventory(UserID,SupID,Amount) VALUES ('$userID','$SupID','$Amount')";
     
     $result = $conn->query($sql);

@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="style/calendar.css">
-<link rel="stylesheet" href="style/main.css">
 
 
 <!-- calendar window-->
@@ -21,7 +20,9 @@
 
   	</div>
 	<?php
+	$w = getCalendarWeek($week);
 	for ($i = 1; $i<=7; $i++) {	
+		
 		$active = 'bg-secondary';
 		  
 		//Check which day
@@ -35,59 +36,8 @@
 		//print header
 		printf('<div class=" p-2 border-bottom   %s weekdayheader"> %s </div>',$active,date_format( $day,'D jS') );
 
-		// Get calender events
-		include('db.php');
-    	$userID = get_current_user_id();
-		$sql = "SELECT * FROM usercalendar WHERE UserID = $userID AND WEEK(FromDateTime)=".intval(date_format($today,'W')) ." ORDER BY FromDateTime";
-		$result = mysqli_query($conn, $sql);
-		while ($row = mysqli_fetch_row($result)) {
-			$sameDay = FALSE;
-			if (isset($date)){
-				$prevDateTime = $date;
-				$prevDate = $date->format('Y-m-d');
-				$prevEventEnd = $dateEnd->format('G:i:s');
-			}
-
-			$date = DateTime::createFromFormat('Y-m-d G:i:s', $row[1]);
-			$dateEnd = DateTime::createFromFormat('Y-m-d G:i:s', $row[2]);
-			$thisDate = $date->format('Y-m-d');
-	
-			// Check if there is another event before this the same day
-			if (isset($prevDate) && $thisDate == $prevDate) {
-				$sameDay = TRUE;
-			}
-
-			// Get event information 
-			if(date_format($date,'l jS') == date_format( $day,'l jS')) {
-				$protocolContent = "Time and date for the experiment: ".$row[1]."-".$row[2];
-
-				// Get the date and time of an experiment
-				$trgButton = dateTimeToElement($row[1], $row[2])/11*100 . '%';
-				$eventStart = $date->format('G:i:s');
-
-				// Add correct spacing befor the event
-				if ($sameDay){
-					$eventMargin = dateTimeToElement($prevEventEnd, $eventStart)/11*100 . '%';
-				} else {
-					$eventMargin = dateTimeToElement('08:00:00', $eventStart)/11*100 . '%';
-				}
-
-				// Get header of an experiment
-				$calenID = $row[0];
-				$protID = (int)$row[4];
-				$prot_sql = "SELECT ProtID, ProtName FROM protocols WHERE ProtID=$protID";
-				$protName = mysqli_query($conn, $prot_sql);
-				$protocolName = mysqli_fetch_row($protName);
-				$protocolHeader = $protocolName[1];
-
-				// print content
-				printf('<div class="border border-0" style="height:%s"></div>
-				',$eventMargin);
-				printf('
-				<div id="event" class="btn col mr-1 border p-0 day btn-calendar" data-toggle="modal" data-target="#exampleModal" data-calenID="%s" data-protocolHead="%s" data-protocolContent="%s" style="height:%s">%s</div>
-		    		',$calenID,$protocolHeader,$protocolContent,$trgButton,$protocolHeader);
-			}
-		}
+		// print calendar events
+		printWeekday($w,$i);
 
 		//close day wrapper
 		printf('</div>');
@@ -96,7 +46,7 @@
 		$day = date_modify($day,"1 days");	
 	}
 
-  	include('closeDB.php');
+  	#include('closeDB.php');
 	include('experimentModal.php');
 	?>
 
