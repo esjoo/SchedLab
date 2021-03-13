@@ -10,6 +10,8 @@ ul {list-style-type: none;}
   background-position: 0% 5.799%;
   border-radius: 12px;
   box-shadow: 10px 10px 5px #DDDDDD;
+  z-index: 8;
+  position: relative;
 }
 #main {
     display: flex;
@@ -117,6 +119,13 @@ ul {list-style-type: none;}
   overflow-y: auto;
   max-height: 5em;
 }
+
+.modal-body-50 {
+  height: 15em;
+  overflow-y: scroll; 
+}
+
+
 
 .search-result {
   background: white;
