@@ -91,12 +91,12 @@ $nextweek = date('W', strtotime('next week'));
 ?>
 <html>
 <link rel="stylesheet" href="style/protocol.css">
-<h2>Chemical consumption for week <?php echo $nextweek ?></h2>
+<h2 id="demofont3">Chemical consumption for week <?php echo $nextweek ?></h2>
 <body>
 
 <div class="color">
 
-    <a class="button" style="padding: 6px 8px" href="chemicalCalcPrev.php"><span>Previous week</span></a>
+    <a class="button" style="padding: 6px 8px" href="chemicalCalcPrev.php"><span>Prev week</span></a>
     <a class="button" style="padding: 6px 8px" href="chemicalCalcThis.php"><span>This week</span></a>
 
     <div class="search-box" style="margin:0px">
