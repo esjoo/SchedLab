@@ -26,7 +26,7 @@
                                     <label class="input-group-text pr-4"  for="protocolSearch" id="protocolSearchlabel">Protocol</label>
                                 </div>
                                 <!-- Search -->
-                                <input type="text" class="form-control" placeholder="Search" ng-model="query" ng-focus="focus=true" id="protocolName" oninput="validateProtocol()" name="protocolName">
+                                <input type="text" class="form-control" placeholder="Search" ng-model="query" minlength="1" ng-focus="focus=true" id="protocolName" onchange="validateProtocol()" oninput="validateProtocol()" name="protocolName">
                                 
             
                             </div>
@@ -51,8 +51,10 @@
                         <label for="labtimeEnd">End:</label>
                         <input type="time" class="form-control" id="labtimeEnd" max="17:00" name="labtimeEnd" required>
                     </div>
-            </div>
 
+                    <span id="newExpFeedback"></span>
+            </div>
+            
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button name="submit" type="submit" class="btn btn-primary btn-green-transform">Submit</button>

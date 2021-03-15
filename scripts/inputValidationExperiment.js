@@ -24,11 +24,11 @@ function earliestDate() {
 
 function validateProtocol() {
   var invalue = document.getElementById("protocolName").value
-  if(data.indexOf(invalue)>-1 && invalue != ""){
+  if(data.indexOf(invalue)>-1){
     document.getElementById("protocolName").setCustomValidity("");
 
   } else {
-    document.getElementById("protocolName").setCustomValidity("Invalid field.");
+    document.getElementById("protocolName").setCustomValidity("Could not find this protocol");
   }
 }
 
