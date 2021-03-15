@@ -3,8 +3,8 @@ include "db.php";
  
 if(isset($_REQUEST["term"])){
     // Prepare a select statement
-    $sql = "SELECT InventName FROM inventory WHERE InventName LIKE ?";
-    
+    $sql = "SELECT supplement.SupName, supplement.SupPrice FROM supplement WHERE SupName LIKE ?";
+    #ELECT Inventory.InventName, supplement.SupPrice FROM inventory INNER JOIN supplement on inventory.SupID=supplement.SupID WHERE InventName LIKE ?
     if($stmt = mysqli_prepare($conn, $sql)){
         // Bind variables to the prepared statement as parameters
         mysqli_stmt_bind_param($stmt, "s", $param_term);
@@ -20,7 +20,7 @@ if(isset($_REQUEST["term"])){
             if(mysqli_num_rows($result) > 0){
                 // Fetch result rows as an associative array
                 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-                    echo "<p>" . $row["InventName"] . "</p>";
+                    echo "<p data-supPrice='". $row["SupPrice"] ."'>" . $row["SupName"] . "</p>";
                 }
             } else{
                 echo "<p>No matches found</p>";
