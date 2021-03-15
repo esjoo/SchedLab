@@ -21,7 +21,7 @@ if(isset($_POST["user"])){
     if ($r = mysqli_fetch_row($result)){
         $userLab = $r[0];
     }
-    if ($userLab == NULL){
+    if ($userLab == 0){
         // Add unassigned user to the lab
         $sql = "UPDATE users SET lab=$labID WHERE UserName='$user'";
         $result = mysqli_query($conn, $sql);
@@ -48,7 +48,7 @@ if(isset($_POST["user"])){
 // Remove user
 if(isset($_POST["record"])) {
     $rm_user = $_POST["record"];
-    $sql = "UPDATE users SET lab=NULL WHERE UserName='$rm_user'";
+    $sql = "UPDATE users SET lab=0 WHERE UserName='$rm_user'";
     $result = mysqli_query($conn, $sql); 
 
     // Add action to log
