@@ -4,12 +4,20 @@ if(isset($_POST['submit'])) {
     # TODO: sanitise inputs 
     chdir('../'); // DUMB BUT WORKS?
     include('db.php');
-    $protocolName = $_POST['protocolName'];
+    
 
+
+    $protocolName = $_POST['protocolName'];
 
     $labtimeStart =$_POST['labdate'].' '.$_POST['labtimeStart'].':00';
     $labtimeEnd =$_POST['labdate'].' '.$_POST['labtimeEnd'].':00';
 
+
+
+    if(empty($protocolName)) {
+        header('Location: ../index.php?c='.$_GET['w'].'&s=F');
+    }
+    
 
     //fetch protocolID
     $protID = get_protocolID($protocolName);
@@ -63,8 +71,15 @@ if(isset($_POST['submit'])) {
              $conn->autocommit(TRUE); //turn off transactions + commit queued queries
         
 }catch(Exception $e) {
+
     $conn->rollback(); //remove all queries from queue if error (undo)
-    throw $e;
+    print_r(getInventory($protID));
+   # if(isset($_GET['w'])) {
+   #     header('Location: ../index.php?w='.$_GET['w']);
+   # } else {
+        header('Location: ../index.php');
+    #}
+    #throw $e;
 }
 //non current week is set
 if(isset($_GET['w'])) {
