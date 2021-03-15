@@ -74,7 +74,7 @@ function printWeekday($w,$numDay) {
     }
     $eventTime = dateTimeToElement($startTime,$EndTime)/11*100 .'%';
     printf('
-          <div id="event" class="btn col mr-1 border p-0 day btn-calendar" data-toggle="modal" data-target="#exampleModal" data-calenID="%s" data-startTime="%s" data-endTime="%s" data-protocolHead="%s" data-protocolContent="%s" style="height:%s;margin-top:%s;">%s</div>
+          <div class="col mr-1 border p-0 day btn-calendar" data-toggle="modal" data-target="#exampleModal" data-calenID="%s" data-startTime="%s" data-endTime="%s" data-protocolHead="%s" data-protocolContent="%s" style="height:%s;margin-top:%s;">%s</div>
               ',$event['calenID'], //calendar id
               $startTime,  
               $EndTime,
@@ -170,13 +170,13 @@ function getInventory($protID) {
   print($protID);
   $sql =  'SELECT inventory.Amount as stock, inventory.SupID, protocolguide.Dosage as dose  
   FROM inventory
-  INNER JOIN protocolguide ON inventory.UserID= ? AND inventory.SupID=protocolguide.SupID AND protocolguide.ProtID = ?';
+  INNER JOIN protocolguide ON inventory.LabID= ? AND inventory.SupID=protocolguide.SupID AND protocolguide.ProtID = ?';
   $stmt = mysqli_stmt_init($conn);
 
   
   if($stmt =$conn->prepare($sql)) {
     
-      $stmt->bind_param("ss",$_SESSION['userID'],$protID);
+      $stmt->bind_param("ss",$_SESSION['Lab'],$protID);
     
       $stmt->execute();
 
@@ -298,6 +298,25 @@ function getWeekSupplements($week) {
 
 //INVENTORY
 
+function getInventorySupplement($SupName) {
+  include('db.php');
+  $sql = "SELECT supplement.SupID,supplement.SupName,supplement.SupPrice,inventory.Amount 
+  FROM inventory 
+  INNER JOIN supplement
+  ON inventory.SupID= supplement.SupID 
+  WHERE inventory.LabID =". $_SESSION['lab']." AND supplement.SupName=  '$SupName' ";
+
+  if ($result = $conn->query($sql)) {
+
+    return $result->fetch_all(MYSQLI_ASSOC)[0];
+  
+    } else {
+      return false;
+  }
+}
+
+
+
 function supplementExists($SupName) {
   include('db.php');
   $sql = "SELECT SupName 
@@ -334,23 +353,86 @@ function insertSupplement($SupName,$SupPrice) {
 
 }
 
-//check IF 
+function getLabInventory($labID) {
+  include('db.php');
+  $sql =  'SELECT  supplement.SupName,supplement.SupPrice,inventory.Amount 
+  FROM inventory
+  INNER JOIN supplement ON inventory.SupID= supplement.SupID
+  WHERE inventory.LabID ='. $_SESSION['lab'];
+
+  
+  if ($result = $conn->query($sql)) {  
+      //GET DAY
+      return $result->fetch_all(MYSQLI_ASSOC);
+  } else {
+      return 0;
+  }
+}
+  
 
 
+function printLabInventory($labID) {
+    $result = getLabInventory($labID);
+
+    foreach($result as $t) {
+
+      ($t['Amount']<=50 ? $alert = "Running out of stock!" :$alert = ""); 
+
+      printf('<tr>
+                <td>%s</td>
+                <td>%s</td>
+                <td><span class="alert-red">%s</span></td>
+              </tr>',$t['SupName'],$t['Amount'],$alert);
+    } 
+
+}
+
+//Exists in inventory
+function supplementExistsInventory($SupName) {
+  include('db.php');
+  $sql = "SELECT supplement.SupID
+  FROM inventory 
+  INNER JOIN supplement
+  ON inventory.SupID= supplement.SupID 
+  WHERE inventory.LabID =". $_SESSION['lab']." AND supplement.SupName=  '$SupName' ";
+
+  if ($result = $conn->query($sql)) {
+     
+     return ($result->num_rows ==1 ? $result->fetch_assoc()['SupID'] : false);
+  
+    } else {
+      return false;
+  }
+}
 
 
 //insert supplement to inventory Returns true on succes false on failure
-function insertToInventory($userID,$SupID,$Amount) {
+function insertToInventory($LabID,$SupID,$Amount) {
  
     include('db.php');
 
-    $sql = "INSERT INTO Inventory(UserID,SupID,Amount) VALUES ('$userID','$SupID','$Amount')";
-    
+    $sql = "INSERT INTO Inventory(LabID,SupID,Amount) VALUES ('$LabID','$SupID','$Amount')";
+    print($sql);
     $result = $conn->query($sql);
 
-    return ($result ? true: $conn->error);
+    return ($result ? true: false);
 
     
   }
 
+  //getSupID
+  function getSupID($SupName) {
+    include('db.php');
+    $sql = "SELECT supplement.SupID
+    FROM supplement
+    WHERE supplement.SupName= '$SupName' ";
+  
+    if ($result = $conn->query($sql)) {
+       
+       return ($result->num_rows ==1 ? $result->fetch_assoc()['SupID'] : false);
+    
+      } else {
+        return false;
+    }
+  }
 
