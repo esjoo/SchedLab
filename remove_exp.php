@@ -4,7 +4,11 @@ include("db.php");
 
 $calenID = $_GET['cali'];
 
-print($calenID==get_protocolID('A'));
+
+
+// check TIME
+
+
 
 $protID = get_protocolID(htmlspecialchars($_GET["p"]));
 print_r(getInventory(get_protocolID('A')));
@@ -13,7 +17,7 @@ try {
     $conn->autocommit(FALSE); //turn on transactions
     
     $res=getInventory($protID);
-    if(checkInventory($res[0],$res[1])) { //SUCCESS
+
         
         //sql
         $sql1 = "UPDATE inventory SET Amount= Amount+? WHERE SupID=? AND UserID=?";  //UPDATE INVENTORY  
@@ -58,7 +62,7 @@ try {
         
         
         
-    } 
+   
 }catch(Exception $e) {
     echo $e;
     $conn->rollback(); //remove all queries from queue if error (undo)
