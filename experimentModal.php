@@ -1,7 +1,7 @@
 <!-- The Modal -->
 <div class="modal fade" id="exampleModal" role="dialog" aria-labelledby="exampleModallabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
+      <div class="modal-content modal-lowered">
       
         <!-- Modal Header -->
         <div class="modal-header">
@@ -18,7 +18,7 @@
         <!-- Modal footer -->
         <div class="modal-footer">
         <a href="#" class="btn btn-green-transform">View Protocol</a>
-        <a id="remove_exp" class="btn btn-danger" href="remove_exp.php?" onclick="return confirm('Are you sure you want to remove this experiment?');" >Remove experiment</a>
+        <span id="remove_exp" class="btn btn-danger" href="remove_exp.php?" onmouseout="this.textContent='Remove'" onmouseover="this.textContent='Confirm'" >Remove</a>
         </div>
     </div>
 </div>
@@ -35,6 +35,7 @@ $('#exampleModal').on('show.bs.modal', function (event) {
   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
   var modal = $(this)
+  console.log(protocolContent);
   modal.find('.modal-title').text(protocolHead)
   modal.find('.modal-body').text(protocolContent)
   modal.find('.modaltimes').text(protocolStartTime+'-'+protocolEndTime)
