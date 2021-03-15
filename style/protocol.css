@@ -75,3 +75,7 @@ select{
 .center button{
     text-align:center;
 }
+
+.alert-red {
+    color: red;
+}
