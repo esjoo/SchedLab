@@ -139,3 +139,7 @@ ul {list-style-type: none;}
 .search-result:nth-child(even) {
   background: #fafafa;
 }
+
+.aboveEverything {
+  z-index: 100000000;
+}

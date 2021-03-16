@@ -11,16 +11,17 @@ $calenID = $_GET['cali'];
 
 
 $protID = get_protocolID(htmlspecialchars($_GET["p"]));
-print_r(getInventory(get_protocolID('A')));
+print('P'.$protID);
+
 try {
     
     $conn->autocommit(FALSE); //turn on transactions
     
     $res=getInventory($protID);
 
-        
+        print_r($res);
         //sql
-        $sql1 = "UPDATE inventory SET Amount= Amount+? WHERE SupID=? AND UserID=?";  //UPDATE INVENTORY  
+        $sql1 = "UPDATE inventory SET Amount= Amount+? WHERE SupID=? AND LabID=?";  //UPDATE INVENTORY  
         $sql2 = "DELETE FROM Experiment WHERE CalenID = ?"; //DELETE EXPERIMENT
         $sql3 = "DELETE FROM UserCalendar WHERE CalenID = ?"; //DELETE USERCALENDAR
         
@@ -69,7 +70,7 @@ try {
     throw $e;
 }
 
-
+print_r(getInventory($protID));
 //END TRANSACTION
 $conn->autocommit(TRUE); //turn off transactions + commit queued queries
 
@@ -78,6 +79,7 @@ include("closedb.php");
 //non current week is set
 if(isset($_GET['w'])) {
     header('Location: ../index.php?w='.$_GET['w']);
+   
 } else {
     header('Location: ../index.php');
 }

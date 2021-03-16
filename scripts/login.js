@@ -7,20 +7,14 @@ function showLogin() {
         console.log(loginstate);
         $('#login').modal('show');
     } else if(loginstate=='F') {
-        
+        $('#inputToast').toast('show');
     } else if(loginstate =='L') {
         
-
+        
+        
+        
         }
     }
 
-    if(calstate=='S') {
-        console.log('c');
-        
-    } else if (calstate=='F'){
-        $('#newExperiment').modal('show');
-        var modal = document.getElementById('newExperiment')
-        document.getElementById('newExpFeedback').text('Input failed')
-    }
 
     

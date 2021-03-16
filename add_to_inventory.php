@@ -2,7 +2,7 @@
 include_once('includes/functions.php');
 //Error handling function
 function amountError($errno, $errstr) {
-    echo "<b>Error: </b> $errstr<br>";
+    $_SESSION['error'] = "<b>Error: </b>. $errstr .<br>";
     die();
 }
 
@@ -20,7 +20,8 @@ $amount = intval($amount);
 $price = mysqli_real_escape_string($conn,$_POST["price"]);
 $price = intval($price);
 
-
+//set errror
+$_SESSION['error'] = "";
 
 
 if($existed =supplementExists($chemical_name)) {
@@ -37,8 +38,9 @@ if($existed =supplementExists($chemical_name)) {
 
 
     if($new_amount<0) {
-        echo 'FAILED';
-        exit('FAILED');
+            $_SESSION['error'] ='amount cannot be less than 0';
+            header('Location: inventory.php');
+            exit();
         }
 
     if($price!=$storedinformation['SupPrice'] && $price !="") {
@@ -50,7 +52,12 @@ if($existed =supplementExists($chemical_name)) {
         $sql2 = "UPDATE supplement SET SupPrice= ".  $price . " WHERE SupID= ". $storedinformation['SupID'];   
         #UPDATE supplement SET SupPrice = 1 WHERE SupID = 12
         print($conn->query($sql1)==0);
-        $conn->query($sql2);
+        if(!$conn->query($sql2)) {
+            print('A');
+            print($sql1);
+        } else {
+            header('Location: inventory.php');
+        }
 
         //END TRANSACTION
         $conn->autocommit(TRUE); //turn off transactions + commit queued queries
@@ -58,9 +65,15 @@ if($existed =supplementExists($chemical_name)) {
         print($sql2);
     } elseif($price==$storedinformation['SupPrice']) {
 
-        $sql1 = "UPDATE inventory SET Amount= '$new_amount'  WHERE inventory.LabID=". "'". $_SESSION['lab']  .'"'  . " AND inventory.SupID=". $storedinformation['SupID']; 
-        $conn->query($sql1);
-        print('B');
+        $sql1 = "UPDATE inventory SET Amount= '$new_amount'  WHERE inventory.LabID=". "'". $_SESSION['lab']  ."'"  . " AND inventory.SupID=". $storedinformation['SupID']; 
+        if(!$conn->query($sql1)) {
+            print('B');
+            print($sql1);
+        } else {
+            header('Location: inventory.php');
+        }
+
+        
 
     } else {
         try {
@@ -89,33 +102,7 @@ if($existed =supplementExists($chemical_name)) {
         }
     }
 }
-//Check IF $chemical_name exist in supplemnents
 
-    //IF true 
-
-        //CHECK IF newAmmount>0 && price!=storedprice && price!=""
-            //START TRANSACTION 
-            // Update inventory( Ammount) WHERE LABID & NAME <3
-             // Uppdate supplement(price) SUPID ==$supID
-             //END TRANSACTION
-
-        //CHECK IF newAmmount>0 && price==storedprice && price!=""
-
-        
-        //CHECK IF price!=storedprice && price!=""
-                        //Update inventory (Ammount)
-        //ELSE?
-             //Throw Error SUPP TOO LOW
-
-            
-    //IF FALSE
-        //START TRANSACTION
-        //INSERT INTO supplement
-        //Get Id
-        //INSERT INTO inventory with id
-        //END TRANSACTION
-    
-    
 // Add action to log
 
 include_once('db.php');

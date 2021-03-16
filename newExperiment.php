@@ -20,36 +20,35 @@
 					
 					
                         
-                        <div ng-controller="searchController">
-                            <div class="input-group mb-3">
+                        <div >
+                            <div class="input-group mb-3 ">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text pr-4"  for="protocolSearch" id="protocolSearchlabel">Protocol</label>
                                 </div>
                                 <!-- Search -->
-                                <input type="text" class="form-control" placeholder="Search" ng-model="query" minlength="1" ng-focus="focus=true" id="protocolName" onchange="validateProtocol()" oninput="validateProtocol()" name="protocolName">
+                                <div class="search-box w-75">
+                                    <input type="text" class="form-control" placeholder="Search"  minlength="1" id="protocolName" onchange="validateProtocol()" oninput="validateProtocol()" name="protocolName" autocomplete="off" required>
+                                    <div class="result overflow-auto h-75   "></div>    
+                                </div>
                                 
-            
-                            </div>
-                            <div id="search-results" ng-show="focus">
-                                <div class="search-result" ng-repeat="item in data | search:query" ng-bind="item" ng-click="setQuery(item)" required></div>
                             </div>
                         </div>
                    
                 
 
                 
-                <div class="form-group" ng-controller="dateCtrl">
-                    <label for="labtimeStart">Start:</label>
+                <div class="form-group">
+                    <label for="labtimeStart">Date:</label>
                     <input type="date" class="form-control" id="labdate" onclick="earliestDate()" name="labdate" required>
                 </div>
 
-                    <div class="form-group" ng-controller="dateCtrl">
+                    <div class="form-group">
                         <label for="labtimeStart">Start:</label>
                         <input type="time" class="form-control" value="08:00" id="labtimeStart"  min="08:00" max="17:00" name="labtimeStart" oninput="setTimeProtocol()" required>
                     </div>
                     <div class="form-group">
                         <label for="labtimeEnd">End:</label>
-                        <input type="time" class="form-control" id="labtimeEnd" max="17:00" name="labtimeEnd" required>
+                        <input type="time" class="form-control" id="labtimeEnd" min="8:00" max="17:00" name="labtimeEnd" required>
                     </div>
 
                     <span id="newExpFeedback"></span>
@@ -65,7 +64,32 @@
 
 <!--DIRTY -->
 
-<script>var data =<?php echo(json_encode(get_protocols()));?></script>
+
 <script src="scripts/inputValidationExperiment.js"></script>
-<script src="scripts/autocomplete.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.search-box input[type="text"]').on("keyup input", function(){
+        /* Get input value on change */
+        var inputVal = $(this).val();
+        var resultDropdown = $(this).siblings(".result");
+        if(inputVal.length){
+            $.get("livesearchFORnewExperiment.php", {term: inputVal}).done(function(data){
+                // Display the returned data in browser
+                resultDropdown.html(data);
+                
+            });
+        } else{
+            resultDropdown.empty();
+        }
+    });
+    
+    // Set search input value on click of result item
+    $(document).on("click", ".result p", function(){
+        $(this).parents(".search-box").find('input[type="text"]').val($(this).text());    
+        $(this).parent(".result").empty();
+    });
+
+});
+</script>
 </div>

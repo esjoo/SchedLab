@@ -23,8 +23,8 @@ function earliestDate() {
 }
 
 function validateProtocol() {
-  var invalue = document.getElementById("protocolName").value
-  if(data.indexOf(invalue)>-1){
+  var invalue = document.getElementById("protocolName").value;
+  if(data.indexOf(invalue)>-1 && invalue!=""){
     document.getElementById("protocolName").setCustomValidity("");
 
   } else {

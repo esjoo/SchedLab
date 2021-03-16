@@ -75,6 +75,7 @@
                         }
                         ?>
               </h2>
+              <?php include('toasts.php'); ?>
               <a class="week-link" href=<?php echo('?w='. ((int)$week-1)); ?>><img id='imglink' src="gfx/left_cal.png"></a>
               <a class="week-link" href=<?php echo('?w='. ((int)$week+1)); ?>><img id='imglink' src="gfx/right_cal.png"></a>
               <a class="week-link pr-3"  data-toggle='modal' href='#newExperiment'><img id='imglink' src="gfx/plus.png"></a>

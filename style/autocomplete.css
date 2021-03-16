@@ -1,6 +1,6 @@
 #protocolName:invalid {
-    background-color: red;
+    border-color: gainsboro;
 }
 #protocolName:valid {
-    background-color: whitesmoke;
+    border-color: green;
 }

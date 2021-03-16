@@ -172,11 +172,11 @@ function getInventory($protID) {
   FROM inventory
   INNER JOIN protocolguide ON inventory.LabID= ? AND inventory.SupID=protocolguide.SupID AND protocolguide.ProtID = ?';
   $stmt = mysqli_stmt_init($conn);
-
   
+
   if($stmt =$conn->prepare($sql)) {
     
-      $stmt->bind_param("ss",$_SESSION['Lab'],$protID);
+      $stmt->bind_param("ss",$_SESSION['lab'],$protID);
     
       $stmt->execute();
 

@@ -18,7 +18,7 @@
         <!-- Modal footer -->
         <div class="modal-footer">
         <a href="#" class="btn btn-green-transform">View Protocol</a>
-        <span id="remove_exp" class="btn btn-danger" href="remove_exp.php?" onmouseout="this.textContent='Remove'" onmouseover="this.textContent='Confirm'" >Remove</a>
+        <a id="remove_exp" class="btn btn-danger" href="remove_exp.php?" onmouseout="this.textContent='Remove'" onmouseover="this.textContent='Confirm'" >Remove</a>
         </div>
     </div>
 </div>

@@ -45,7 +45,11 @@ include_once("header.php");
             <input id="supPrice" type="number" min="0"  placeholder="current price"  name="price">
                        
             <button name="submit" type="submit" class="button"><span>Enter</span></button>
-
+            <?php if(isset($_SESSION["error"])){
+                        $error = $_SESSION["error"];
+                        echo "<p>$error</p>";
+                        unset($_SESSION["error"]);
+                    }; ?>
          
         </form>
         </div>
