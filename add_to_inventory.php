@@ -38,7 +38,7 @@ if($existed =supplementExists($chemical_name)) {
 
 
     if($new_amount<0) {
-            $_SESSION['error'] ='amount cannot be less than 0';
+            $_SESSION['error'] ='Amount cannot be less than 0';
             header('Location: inventory.php');
             exit();
         }
@@ -76,30 +76,34 @@ if($existed =supplementExists($chemical_name)) {
         
 
     } else {
-        try {
-            print('C');
-                $conn->autocommit(FALSE); //turn on transactions  
+        print('C');
+    }
+} else {
+    try {
+        print('C');
+            $conn->autocommit(FALSE); //turn on transactions  
 
-                $supID = insertSupplement($chemical_name,$price);
+            $supID = insertSupplement($chemical_name,$price);
 
-                if($amount>=0) {
-                    if(!insertToInventory($_SESSION['lab'],$supID,$amount)) {
-                        throw new Exception($conn->error);
-                    }
-                } else {
-                    if(!insertToInventory($_SESSION['lab'],$supID,0)) {
-                        throw new Exception($conn->error);
-                    }
-                    
+            if($amount>=0) {
+                if(!insertToInventory($_SESSION['lab'],$supID,$amount)) {
+                    throw new Exception($conn->error);
                 }
-            
-            //END TRANSACTION
-             $conn->autocommit(TRUE); //turn off transactions + commit queued queries
+            } else {
+                if(!insertToInventory($_SESSION['lab'],$supID,0)) {
+                    throw new Exception($conn->error);
+                }
+                
+            }
         
-        }catch(Exception $e) {
-            $conn->rollback(); //remove all queries from queue if error (undo)
-            header('Location: inventory.php');
-        }
+        //END TRANSACTION
+         $conn->autocommit(TRUE); //turn off transactions + commit queued queries
+        
+    }catch(Exception $e) {
+        
+        print($e);
+        $conn->rollback(); //remove all queries from queue if error (undo)
+        header('Location: inventory.php');
     }
 }
 
