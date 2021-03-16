@@ -40,7 +40,7 @@ ul {list-style-type: none;}
 
 #newExperiment .modal-content {
   background-color: #FFFFFF;
- 
+  z-index: 1000;
 }
 .modal-lowered {
   margin-top: 12%;
