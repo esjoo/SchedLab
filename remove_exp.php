@@ -32,7 +32,7 @@ try {
         $stmt3 = $conn->prepare($sql3);     //DELETE USERCALENDAR
         
         // BIND
-        $stmt1->bind_param("sss",$amount,$sup,$_SESSION['userID']); //UPDATE INVENTORY 
+        $stmt1->bind_param("ssi",$amount,$sup,$_SESSION['lab']); //UPDATE INVENTORY 
         $stmt2->bind_param("s",$calenID);                    //DELETE EXPERIMENT
         $stmt3-> bind_param("s",$calenID);         //DELETE USERCALENDAR
         
@@ -59,20 +59,21 @@ try {
             throw new Exception($conn->error);
             exit;
         }
-        
-        
+
+    //END TRANSACTION
+    $conn->autocommit(TRUE); //turn off transactions + commit queued queries
         
         
    
 }catch(Exception $e) {
     echo $e;
     $conn->rollback(); //remove all queries from queue if error (undo)
-    throw $e;
+    #throw $e;
 }
 
 print_r(getInventory($protID));
-//END TRANSACTION
-$conn->autocommit(TRUE); //turn off transactions + commit queued queries
+
+
 
 include("closedb.php");
 

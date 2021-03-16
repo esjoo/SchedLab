@@ -46,7 +46,7 @@ if(isset($_POST['submit'])) {
             print('A');
             print_r($res);
         }
-        if(checkInventory($res[0],$res[1])) { //SUCCESS
+        if(checkInventory($res[0],$res[2])) { //SUCCESS
             
             //sql
             $sql1 = "INSERT INTO usercalendar (UserID,ProtID,FromDateTime,TillDateTime) VALUES(?,?,?,?)"; //INSERT INTO USERCALENDAR
@@ -87,7 +87,6 @@ if(isset($_POST['submit'])) {
 
             
         } else {
-              
             throw new Exception("unsufficent inventory");
             }
             
@@ -101,12 +100,15 @@ if(isset($_POST['submit'])) {
 
     $conn->rollback(); //remove all queries from queue if error (undo)
     $_SESSION['error'] = "unsufficent inventory";
+
     if(isset($_GET['w'])) {
+        
         header('Location: ../index.php?w='.$_GET['w'].'&state=F');
         exit();
     } else {
-        
+        print_r($res);
         header('Location: ../index.php?state=F');
+        exit();
     } 
     #throw $e;
 }
@@ -116,7 +118,6 @@ if(isset($_GET['w'])) {
     header('Location: ../index.php?w='.$_GET['w']); //non current week is set
     
 } else {
-
     header('Location: ../index.php'); //current week
 }
 
