@@ -127,14 +127,16 @@ require_once('includes/functions.php');
             
       <!-- Chemical consumption --> 
       <?php
-      $navOptions = '
+      $adminOptions_chem = '
       <li class="nav-item">
-        <a type="button" class="nav-link" href="chemicalCalcThis.php" >Chemical consumption</a>
+      <a type="button" class="nav-link" href="chemicalCalcThis.php" >Chemical consumption</a>
       </li>
       ';
-
-      if(isset($_SESSION['userName'])) {
-        print($navOptions);
+      
+      if(isset($_SESSION['isAdmin'])) {
+        if($_SESSION['isAdmin']) {
+          print($adminOptions_chem);
+        }
       }
       ?>
       

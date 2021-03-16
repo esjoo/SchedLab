@@ -92,7 +92,7 @@ $lastweek = date('W', strtotime('last week'));
 
 <html>
 <link rel="stylesheet" href="style/protocol.css">
-<h2>Chemical consumption for week <?php echo $lastweek ?></h2>
+<h2 id="demofont3">Chemical consumption for week <?php echo $lastweek ?></h2>
 <body>
 
 <div class="color">
@@ -128,7 +128,7 @@ $lastweek = date('W', strtotime('last week'));
 
     if ($search_result == "") { 
         echo "<table border='1' class='center'>";
-        echo "<tr><th>Chemical</th><th>Amount to be used (ml)</th>";
+        echo "<tr><th>Chemical</th><th>Amount used (ml)</th>";
 
         foreach ($add_SupID as $key => $value) {
             echo "<tr><td>"."$chemicals[$key]"."</td><td>"."$value"."</td></tr>";
